@@ -1,0 +1,316 @@
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./vendor/fonts/SourceCodePro-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Sora";
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+  src: url(./vendor/fonts/Sora-Bold.ttf);
+}
+
+.page {
+  margin: 30px auto;
+  padding: 0px 20px;
+  max-width: 1512px;
+  display: grid;
+  background-color: rgb(30, 30, 30);
+  grid-template-areas:
+    "left nav"
+    "left blurb"
+    "left slider"
+    "left slider"
+    "left devlog"
+    "left footer";
+  grid-template-columns: 200px auto;
+}
+
+.navigation {
+  max-width: 1208px;
+}
+
+.blurb {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  grid-area: blurb;
+  max-width: 1208px;
+  font-family: "Source Code Pro";
+  color: white;
+  font-size: 18px;
+}
+
+.footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  max-width: 1208px;
+}
+
+.footerdip {
+  font-family: "Source Code Pro";
+  color: rgba(255, 255, 255, 30%);
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.footerkip {
+  width: 317px;
+  height: 52px;
+  background-image: url(./images/knowledge.svg);
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.footerkip:hover {
+  background-image: url(./images/useitshareit.svg);
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.media {
+  grid-area: slider;
+  display: flex;
+  max-width: 1208px;
+  overflow-x: hidden;
+}
+
+.media__grid {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: grid;
+  grid-gap: 17px;
+  grid-template-columns: repeat(5, 229px);
+}
+
+.media__grid_item {
+  background-color: #d9d9d9;
+  width: 229px;
+  height: 292px;
+}
+
+.logo-and-estdate {
+  margin-top: 0;
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 0;
+  margin-right: 27px;
+  padding: 0;
+  max-width: 200px;
+}
+
+.nav__estdate {
+  position: relative;
+  margin-left: auto;
+  width: 112px;
+  height: 27px;
+  margin-top: 10px;
+}
+
+.nav__logo {
+  width: 175px;
+  height: 66px;
+  margin-left: auto;
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav__logo:hover {
+  cursor: pointer;
+  transform: scale(1.1) rotate(-1deg);
+}
+
+.nav {
+  display: grid;
+  grid-template-areas: "music shop photography the-art-project urs4-6";
+  grid-gap: 17px;
+  height: 77px;
+  grid-area: nav;
+}
+
+.nav__button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border: none;
+  color: rgba(30, 30, 30, 0);
+  font-family: "Sora", Arial, sans-serif;
+  text-align: right;
+  font-size: 32px;
+  border-radius: 3px;
+}
+
+.nav__button:hover{
+    cursor: pointer;
+}
+
+.button_music {
+  background-color: #14b9ff;
+  /* background-image: url(./images/music\ icon.png); */
+  background-size: 272px 77px;
+  grid-area: music;
+}
+
+.button_shop {
+  background-color: #ffd600;
+
+  grid-area: shop;
+}
+
+.button_photo {
+  background-color: #23cd67;
+
+  grid-area: photography;
+}
+
+.button_tap {
+  background-color: #bf63f7;
+
+  grid-area: the-art-project;
+}
+
+.button_urs4-6 {
+  background-color: #ff3636;
+
+  grid-area: urs4-6;
+}
+
+.nav__content {
+  list-style-type: none;
+}
+
+.devlog {
+  max-width: 1208px;
+  grid-area: devlog;
+}
+
+.devlog__title {
+  font-family: "Source Code Pro", monospace;
+  color: white;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+.devlog__description {
+  font-family: "Source Code Pro", monospace;
+  color: white;
+  font-size: 18px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 777px) {
+  .page {
+    grid-template-areas:
+      "left"
+      "nav"
+      "blurb"
+      "slider"
+      "devlog"
+      "footer";
+    grid-template-columns: auto;
+    max-width: 530px;
+    margin: 20px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .logo-and-estdate {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .footer {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerkip {
+    width: 317px;
+    height: 52px;
+  }
+
+  .nav {
+    display: grid;
+    grid-template-areas:
+      "music shop"
+      "photography the-art-project"
+      "urs4-6 urs4-6";
+    height: 200px;
+    grid-area: nav;
+    grid-gap: 17px;
+    grid-rows: 3;
+    grid-columns: 2;
+  }
+
+  .media__grid {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(10, 229px);
+  }
+
+  .nav__button {
+    color: rgb(30, 30, 30);
+  }
+
+  .footerdip {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 778px) and (max-width: 990px) {
+  .nav {
+    display: grid;
+    grid-template-areas:
+      "music shop the-art-project"
+      "photography urs4-6 the-art-project";
+    height: 100px;
+    grid-area: nav;
+    grid-gap: 11px;
+    grid-rows: 2;
+    grid-columns: 3;
+  }
+
+  .media__grid {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: repeat(5, 229px);
+  }
+
+  .nav__button {
+    color: rgb(30, 30, 30);
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1445px) {
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(173, 173, 173, 0.5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  .media__grid{
+    overflow-x: scroll;
+  }
+}
