@@ -37,9 +37,37 @@
 }
 
 .wheelfinder__size-image{
+    background-image: url(./images/wheels/fuch16.png);
+    border-radius: 50%;
+    background-position: center;
     margin: auto;
     height: 93px;
     width: 93px;
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.wheelfinder__size-image.wheel16{
+  transform: rotate(360deg);
+  background-image: url(./images/wheels/fuch16.png);
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+.wheelfinder__size-image.wheel17{
+  transform: rotate(360deg);
+  background-image: url(./images/wheels/avantgarde17.png);
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+.wheelfinder__size-image.wheel18{
+  transform: rotate(360deg);
+  background-image: url(./images/wheels/bbs18.png);
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+.wheelfinder__size-image.wheel19{
+  transform: rotate(360deg);
+  background-image: url(./images/wheels/audi19.png);
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .header {
