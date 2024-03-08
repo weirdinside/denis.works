@@ -253,6 +253,8 @@ function wheelBrandChecked() {
   }
 }
 
+//let's try another approach
+
 //if one dimension only has been checked:
 //only check for that dimension and see which items the filter has been applied to
 
@@ -719,6 +721,7 @@ function filterBrand(checkBox) {
     }
   });
 }
+
 
 filterBodyStyle(s4Sedan);
 filterBodyStyle(s6Sedan);

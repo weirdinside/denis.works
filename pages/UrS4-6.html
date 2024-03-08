@@ -25,8 +25,7 @@
           12v.org, but has since been obsoleted. in its place, i have created
           this resource to sift through and view the photos that remain on
           12v.org's index, and hope to be a resource for the future of the UrS.
-          not just in helping people pick wheels, but maintain their vehicles
-          for years to come.
+          the features of this page are still in beta, please email denisbiblioni@gmail.com with any bugs.
         </p>
       </section>
       <section class="submitphoto">
@@ -111,19 +110,19 @@
                 <h3 class="wheelfinder__heading">body style</h3>
                 <label class="wheelfinder__checkbox">
                     UrS4 sedan
-                    <input id="UrS4sedan" class="checkbox_ref bodystyle" type="checkbox">
+                    <input id="UrS4sedan" data-cartype="UrS4sedan" class="checkbox_ref bodystyle" type="checkbox">
                 </label>
                 <label class="wheelfinder__checkbox">
                     UrS6 sedan
-                    <input id="UrS6sedan" class="checkbox_ref bodystyle" type="checkbox">
+                    <input id="UrS6sedan" data-cartype="UrS6sedan" class="checkbox_ref bodystyle" type="checkbox">
                 </label>
                 <label class="wheelfinder__checkbox">
                     UrS4 avant
-                    <input id="UrS4avant" class="checkbox_ref bodystyle" type="checkbox">
+                    <input id="UrS4avant" data-cartype="UrS4avant" class="checkbox_ref bodystyle" type="checkbox">
                 </label>
                 <label class="wheelfinder__checkbox">
                     UrS6 avant
-                    <input id="UrS6avant" class="checkbox_ref bodystyle" type="checkbox">
+                    <input id="UrS6avant" data-cartype="UrS6avant" class="checkbox_ref bodystyle" type="checkbox">
                 </label>
             </fieldset>
             <div class="wheelfinder__size">
@@ -163,32 +162,40 @@
                     <h3 class="wheelfinder__heading">brand</h3>
                     <label class="wheelfinder__checkbox">
                         ABT
-                        <input id="brandABT" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandABT" data-brand="ABT" class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
                         Audi
-                        <input id="brandAudi" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandAudi" data-brand="Audi"  class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
                         Avant Garde
-                        <input id="brandAvantGarde" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandAvantGarde" data-brand="Avant Garde" class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
                         BBS
-                        <input id="brandBBS" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandBBS" data-brand="BBS"  class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
                         Fifteen52
-                        <input id="brandFifteen" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandFifteen" data-brand="Fifteen52" class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
+                      Fikse
+                      <input id="brandFikse" data-brand="Fikse" class="checkbox_ref wheelbrand" type="checkbox">
+                  </label>
+                    <label class="wheelfinder__checkbox">
                         HRE
-                        <input id="brandHRE" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandHRE" data-brand="HRE" class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
                     <label class="wheelfinder__checkbox">
                         Other OEM
-                        <input id="brandOtherOEM" class="checkbox_ref wheelbrand" type="checkbox">
+                        <input id="brandOtherOEM" data-brand="Other OEM" class="checkbox_ref wheelbrand" type="checkbox">
                     </label>
+                    <label class="wheelfinder__checkbox">
+                      OZ
+                      <input id="brandOZ" data-brand="OZ" class="checkbox_ref wheelbrand" type="checkbox">
+                  </label>
             </fieldset>
       </section>
     </main>

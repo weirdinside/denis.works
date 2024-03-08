@@ -95,42 +95,6 @@ var galleryInfo = [
     image:
       "https://12v.org/wheel_gallery/images/Audi%20(OEM)-RS6%20(5%20Spoke)-1225575181.jpg",
   },
-  {
-    wheelname: "Fikse FM5",
-    brand: "Fikse",
-    wheelsize: "17",
-    username: "",
-    type: "UrS6sedan",
-    image:
-      "https://12v.org/wheel_gallery/images/Fikse-FM5-1225568743.jpg",
-  },
-  {
-    wheelname: "Fikse FM10",
-    brand: "Fikse",
-    wheelsize: "17",
-    username: "",
-    type: "UrS6avant",
-    image:
-      "https://12v.org/wheel_gallery/images/Fikse-FM10-1225568776.jpg",
-  },
-  {
-    wheelname: "OZ crono",
-    brand: "OZ",
-    wheelsize: "18",
-    username: "",
-    type: "UrS4sedan",
-    image:
-      "https://12v.org/wheel_gallery/images/OZ--1252533680.jpg",
-  },
-  {
-    wheelname: "Audi C4 S6 Fuchs",
-    brand: "Audi",
-    wheelsize: "16",
-    username: "",
-    type: "UrS4avant",
-    image:
-      "https://i2.wp.com/audiclubna.org/wp-content/uploads/FOTD-C4-S4-Avant.jpg",
-  },
 ];
 
 // elements //
@@ -253,6 +217,8 @@ function wheelBrandChecked() {
   }
 }
 
+//let's try another approach
+
 //if one dimension only has been checked:
 //only check for that dimension and see which items the filter has been applied to
 
@@ -316,36 +282,22 @@ function filterWheelSizes(checkBox) {
       }
       //if all three dimensions have been checked
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-        //same thing as before, but you have to check for BOTH filters
-        galleryItems.forEach((item) => {
-          item.style.display = ""; //clears it all so we can get a clean set
-          if (item.dataset.wheelsize === checkBox.dataset.size) {
-            //set the filter, regardless of the viewability
-            item.dataset.sizefilter = "true";
-          }
-          //check if the appropriate filters are there
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
-            item.style.display = "flex";
-          }
-        });
       }
     }
 
     if (e.target.checked === false) {
       numberBoxesChecked -= 1; //decrement the number of boxes checked by 1
       // weird (common) case: if we just got rid of all wheel size declarations:
-      if (!wheelSizeChecked())  {
+      if (!wheelSizeChecked()) {
         galleryItems.forEach((item) => {
           item.dataset.sizefilter = ""; // no size declarations have been made, so no filtering of size necessary
-          //if there's a body filter active and it's the appropriate one, AND if there's a brand filter active and it's the appropriate one,
-          if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && ((item.dataset.brandfilter === "true") && wheelBrandChecked())) {
+          if (
+            item.dataset.wheelsize !== checkBox.dataset.size &&
+            (item.dataset.bodyfilter === "true" ||
+              item.dataset.brandfilter === "true")
+          ) {
             item.style.display = "flex"; // shows that item again
-          }
-          else if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && (!wheelBrandChecked())){
-            item.style.display = "flex";
-          }
-          else if ((item.dataset.brandfilter === "true") && (wheelBrandChecked()) && (!bodyTypeChecked())){
-            item.style.display = "flex";
+            console.log("no more wheelsizes checked");
           }
         });
       }
@@ -370,7 +322,7 @@ function filterWheelSizes(checkBox) {
             // checks for the items in the gallery that have the value the checkbox is looking for
             item.dataset.sizefilter = ""; // removes the filter from the item, relegates that item back into 1D. a wheel can't have two sizes
             if(item.dataset.bodyfilter === "true"){ // if there's a bodyfilter active, 
-              item.style.display = ""; //you can't see it because there's still a sizefilter active
+              item.style.display = "none"; //you can't see it because there's still a sizefilter active
             }
           }
         });
@@ -381,27 +333,11 @@ function filterWheelSizes(checkBox) {
           if (item.dataset.wheelsize === checkBox.dataset.size) {
             // checks for the items in the gallery that have the value the checkbox is looking for
             item.dataset.sizefilter = ""; // removes the filter from the item, relegates that item back into 1D. a wheel can't have two sizes
-            if(item.dataset.brandfilter === "true"){ // if there's a brandfilter active, 
-              item.style.display = ""; //you can't see it because there's still a sizefilter active
-            }
           }
         });
       }
       //if all three dimensions have filters still
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-          //same thing as before, but you have to check for BOTH filters
-          galleryItems.forEach((item) => {
-            item.style.display = ""; //clears it all so we can get a clean set
-            if (item.dataset.wheelsize === checkBox.dataset.size) {
-              //set the filter, regardless of the viewability
-              item.dataset.sizefilter = "";
-            }
-            //check if the appropriate filters are there
-            if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
-              item.style.display = "flex"; //keep the item displayed if there's still active filters
-            }
-          });
-
       }
       // if nothing is checked, reset the whole gallery
       if (!checkChecked(numberBoxesChecked)) {
@@ -471,20 +407,6 @@ function filterBodyStyle(checkBox) {
       }
       //if all three dimensions have been checked
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-        {
-          //same thing as before, but you have to check for BOTH filters
-          galleryItems.forEach((item) => {
-            item.style.display = ""; //clears it all so we can get a clean set
-            if (item.dataset.cartype === checkBox.dataset.cartype) {
-              //set the filter, regardless of the viewability
-              item.dataset.bodyfilter = "true";
-              //check if the appropriate filters are there
-            }
-            if ((item.dataset.sizefilter && item.dataset.bodyfilter && item.dataset.brandfilter) === "true") {
-              item.style.display = "flex";
-            }
-          });
-        }
       }
     }
 
@@ -492,16 +414,14 @@ function filterBodyStyle(checkBox) {
       numberBoxesChecked -= 1; //decrement the number of boxes checked by 1
       if (!bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          item.dataset.bodyfilter = ""; // no size declarations have been made, so no filtering of size necessary
-          //if there's a body filter active and it's the appropriate one, AND if there's a brand filter active and it's the appropriate one,
-          if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && ((item.dataset.brandfilter === "true") && wheelBrandChecked())) {
+          item.dataset.bodyfilter = ""; // no body type selections have been made, so no need to have bodyfilter on any
+          if (
+            item.dataset.cartype !== checkBox.dataset.cartype &&
+            (item.dataset.sizefilter === "true" ||
+              item.dataset.brandfilter === "true")
+          ) {
             item.style.display = "flex"; // shows that item again
-          }
-          else if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && (!wheelBrandChecked())){
-            item.style.display = "flex";
-          }
-          else if ((item.dataset.brandfilter === "true") && (wheelBrandChecked()) && (!wheelSizeChecked())){
-            item.style.display = "flex";
+            console.log("panera bread the long way");
           }
         });
       }
@@ -542,17 +462,6 @@ function filterBodyStyle(checkBox) {
       }
       //if all three dimensions have filters still
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-        galleryItems.forEach((item) => {
-          item.style.display = ""; //clears it all so we can get a clean set
-          if (item.dataset.cartype === checkBox.dataset.cartype) {
-            //set the filter, regardless of the viewability
-            item.dataset.bodyfilter = "";
-          }
-          //check if the appropriate filters are there
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
-            item.style.display = "flex"; //still show that shit!!
-          }
-        });
       }
       // if nothing is checked, reset the whole gallery
       if (!checkChecked(numberBoxesChecked)) {
@@ -586,83 +495,67 @@ function filterBrand(checkBox) {
           }
         });
       }
-      //if two dimensions have been checked (size and brand)
-      if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
+      //if two dimensions have been checked (brand and body type)
+      if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         console.log("there's two dimensions checked (size and body)!");
         //so two dimensions have been checked. but if the appropriate filter isn't present on the image, it won't have dataset.bodyfilter
         galleryItems.forEach((item) => {
-          item.style.display = ""; //clears everything
-          if (item.dataset.brand === checkBox.dataset.brand) {
+          item.style.display = ""; //clears it all so we can get a clean set
+          if (item.dataset.wheelsize === checkBox.dataset.size) {
             //set the filter, regardless of the viewability
             item.dataset.brandfilter = "true";
             //check if the appropriate filter is there
           }
-          if ((item.dataset.brandfilter && item.dataset.sizefilter) === "true") {
+          if ((item.dataset.brandfilter && item.dataset.bodyfilter) === "true") {
             item.style.display = "flex";
           }
         });
       }
-      //if two dimensions have been checked (body and brand)
-      if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
+      //if two dimensions have been checked (size and wheel brand)
+      if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         console.log("there's two dimensions checked (size and brand)!");
         //so two dimensions have been checked. but if the appropriate filter isn't present on the image, it won't have dataset.brandfilter
         galleryItems.forEach((item) => {
-          item.style.display = ""; //clears everything
           if (item.dataset.brand === checkBox.dataset.brand) {
             //set the filter, regardless of the viewability
             item.dataset.brandfilter = "true";
             //check if the appropriate filter is there
-          }
-          if (
-            (item.dataset.bodyfilter && item.dataset.brandfilter) === "true"
-          ) {
-            item.style.display = "flex";
+            if (item.dataset.brandfilter === "true") {
+              item.style.display = "flex";
+            }
           }
         });
       }
       //if all three dimensions have been checked
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-        {
-          //same thing as before, but you have to check for BOTH filters
-          galleryItems.forEach((item) => {
-            item.style.display = ""; //clears it all so we can get a clean set
-            if (item.dataset.brand === checkBox.dataset.brand) {
-              //set the filter, regardless of the viewability
-              item.dataset.brandfilter = "true";
-            }
-            //check if the appropriate filters are there
-            if ((item.dataset.sizefilter && item.dataset.brandfilter && item.dataset.bodyfilter) === "true") {
-              item.style.display = "flex";
-            }
-          });
-        }
       }
     }
 
     if (e.target.checked === false) {
       numberBoxesChecked -= 1; //decrement the number of boxes checked by 1
+      // weird (common) case: if we just got rid of all wheel size declarations:
       if (!wheelBrandChecked()) {
         galleryItems.forEach((item) => {
-          item.dataset.brandfilter = ""; // no size declarations have been made, so no filtering of size necessary
-          //if there's a body filter active and it's the appropriate one, AND if there's a brand filter active and it's the appropriate one,
-          if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && ((item.dataset.sizefilter === "true") && wheelSizeChecked())) {
+          if (
+            item.dataset.brand !== checkBox.dataset.brand &&
+            (item.dataset.bodyfilter === "true" ||
+              item.dataset.sizefilter === "true")
+          ) {
             item.style.display = "flex"; // shows that item again
-          }
-          else if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && (!wheelSizeChecked())){
-            item.style.display = "flex";
-          }
-          else if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && (!bodyTypeChecked())){
-            item.style.display = "flex";
+            console.log("panera bread brand");
           }
         });
       }
       // if we're still in one dimension and it has only the one property
-      if (!wheelSizeChecked() && !wheelBrandChecked() && bodyTypeChecked()) {
+      if (!wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          if (item.dataset.brand === checkBox.dataset.brand) {
+          if (item.dataset.wheelsize === checkBox.dataset.size) {
             // checks for the items in the gallery that have the value the checkbox is looking for
-            item.dataset.brandfilter = ""; // removes the filter from the item
+            item.dataset.sizefilter = ""; // removes the filter from the item
             item.style.display = ""; // resets the item to default
+            console.log(
+              "nothing else was checked, so we can reset just the wheel size jawn",
+            );
           }
         });
       }
@@ -673,38 +566,26 @@ function filterBrand(checkBox) {
           if (item.dataset.brand === checkBox.dataset.brand) {
             // checks for the items in the gallery that have the value the checkbox is looking for
             item.dataset.brandfilter = ""; // removes the filter from the item, relegates that item back into 1D. a wheel can't have two sizes
-            if (item.dataset.sizefilter === "true") { //if the wheel size filter is still active, hide the item??
-              item.style.display = "";
+            if(item.dataset.sizefilter === "true"){ // if there's a bodyfilter active, 
+              item.style.display = "none"; //you can't see it because there's still a sizefilter active
             }
           }
         });
       }
-      //if two dimensions have active filters (body and wheel brand)
+      //if two dimensions have active filters (brand and body)
       if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.brand === checkBox.dataset.brand) {
             // checks for the items in the gallery that have the value the checkbox is looking for
             item.dataset.brandfilter = ""; // removes the filter from the item, relegates that item back into 1D. a wheel can't have two sizes
-            if (item.dataset.bodyfilter === "true") { //if the wheel size filter is still active, hide the item??
-              item.style.display = "none";
+            if(item.dataset.bodyfilter === "true"){ // if there's a bodyfilter active, 
+              item.style.display = "none"; //you can't see it because there's still a brandfilterr active
             }
           }
         });
       }
       //if all three dimensions have filters still
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-        galleryItems.forEach((item) => {
-          item.style.display = ""; //clears it all so we can get a clean set
-          if (item.dataset.brand === checkBox.dataset.brand) {
-            //set the filter, regardless of the viewability
-            item.dataset.brandfilter = "";
-            //check if the appropriate filters are there
-          }
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
-            item.style.display = "flex"; //still show that shit!!
-          
-        };
-        });
       }
       // if nothing is checked, reset the whole gallery
       if (!checkChecked(numberBoxesChecked)) {
@@ -718,7 +599,7 @@ function filterBrand(checkBox) {
       }
     }
   });
-}
+};
 
 filterBodyStyle(s4Sedan);
 filterBodyStyle(s6Sedan);
