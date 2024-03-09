@@ -1,5 +1,13 @@
 var galleryInfo = [
   {
+    wheelname: "BBS CH",
+    brand: "BBS",
+    wheelsize: "17",
+    username: "",
+    type: "UrS6avant",
+    image: "  https://12v.org/wheel_gallery/images/BBS-CH-1273812655.jpg",
+  },
+  {
     wheelname: "ABT A16",
     brand: "ABT",
     wheelsize: "17",
@@ -14,15 +22,6 @@ var galleryInfo = [
     username: "",
     type: "UrS4sedan",
     image: "https://12v.org/wheel_gallery/images/ABT-A24-1274338113.jpg",
-  },
-  {
-    wheelname: "Audi S8 Avus",
-    brand: "Audi",
-    wheelsize: "18",
-    username: "",
-    type: "UrS4sedan",
-    image:
-      "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Avus%20(S8)-1225517673.jpg",
   },
   {
     wheelname: "Audi B6 A4 Sport",
@@ -101,8 +100,7 @@ var galleryInfo = [
     wheelsize: "17",
     username: "",
     type: "UrS6sedan",
-    image:
-      "https://12v.org/wheel_gallery/images/Fikse-FM5-1225568743.jpg",
+    image: "https://12v.org/wheel_gallery/images/Fikse-FM5-1225568743.jpg",
   },
   {
     wheelname: "Fikse FM10",
@@ -110,17 +108,15 @@ var galleryInfo = [
     wheelsize: "17",
     username: "",
     type: "UrS6avant",
-    image:
-      "https://12v.org/wheel_gallery/images/Fikse-FM10-1225568776.jpg",
+    image: "https://12v.org/wheel_gallery/images/Fikse-FM10-1225568776.jpg",
   },
   {
-    wheelname: "OZ crono",
+    wheelname: "OZ Crono",
     brand: "OZ",
     wheelsize: "18",
     username: "",
     type: "UrS4sedan",
-    image:
-      "https://12v.org/wheel_gallery/images/OZ--1252533680.jpg",
+    image: "https://12v.org/wheel_gallery/images/OZ--1252533680.jpg",
   },
   {
     wheelname: "Audi C4 S6 Fuchs",
@@ -130,6 +126,135 @@ var galleryInfo = [
     type: "UrS4avant",
     image:
       "https://i2.wp.com/audiclubna.org/wp-content/uploads/FOTD-C4-S4-Avant.jpg",
+  },
+  {
+    wheelname: "BBS RS",
+    brand: "BBS",
+    wheelsize: "16",
+    username: "",
+    type: "UrS4avant",
+    image: "https://handsomeliving.files.wordpress.com/2012/02/d6f778fa.jpg",
+  },
+  {
+    wheelname: "Audi S8 Avus",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS4sedan",
+    image:
+      "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Avus%20(S8)-1225517673.jpg",
+  },
+  {
+    wheelname: "ABT Z",
+    brand: "ABT",
+    wheelsize: "18",
+    username: "",
+    type: "UrS6avant",
+    image: "https://12v.org/wheel_gallery/images/ABT-Z-1225509799.jpg",
+  },
+  {
+    wheelname: "ASA AR1",
+    brand: "ASA",
+    wheelsize: "18",
+    username: "",
+    type: "UrS4sedan",
+    image: "https://12v.org/wheel_gallery/images/ASA-AR1-1480480893.jpeg",
+  },
+  {
+    wheelname: "Audi C4 S6 Fuchs",
+    brand: "Audi",
+    wheelsize: "16",
+    username: "",
+    type: "UrS6avant",
+    image: "https://12v.org/wheel_gallery/images/AT%20Italia-Propellar-1393520932.jpg",
+  },
+  {
+    wheelname: "Audi C5 S6 Avus",
+    brand: "Audi",
+    wheelsize: "17",
+    username: "",
+    type: "UrS6sedan",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Avus%20(C5%20S6)-1331651167.jpg",
+  },
+  {
+    wheelname: "Audi B5 S4 Avus",
+    brand: "Audi",
+    wheelsize: "17",
+    username: "",
+    type: "UrS4sedan",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Avus%20(B5%20S4)-1273840719.jpg",
+  },
+  {
+    wheelname: "Audi B6 S4 Avus",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS6avant",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Avus%20(B6%20S4)-1285730966.jpg",
+  },
+  {
+    wheelname: "Audi C5 4.2 Fat Five",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS6avant",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-C5%20A6%204.2%20(Fat%205)-1274246948.jpg",
+  },
+  {
+    wheelname: "Audi Euro TTS Sport",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS6sedan",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Euro%20TT%20Sport-1225574786.jpg",
+  },
+  {
+    wheelname: "Audi C4 S6 Plus",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS4sedan",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-S6%20Plus-1225575985.jpg",
+  },
+  {
+    wheelname: "Audi C4 S6 Plus",
+    brand: "Audi",
+    wheelsize: "18",
+    username: "",
+    type: "UrS6avant",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-S6%20Plus-1274246719.jpg",
+  },
+  {
+    wheelname: "Audi C5 RS6 5 Spoke",
+    brand: "Audi",
+    wheelsize: "19",
+    username: "",
+    type: "UrS4avant",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-RS6%20(5%20Spoke)-1225575255.jpg",
+  },
+  {
+    wheelname: "Audi C4 Speedline",
+    brand: "Audi",
+    wheelsize: "15",
+    username: "",
+    type: "UrS4sedan",
+    image: "https://12v.org/wheel_gallery/images/Audi%20(OEM)-Speedline-1285731257.JPG",
+  },
+  {
+    wheelname: "BBS CH",
+    brand: "BBS",
+    wheelsize: "17",
+    username: "",
+    type: "UrS6sedan",
+    image: "https://12v.org/wheel_gallery/images/BBS-CH-1225578256.jpg",
+  },
+  {
+    wheelname: "BBS CH",
+    brand: "BBS",
+    wheelsize: "17",
+    username: "",
+    type: "UrS6sedan",
+    image: "https://12v.org/wheel_gallery/images/BBS-CH-1273812623.jpg",
   },
 ];
 
@@ -177,10 +302,10 @@ const brandABT = document.getElementById("brandABT");
 const brandAvantGarde = document.getElementById("brandAvantGarde");
 const brandBBS = document.getElementById("brandBBS");
 const brandFifteen = document.getElementById("brandFifteen");
-const brandHRE = document.getElementById("brandHRE");
+const brandHRE = document.querySelector("#brandHRE");
 const brandOtherOEM = document.getElementById("brandOtherOEM");
-const brandFikse = document.getElementById("brandFikse");
-const brandOZ = document.getElementById("brandOZ");
+const brandFikse = document.querySelector("#brandFikse");
+const brandOZ = document.querySelector("#brandOZ");
 
 galleryInfo.forEach((wheelData) => {
   const gridElement = getGridElement(wheelData);
@@ -236,7 +361,9 @@ function wheelBrandChecked() {
     brandBBS.checked ||
     brandFifteen.checked ||
     brandHRE.checked ||
-    brandOtherOEM.checked
+    brandOtherOEM.checked ||
+    brandOZ.checked ||
+    brandFikse.checked
   ) {
     return true;
   } else {
@@ -259,16 +386,16 @@ function wheelBrandChecked() {
 //initializes the wheelsize checkboxes and monitors them throughout operation
 function filterWheelSizes(checkBox) {
   checkBox.addEventListener("change", (e) => {
+    wheelFinderImageCheck();
     if (e.target.checked === true) {
       numberBoxesChecked += 1;
-      wheelFinderImageCheck();
       wheelGalleryList.classList.add("filtered");
       //if only one dimension has been checked and it's the current one
       if (wheelSizeChecked() && !wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.wheelsize === checkBox.dataset.size) {
-            item.dataset.sizefilter = "true"; 
-            item.style.display = "flex"; // 
+            item.dataset.sizefilter = "true";
+            item.style.display = "flex"; //
           }
         });
       }
@@ -287,11 +414,14 @@ function filterWheelSizes(checkBox) {
       //if two dimensions have been checked (size and wheel brand)
       if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          item.style.display = ""; 
+          item.style.display = "";
           if (item.dataset.wheelsize === checkBox.dataset.size) {
             item.dataset.sizefilter = "true";
           }
-          if ((item.dataset.brandfilter && item.dataset.wheelsize) === "true") {
+          if (
+            item.dataset.brandfilter === "true" &&
+            item.dataset.sizefilter === "true"
+          ) {
             item.style.display = "flex";
           }
         });
@@ -299,11 +429,15 @@ function filterWheelSizes(checkBox) {
       //if all three dimensions have been checked
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          item.style.display = ""; 
+          item.style.display = "";
           if (item.dataset.wheelsize === checkBox.dataset.size) {
             item.dataset.sizefilter = "true";
           }
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
+          if (
+            (item.dataset.brandfilter &&
+              item.dataset.bodyfilter &&
+              item.dataset.sizefilter) === "true"
+          ) {
             item.style.display = "flex";
           }
         });
@@ -312,18 +446,28 @@ function filterWheelSizes(checkBox) {
 
     if (e.target.checked === false) {
       numberBoxesChecked -= 1; //decrement the number of boxes checked by 1
-      wheelFinderImageCheck();
       // weird (common) case: if we just got rid of all wheel size declarations:
-      if (!wheelSizeChecked())  {
+      if (!wheelSizeChecked()) {
         galleryItems.forEach((item) => {
-          item.dataset.sizefilter = ""; 
-          if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && ((item.dataset.brandfilter === "true") && wheelBrandChecked())) {
-            item.style.display = "flex"; 
-          }
-          else if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && (!wheelBrandChecked())){
+          item.dataset.sizefilter = "";
+          if (
+            item.dataset.bodyfilter === "true" &&
+            bodyTypeChecked() &&
+            item.dataset.brandfilter === "true" &&
+            wheelBrandChecked()
+          ) {
             item.style.display = "flex";
-          }
-          else if ((item.dataset.brandfilter === "true") && (wheelBrandChecked()) && (!bodyTypeChecked())){
+          } else if (
+            item.dataset.bodyfilter === "true" &&
+            bodyTypeChecked() &&
+            !wheelBrandChecked()
+          ) {
+            item.style.display = "flex";
+          } else if (
+            item.dataset.brandfilter === "true" &&
+            wheelBrandChecked() &&
+            !bodyTypeChecked()
+          ) {
             item.style.display = "flex";
           }
         });
@@ -332,8 +476,8 @@ function filterWheelSizes(checkBox) {
       if (wheelSizeChecked() && !wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.wheelsize === checkBox.dataset.size) {
-            item.dataset.sizefilter = ""; 
-            item.style.display = ""; 
+            item.dataset.sizefilter = "";
+            item.style.display = "";
           }
         });
       }
@@ -342,7 +486,7 @@ function filterWheelSizes(checkBox) {
         galleryItems.forEach((item) => {
           if (item.dataset.wheelsize === checkBox.dataset.size) {
             item.dataset.sizefilter = "";
-            if(item.dataset.bodyfilter === "true"){ 
+            if (item.dataset.bodyfilter === "true") {
               item.style.display = "";
             }
           }
@@ -352,25 +496,28 @@ function filterWheelSizes(checkBox) {
       if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.wheelsize === checkBox.dataset.size) {
-            item.dataset.sizefilter = ""; 
-            if(item.dataset.brandfilter === "true"){
-              item.style.display = ""; 
+            item.dataset.sizefilter = "";
+            if (item.dataset.brandfilter === "true") {
+              item.style.display = "";
             }
           }
         });
       }
       //if all three dimensions have filters still
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-          galleryItems.forEach((item) => {
-            item.style.display = ""; 
-            if (item.dataset.wheelsize === checkBox.dataset.size) {
-              item.dataset.sizefilter = "";
-            }
-            if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
-              item.style.display = "flex"; 
-            }
-          });
-
+        galleryItems.forEach((item) => {
+          item.style.display = "";
+          if (item.dataset.wheelsize === checkBox.dataset.size) {
+            item.dataset.sizefilter = "";
+          }
+          if (
+            (item.dataset.brandfilter &&
+              item.dataset.bodyfilter &&
+              item.dataset.sizefilter) === "true"
+          ) {
+            item.style.display = "flex";
+          }
+        });
       }
       // if nothing is checked, reset the whole gallery
       if (!checkChecked(numberBoxesChecked)) {
@@ -397,7 +544,7 @@ function filterBodyStyle(checkBox) {
         galleryItems.forEach((item) => {
           if (item.dataset.cartype === checkBox.dataset.cartype) {
             item.dataset.bodyfilter = "true";
-            item.style.display = "flex"; 
+            item.style.display = "flex";
           }
         });
       }
@@ -416,7 +563,7 @@ function filterBodyStyle(checkBox) {
       //if two dimensions have been checked (body and wheel brand)
       if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          item.style.display = ""; 
+          item.style.display = "";
           if (item.dataset.cartype === checkBox.dataset.cartype) {
             item.dataset.bodyfilter = "true";
           }
@@ -431,11 +578,15 @@ function filterBodyStyle(checkBox) {
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         {
           galleryItems.forEach((item) => {
-            item.style.display = ""; 
+            item.style.display = "";
             if (item.dataset.cartype === checkBox.dataset.cartype) {
               item.dataset.bodyfilter = "true";
             }
-            if ((item.dataset.sizefilter && item.dataset.bodyfilter && item.dataset.brandfilter) === "true") {
+            if (
+              (item.dataset.sizefilter &&
+                item.dataset.bodyfilter &&
+                item.dataset.brandfilter) === "true"
+            ) {
               item.style.display = "flex";
             }
           });
@@ -448,13 +599,27 @@ function filterBodyStyle(checkBox) {
       if (!bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           item.dataset.bodyfilter = "";
-          if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && ((item.dataset.brandfilter === "true") && wheelBrandChecked())) {
-            item.style.display = "flex"; 
-          }
-          else if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && (!wheelBrandChecked())){
+          if (
+            item.dataset.sizefilter === "true" &&
+            wheelSizeChecked() &&
+            item.dataset.brandfilter === "true" &&
+            wheelBrandChecked()
+          ) {
+            console.log("1");
             item.style.display = "flex";
-          }
-          else if ((item.dataset.brandfilter === "true") && (wheelBrandChecked()) && (!wheelSizeChecked())){
+          } else if (
+            item.dataset.sizefilter === "true" &&
+            wheelSizeChecked() &&
+            !wheelBrandChecked()
+          ) {
+            console.log("2");
+            item.style.display = "flex";
+          } else if (
+            item.dataset.brandfilter === "true" &&
+            wheelBrandChecked() &&
+            !wheelSizeChecked()
+          ) {
+            console.log("3");
             item.style.display = "flex";
           }
         });
@@ -472,7 +637,7 @@ function filterBodyStyle(checkBox) {
       if (wheelSizeChecked() && !wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.cartype === checkBox.dataset.cartype) {
-            item.dataset.bodyfilter = ""; 
+            item.dataset.bodyfilter = "";
             if (item.dataset.sizefilter === "true") {
               item.style.display = "";
             }
@@ -483,9 +648,9 @@ function filterBodyStyle(checkBox) {
       if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.cartype === checkBox.dataset.cartype) {
-            item.dataset.bodyfilter = ""; 
-            if (item.dataset.brandfilter === "true") { 
-              item.style.display = "none";
+            item.dataset.bodyfilter = "";
+            if (item.dataset.brandfilter === "true") {
+              item.style.display = "";
             }
           }
         });
@@ -497,7 +662,11 @@ function filterBodyStyle(checkBox) {
           if (item.dataset.cartype === checkBox.dataset.cartype) {
             item.dataset.bodyfilter = "";
           }
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
+          if (
+            (item.dataset.brandfilter &&
+              item.dataset.bodyfilter &&
+              item.dataset.sizefilter) === "true"
+          ) {
             item.style.display = "flex";
           }
         });
@@ -524,32 +693,32 @@ function filterBrand(checkBox) {
       wheelGalleryList.classList.add("filtered");
       //if only one dimension has been checked and it's the current one
       if (!wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
-
         galleryItems.forEach((item) => {
           if (item.dataset.brand === checkBox.dataset.brand) {
-            item.dataset.brandfilter = "true"; 
-            item.style.display = "flex"; 
+            item.dataset.brandfilter = "true";
+
+            item.style.display = "flex";
           }
         });
       }
       //if two dimensions have been checked (size and brand)
       if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
-
         galleryItems.forEach((item) => {
           item.style.display = "";
           if (item.dataset.brand === checkBox.dataset.brand) {
             item.dataset.brandfilter = "true";
           }
-          if ((item.dataset.brandfilter && item.dataset.sizefilter) === "true") {
+          if (
+            (item.dataset.brandfilter && item.dataset.sizefilter) === "true"
+          ) {
             item.style.display = "flex";
           }
         });
       }
       //if two dimensions have been checked (body and brand)
       if (!wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
-
         galleryItems.forEach((item) => {
-          item.style.display = ""; 
+          item.style.display = "";
           if (item.dataset.brand === checkBox.dataset.brand) {
             item.dataset.brandfilter = "true";
           }
@@ -564,11 +733,15 @@ function filterBrand(checkBox) {
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         {
           galleryItems.forEach((item) => {
-            item.style.display = ""; 
+            item.style.display = "";
             if (item.dataset.brand === checkBox.dataset.brand) {
               item.dataset.brandfilter = "true";
             }
-            if ((item.dataset.sizefilter && item.dataset.brandfilter && item.dataset.bodyfilter) === "true") {
+            if (
+              (item.dataset.sizefilter &&
+                item.dataset.brandfilter &&
+                item.dataset.bodyfilter) === "true"
+            ) {
               item.style.display = "flex";
             }
           });
@@ -580,20 +753,31 @@ function filterBrand(checkBox) {
       numberBoxesChecked -= 1; //decrement the number of boxes checked by 1
       if (!wheelBrandChecked()) {
         galleryItems.forEach((item) => {
-          item.dataset.brandfilter = ""; 
-          if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && ((item.dataset.sizefilter === "true") && wheelSizeChecked())) {
+          item.dataset.brandfilter = "";
+          if (
+            item.dataset.bodyfilter === "true" &&
+            bodyTypeChecked() &&
+            item.dataset.sizefilter === "true" &&
+            wheelSizeChecked()
+          ) {
             item.style.display = "flex"; // shows that item again
-          }
-          else if ((item.dataset.bodyfilter === "true") && (bodyTypeChecked()) && (!wheelSizeChecked())){
+          } else if (
+            item.dataset.bodyfilter === "true" &&
+            bodyTypeChecked() &&
+            !wheelSizeChecked()
+          ) {
             item.style.display = "flex";
-          }
-          else if ((item.dataset.sizefilter === "true") && (wheelSizeChecked()) && (!bodyTypeChecked())){
+          } else if (
+            item.dataset.sizefilter === "true" &&
+            wheelSizeChecked() &&
+            !bodyTypeChecked()
+          ) {
             item.style.display = "flex";
           }
         });
       }
       // if we're still in one dimension and it has only the one property
-      if (!wheelSizeChecked() && !wheelBrandChecked() && bodyTypeChecked()) {
+      if (!wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.brand === checkBox.dataset.brand) {
             // checks for the items in the gallery that have the value the checkbox is looking for
@@ -606,8 +790,8 @@ function filterBrand(checkBox) {
       if (wheelSizeChecked() && wheelBrandChecked() && !bodyTypeChecked()) {
         galleryItems.forEach((item) => {
           if (item.dataset.brand === checkBox.dataset.brand) {
-            item.dataset.brandfilter = ""; 
-            if (item.dataset.sizefilter === "true") { 
+            item.dataset.brandfilter = "";
+            if (item.dataset.sizefilter === "true") {
               item.style.display = "";
             }
           }
@@ -618,8 +802,8 @@ function filterBrand(checkBox) {
         galleryItems.forEach((item) => {
           if (item.dataset.brand === checkBox.dataset.brand) {
             item.dataset.brandfilter = "";
-            if (item.dataset.bodyfilter === "true") { 
-              item.style.display = "none";
+            if (item.dataset.bodyfilter === "true") {
+              item.style.display = "";
             }
           }
         });
@@ -627,14 +811,17 @@ function filterBrand(checkBox) {
       //if all three dimensions have filters still
       if (wheelSizeChecked() && wheelBrandChecked() && bodyTypeChecked()) {
         galleryItems.forEach((item) => {
-          item.style.display = ""; 
+          item.style.display = "";
           if (item.dataset.brand === checkBox.dataset.brand) {
             item.dataset.brandfilter = "";
           }
-          if ((item.dataset.brandfilter && item.dataset.bodyfilter && item.dataset.sizefilter) === "true") {
+          if (
+            (item.dataset.brandfilter &&
+              item.dataset.bodyfilter &&
+              item.dataset.sizefilter) === "true"
+          ) {
             item.style.display = "flex";
-          
-        };
+          }
         });
       }
       // if nothing is checked, reset the whole gallery
@@ -652,54 +839,132 @@ function filterBrand(checkBox) {
 }
 
 const wheelFinderImage = document.querySelector(".wheelfinder__size-image");
-function wheelFinderImageCheck(){
-  const classNames = ["wheel16", "wheel17", "wheel18", "wheel19"];
-  const random = classNames[Math.floor(Math.random() * classNames.length)];
+function wheelFinderImageCheck() {
+  function selectRandom(array) {
+    const randomElement = array[Math.floor(Math.random() * array.length)];
+    return randomElement;
+  }
 
-  function remove16(){
+  function remove15() {
+    wheelFinderImage.classList.remove("wheel15");
+  }
+  function remove16() {
     wheelFinderImage.classList.remove("wheel16");
   }
-  function remove17(){
+  function remove17() {
     wheelFinderImage.classList.remove("wheel17");
   }
-  function remove18(){
+  function remove18() {
     wheelFinderImage.classList.remove("wheel18");
   }
-  function remove19(){
+  function remove19() {
     wheelFinderImage.classList.remove("wheel19");
   }
 
-  if(numberBoxesChecked > 1){
-    remove16(); remove17(); remove18(); remove19();
-    wheelFinderImage.classList.add(random);
+  if (numberBoxesChecked >= 1 && wheelSizeChecked()) {
+    if (wheelFinderImage.classList.contains("wheel16")) {
+      remove16();
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel15", "wheel17", "wheel18", "wheel19"]),
+      );
+    } 
+    else if (wheelFinderImage.classList.contains("wheel15")) {
+      remove15();
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel16", "wheel17", "wheel18", "wheel19"]),
+      );
+    } else if (wheelFinderImage.classList.contains("wheel17")) {
+      remove17();
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel18", "wheel19", "wheel16", "wheel15"]),
+      );
+    } else if (wheelFinderImage.classList.contains("wheel18")) {
+      remove18();
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel19", "wheel16", "wheel17", "wheel15"]),
+      );
+    } else if (wheelFinderImage.classList.contains("wheel19")) {
+      remove19();
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel16", "wheel17", "wheel18", "wheel15"]),
+      );
+    } else {
+      wheelFinderImage.classList.add(
+        selectRandom(["wheel16", "wheel17", "wheel18", "wheel19", "wheel15"]),
+      );
+    }
   }
-  else if(size16.checked){
-    remove17(); remove18(); remove19();
+  else if (size15.checked) {
+    remove16();
+    remove17();
+    remove18();
+    remove19();
+    wheelFinderImage.classList.add("wheel15");
+  }
+   else if (size16.checked) {
+    remove15();
+    remove17();
+    remove18();
+    remove19();
     wheelFinderImage.classList.add("wheel16");
-  }
-  else if(size17.checked){
-    remove16(); remove18(); remove19();
+  } else if (size17.checked) {
+    remove15();
+    remove16();
+    remove18();
+    remove19();
     wheelFinderImage.classList.add("wheel17");
-  }
-  else if(size18.checked){
-    remove16(); remove17(); remove19();
+  } else if (size18.checked) {
+    remove15();
+    remove16();
+    remove17();
+    remove19();
     wheelFinderImage.classList.add("wheel18");
-  }
-  else if(size19.checked){
-    remove16(); remove17(); remove18();
+  } else if (size19.checked) {
+    remove15();
+    remove16();
+    remove17();
+    remove18();
     wheelFinderImage.classList.add("wheel19");
+  } else {
+    remove15();
+    remove16();
+    remove17();
+    remove18();
+    remove19();
   }
-  else{
-    remove16(); remove17(); remove18(); remove19();
-  }
-  
-  }
+}
 
-filterBodyStyle(s4Sedan); filterBodyStyle(s6Sedan); filterBodyStyle(s4Avant); filterBodyStyle(s6Avant);
+function resetForm() {
+  document.querySelector(".wheelfinder__selector").reset();
+  wheelGalleryList.classList.remove("filtered");
+  galleryItems.forEach((item) => {
+    item.style.display = "";
+    item.dataset.bodyfilter = "";
+    item.dataset.sizefilter = "";
+    item.dataset.brandfilter = "";
+  });
+  numberBoxesChecked = 0;
+  wheelFinderImageCheck();
+}
 
-filterWheelSizes(size15); filterWheelSizes(size16); filterWheelSizes(size17); filterWheelSizes(size18);
-filterWheelSizes(size19); filterWheelSizes(size20);
+filterBodyStyle(s4Sedan);
+filterBodyStyle(s6Sedan);
+filterBodyStyle(s4Avant);
+filterBodyStyle(s6Avant);
 
-filterBrand(brandABT); filterBrand(brandAudi); filterBrand(brandAvantGarde); filterBrand(brandBBS);
-filterBrand(brandFifteen); filterBrand(brandFikse); filterBrand(brandHRE); filterBrand(brandOtherOEM);
+filterWheelSizes(size15);
+filterWheelSizes(size16);
+filterWheelSizes(size17);
+filterWheelSizes(size18);
+filterWheelSizes(size19);
+filterWheelSizes(size20);
+
+filterBrand(brandABT);
+filterBrand(brandAudi);
+filterBrand(brandAvantGarde);
+filterBrand(brandBBS);
+filterBrand(brandFifteen);
+filterBrand(brandFikse);
+filterBrand(brandHRE);
+filterBrand(brandOtherOEM);
 filterBrand(brandOZ);

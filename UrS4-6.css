@@ -26,9 +26,35 @@
   background-color: #191919;
   display: flex;
   flex-direction: column;
-  padding: 20px 20px;
-  max-width: 1512px;
-  margin: auto;
+  padding: 5px 20px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 10px auto 10px;
+}
+
+.wheelfinder__reset{
+  box-sizing: border-box;
+  font-family: "Sometype Mono";
+  font-weight: 700;
+  color: black;
+  background: #D9D9D9;
+  margin: 20px 0px 0px 0px;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.wheelfinder__reset:hover{
+  border: 1px solid red;
+  cursor: pointer;
+  color: red;
+  transform: scale(1.02);
 }
 
 .wheelfinder__size-wrapper{
@@ -37,7 +63,7 @@
 }
 
 .wheelfinder__size-image{
-    background-image: url(./images/wheels/fuch16.png);
+    background-image: url(./images/wheels/pickasize.png);
     border-radius: 50%;
     background-position: center;
     margin: auto;
@@ -46,14 +72,20 @@
     transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.wheelfinder__size-image.wheel15{
+  transform: rotate(102deg);
+  background-image: url(./images/wheels/speedline15.png);
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 .wheelfinder__size-image.wheel16{
-  transform: rotate(360deg);
+  transform: rotate(170deg);
   background-image: url(./images/wheels/fuch16.png);
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
 }
 .wheelfinder__size-image.wheel17{
-  transform: rotate(360deg);
+  transform: rotate(240deg);
   background-image: url(./images/wheels/avantgarde17.png);
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
@@ -65,7 +97,7 @@
 
 }
 .wheelfinder__size-image.wheel19{
-  transform: rotate(360deg);
+  transform: rotate(-180deg);
   background-image: url(./images/wheels/audi19.png);
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -117,13 +149,15 @@
 .main {
   display: grid;
   grid-gap: 30px;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
   grid-template-areas:
     "description gallery wheelfinder"
     "submitphoto gallery wheelfinder";
-  grid-template-rows: 266px 1fr;
+  grid-template-rows: 266px 48vh;
   /* grid-template-columns: repeat(auto-fill); */
-  grid-template-columns: minmax(auto, 251px) minmax(auto, 908px) 1fr;
+  grid-template-columns: minmax(auto, 251px) minmax(auto, 2000px) 198px;
+  margin: auto;
 }
 
 .description {
@@ -225,17 +259,18 @@
   grid-area: gallery;
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-bottom: 0px;
 }
 
 .gallery__grid {
   max-height: 734px;
-  width: 908px;
+  width: 2000px;
 
   grid-gap: 10px;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, auto));
+  grid-template-columns: repeat(auto-fill, minmax(440px, auto));
 }
 
 .gallery__grid_item {
@@ -246,7 +281,7 @@
   height: 339px;
   flex-shrink: 1;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin: 0;
   padding: 0;
   align-items: flex-end;
@@ -260,7 +295,8 @@
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
-
+    margin-right: auto;
+    margin-bottom: auto;
     padding: 10px;
     z-index: 3;
 }
@@ -273,6 +309,7 @@
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
+    align-self: flex-end;
     padding: 10px;
     z-index: 3;
 }
@@ -301,6 +338,7 @@
 
 .wheelfinder {
   grid-area: wheelfinder;
+
 }
 
 .wheelfinder__search {
