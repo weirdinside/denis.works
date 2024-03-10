@@ -1,0 +1,40 @@
+.gallery {
+    display: flex;
+    grid-area: gallery;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-bottom: 0px;
+    max-width: fit-content;
+    border-radius: 2px;
+  }
+  
+  .gallery__grid {
+    max-height: 734px;
+    width: 2000px;
+  
+    grid-gap: 10px;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(440px, auto));
+  }
+  
+  .gallery__grid_item {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    list-style-type: none;
+    height: 339px;
+    flex-shrink: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .gallery__grid.filtered{
+    li:not(.selected){
+        display: none;
+    }
+}

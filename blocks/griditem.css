@@ -1,0 +1,34 @@
+.griditem__name{
+    margin: 0;
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-right: auto;
+    margin-bottom: auto;
+    padding: 10px;
+    z-index: 3;
+}
+
+.griditem__size{
+    margin: 0;
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    align-self: flex-end;
+    padding: 10px;
+    z-index: 3;
+}
+
+.griditem__username{
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    z-index: 3;
+}

@@ -1,0 +1,154 @@
+.wheelfinder {
+    grid-area: wheelfinder;
+  }
+  
+  .wheelfinder__search {
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: black;
+    background-color: #d9d9d9;
+    margin: 22px auto;
+    padding: 0px;
+    font-size: 16px;
+    border-radius: 10px;
+    height: 25px;
+    width: 100%;
+    min-width: 189px;
+    text-align: center;
+  }
+
+.wheelfinder__bodystyle {
+    display: flex;
+    flex-direction: column;
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    border-style: none;
+  }
+  
+  .wheelfinder__checkbox {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+  }
+  
+  .wheelfinder__heading {
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    padding: 0px;
+    font-size: 28px;
+  }
+  
+  .wheelfinder__size{
+      margin: 22px auto;
+  }
+  
+  .wheelfinder__size-form{
+      display: flex;
+      flex-direction: column;
+      font-family: "Sometype Mono";
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+      padding: 0px;
+      justify-content: flex-start;
+      border-style: none;
+  }
+  
+  .wheelfinder__brand{
+      display: flex;
+      flex-direction: column;
+      font-family: "Sometype Mono";
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+      padding: 0px;
+      justify-content: flex-start;
+      border-style: none;
+  }
+
+.wheelfinder__reset{
+    box-sizing: border-box;
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: black;
+    background: #D9D9D9;
+    margin: 20px 0px 0px 0px;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  .wheelfinder__reset:hover{
+    border: 1px solid red;
+    cursor: pointer;
+    color: red;
+    transform: scale(1.02);
+  }
+  
+  .wheelfinder__reset:active {
+    content: "";
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+  
+  .wheelfinder__size{
+    border-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .wheelfinder__size-wrapper{
+      display: flex;
+      flex-direction: row;
+  }
+  
+  .wheelfinder__size-image{
+      background-image: url(../images/wheels/pickasize.png);
+      border-radius: 50%;
+      background-position: center;
+      margin: auto;
+      height: 93px;
+      width: 93px;
+      transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .wheelfinder__size-image.wheel15{
+    transform: rotate(102deg);
+    background-image: url(../images/wheels/speedline15.png);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  .wheelfinder__size-image.wheel16{
+    transform: rotate(170deg);
+    background-image: url(../images/wheels/fuch16.png);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  
+  }
+  .wheelfinder__size-image.wheel17{
+    transform: rotate(240deg);
+    background-image: url(../images/wheels/avantgarde17.png);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  
+  }
+  .wheelfinder__size-image.wheel18{
+    transform: rotate(360deg);
+    background-image: url(../images/wheels/bbs18.png);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  
+  }
+  .wheelfinder__size-image.wheel19{
+    transform: rotate(-180deg);
+    background-image: url(../images/wheels/audi19.png);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }

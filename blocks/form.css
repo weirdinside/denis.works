@@ -1,0 +1,64 @@
+.form__final {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form__label-checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: white;
+    gap: 10px;
+    align-items: center;
+    padding: 0px;
+    font-size: 10px;
+    max-width: 153px;
+    justify-content: flex-start;
+  }
+  
+  .form__checkbox {
+    width: 14px;
+    height: 14px;
+    margin: auto;
+  }
+
+  .form__label {
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+  }
+  
+  .form__submit-button {
+    border: none;
+    border-radius: 50%;
+    height: 31px;
+    width: 31px;
+    background-color: #038ac3;
+  }
+  
+  .form__fieldset {
+    border: none;
+    margin: 7px auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form__input {
+    font-family: "Sometype Mono";
+    font-weight: 700;
+    color: black;
+    background-color: #d9d9d9;
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+    font-size: 16px;
+    border-radius: 10px;
+    height: 25px;
+    width: 100%;
+    text-align: center;
+  }
