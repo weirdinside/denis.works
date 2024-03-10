@@ -303,6 +303,7 @@ var boxesChecked = 0;
 
 function areAnyCheckboxesChecked(category) {
   const container = document.getElementById(category);
+  console.log(category);
   const checkboxes = container.querySelectorAll('input[type="checkbox"]');
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
@@ -344,96 +345,175 @@ function whichCategoriesChecked() {
   return listCheckedCategories;
 }
 
+
 //main checkbox initializer
 document.querySelector(".wheelfinder__selector").onclick = function (e) {
   //   console.log(e.target.checked, e.target.value, e.target.dataset.categ);
   wheelGalleryList.classList.add("filtered");
-
-  function checkedButton(dimensions){
-
-    htmlGalleryItems.forEach((item) => { // cycles through every item in the gallery - this can't be minimized  
-      item.style.display = ""; //clear display value of all items
-      if(e.target.value === item.dataset[dimensions[0]]){ //if the object has the correct corresponding value to the checkbox - item.dataset.size is variable dependent on parent
-        item.dataset[dimensions[0] + "filter"] = "true"; // "size has been filtered" will be tagged - item.dataset.sizefilter is variable dependent upon parent
-      }
-      if(item.dataset[dimensions[0] + "filter"] === "true"){ // - same goes here
-        if(howManyCategoriesChecked() === 1){ // if the only category checked is size,
-          item.style.display = "flex"; // and set the display of this item to SHOW
-        }
-        else if(howManyCategoriesChecked() === 2){ //if two categories have been checked,
-          if(areAnyCheckboxesChecked(dimensions[1])){ //if it's the body category - this changes dependent on the func as well
-            if(item.dataset[dimensions[1] + "filter"] === "true"){ //if there is a bodyfilter currently applied to the item (meaning it is shown if ONLY the bodyfilter is active)
-              item.style.display = "flex"; // and set the display of this item to SHOW
-            }
-          }
-          if(areAnyCheckboxesChecked(dimensions[2])){ // if instead it's the brand category that is checked,
-            if(item.dataset[dimensions[2] + "filter"] === "true"){ // check if the item is currently being filtered by brand,
-              item.style.display = "flex"; // and set the display of this item to SHOW
-            }
-          }
-        }
-        else{ // no "if" here, because if it's not 1 and it's not 2, it's 3 categories. it cannot be zero here because we're in an affirmative action
-          if((item.dataset[dimensions[1] + "filter"]  === "true") && (item.dataset[dimensions[2] + "filter"]  === "true")){ // if the item currently has two 
-            item.style.display = "flex"; // show the item because it meets all the requirements
-          }
-        }
-      }
-    });
-};
-
-function uncheckedButton(dimensions){
-  htmlGalleryItems.forEach((item) => { //cycles through all the items
-    if(e.target.value === item.dataset[dimensions[0]]){ //if the item matches the size value you unchecked
-      item.dataset[dimensions[0] + "filter"] = ""; //set the sizefilter to unfiltered. this happens regardless of future events
-      if(areAnyCheckboxesChecked(dimensions[0])){ //if there are still size boxes checked
-        item.style.display = "" //hide these items
-      }
-    }
-    if(!areAnyCheckboxesChecked(dimensions[0])){
-      if(((areAnyCheckboxesChecked(dimensions[2])) && (item.dataset[dimensions[2] + "filter"] === "true")) && ((areAnyCheckboxesChecked(dimensions[1]) && (item.dataset[dimensions[1] + "filter"] === "true")) || (!areAnyCheckboxesChecked(dimensions[1])))){
-          item.style.display = "flex";
-      }
-      if(((areAnyCheckboxesChecked(dimensions[1])) && (item.dataset[dimensions[1] + "filter"] === "true")) && ((areAnyCheckboxesChecked(dimensions[2]) && (item.dataset[dimensions[2] + "filter"] === "true")) || (!areAnyCheckboxesChecked(dimensions[2])))){
-          item.style.display = "flex";
-
-      }
-    }
-  });
-}
   
   // ITEM CHECKED
   if (e.target.checked === true) {
     // console.log(e.target.value);
     // console.log(e.target.dataset.categ);
     boxesChecked += 1;
-    //SIZE CHECK, 
-    if(e.target.dataset.categ === "size"){ //if you clicked on a button
+    //SIZE CHECK
+    if(e.target.dataset.categ === "size"){ //if you clicked on a size button
       wheelFinderImageCheck();
-      checkedButton(["size", "body", "brand"]);
-    //BODY CHECK
-    } else if(e.target.dataset.categ === "body"){ //if you clicked on a button
-      checkedButton(["body", "brand", "size"]);
-    //BRAND CHECK
-    } else if(e.target.dataset.categ === "brand"){ //if you clicked on a button
-      checkedButton(["brand", "size", "body"]);
+      htmlGalleryItems.forEach((item) => { // cycles through every item in the gallery
+        item.style.display = ""; //clear display value of all items
+        if(e.target.value === item.dataset.size){ //if the object has the correct corresponding value to the checkbox
+          item.dataset.sizefilter = "true"; // "size has been filtered" will be tagged
+        }
+        if(item.dataset.sizefilter === "true"){
+          if(howManyCategoriesChecked() === 1){ // if the only category checked is size,
+            item.style.display = "flex"; // and set the display of this item to SHOW
+          }
+          else if(howManyCategoriesChecked() === 2){ //if two categories have been checked,
+            if(areAnyCheckboxesChecked("body")){ //if it's the body category
+              if(item.dataset.bodyfilter === "true"){ //if there is a bodyfilter currently applied to the item (meaning it is shown if ONLY the bodyfilter is active)
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+            if(areAnyCheckboxesChecked("brand")){ // if instead it's the brand category that is checked,
+              if(item.dataset.brandfilter === "true"){ // check if the item is currently being filtered by brand,
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+          }
+          else{ // no "if" here, because if it's not 1 and it's not 2, it's 3 categories. it cannot be zero here because we're in an affirmative action
+            if((item.dataset.brandfilter === "true") && (item.dataset.bodyfilter === "true")){ // if the item currently has two 
+              item.style.display = "flex"; // show the item because it meets all the requirements
+            }
+          }
+        }
+      });
     }
+    //BRAND CHECK
+    else if(e.target.dataset.categ === "brand"){ //if you clicked on a brand button
+      htmlGalleryItems.forEach((item) => { // cycles through every item in the gallery
+        item.style.display = ""; //clear the display value of all items
+        if(e.target.value === item.dataset.brand){ //if the object has the correct corresponding value to the checkbox
+          item.dataset.brandfilter = "true"; // "brand has been filtered" will be tagged
+        }
+        if(item.dataset.brandfilter === "true"){
+          if(howManyCategoriesChecked() === 1){ // if the only category checked is brand,
+            item.style.display = "flex"; // and set the display of this item to SHOW
+          }
+          else if(howManyCategoriesChecked() === 2){ //if two categories have been checked,
+            if(areAnyCheckboxesChecked("body")){ //if it's the body category
+              if(item.dataset.bodyfilter === "true"){ //if there is a bodyfilter currently applied to the item (meaning it is shown if ONLY the bodyfilter is active)
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+            if(areAnyCheckboxesChecked("size")){ // if instead it's the size category that is checked,
+              if(item.dataset.sizefilter === "true"){ // check if the item is currently being filtered by size,
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+          }
+          else{ // no "if" here, because if it's not 1 and it's not 2, it's 3 categories. it cannot be zero here because we're in an affirmative action
+            if((item.dataset.sizefilter === "true") && (item.dataset.bodyfilter === "true")){ // if the item currently has two 
+              item.style.display = "flex"; // show the item because it meets all the requirements
+            }
+          }
+        }
+      });
 
+    }
+    //BODY CHECK
+    else if(e.target.dataset.categ === "body"){ //if you clicked on a body button
+      htmlGalleryItems.forEach((item) => { // cycles through every item in the gallery
+        item.style.display = ""; //clear the display value of all items
+        if(e.target.value === item.dataset.body){ //if the object has the correct corresponding value to the checkbox
+          item.dataset.bodyfilter = "true"; // "body has been filtered" will be tagged
+        }
+        if(item.dataset.bodyfilter === "true"){
+          if(howManyCategoriesChecked() === 1){ // if the only category checked is size,
+            item.style.display = "flex"; // and set the display of this item to SHOW
+          }
+          else if(howManyCategoriesChecked() === 2){ //if two categories have been checked,
+            if(areAnyCheckboxesChecked("size")){ //if it's the size category
+              if(item.dataset.sizefilter === "true"){ //if there is a sizefilter currently applied to the item (meaning it is shown if ONLY the bodyfilter is active)
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+            if(areAnyCheckboxesChecked("brand")){ // if instead it's the brand category that is checked,
+              if(item.dataset.brandfilter === "true"){ // check if the item is currently being filtered by brand,
+                item.style.display = "flex"; // and set the display of this item to SHOW
+              }
+            }
+          }
+          else{ // no "if" here, because if it's not 1 and it's not 2, it's 3 categories. it cannot be zero here because we're in an affirmative action
+            if((item.dataset.brandfilter === "true") && (item.dataset.sizefilter === "true")){ // if the item currently has two 
+              item.style.display = "flex"; // show the item because it meets all the requirements
+            }
+          }
+      }
+      });
+
+    }
   }
   //ITEM UNCHECKED
   if (e.target.checked === false) {
     boxesChecked -= 1;
     //SIZE CHECK
-    if(e.target.dataset.categ === "size"){ 
+    if(e.target.dataset.categ === "size"){ //if you unchecked a size value
       wheelFinderImageCheck();
-      uncheckedButton(["size", "body", "brand"]);
-    } 
-    //BODY CHECK
-    else if(e.target.dataset.categ === "body"){
-      uncheckedButton(["body", "brand", "size"]);
+      htmlGalleryItems.forEach((item) => { //cycles through all the items
+        if(e.target.value === item.dataset.size){ //if the item matches the size value you unchecked
+          item.dataset.sizefilter = ""; //set the sizefilter to unfiltered. this happens regardless of future events
+          if(areAnyCheckboxesChecked("size")){ //if there are still size boxes checked
+            item.style.display = "" //hide these items
+          }
+        }
+        if(!areAnyCheckboxesChecked("size")){
+          if(((areAnyCheckboxesChecked("brand")) && (item.dataset.brandfilter === "true")) && ((areAnyCheckboxesChecked("body") && (item.dataset.bodyfilter === "true")) || (!areAnyCheckboxesChecked("body")))){
+              item.style.display = "flex";
+          }
+          if(((areAnyCheckboxesChecked("body")) && (item.dataset.bodyfilter === "true")) && ((areAnyCheckboxesChecked("brand") && (item.dataset.brandfilter === "true")) || (!areAnyCheckboxesChecked("brand")))){
+              item.style.display = "flex";
+
+          }
+        }
+      });
     }
-    // BRAND CHECK
-    else if(e.target.dataset.categ === "brand"){
-      uncheckedButton(["brand", "size", "body"]);
+    //BRAND CHECK
+    if(e.target.dataset.categ === "brand"){ //if you unchecked a brand value
+      htmlGalleryItems.forEach((item) => { //cycles through all the items
+        if(e.target.value === item.dataset.brand){ //if the item matches the brand value you unchecked
+          item.dataset.brandfilter = ""; //set the brandfilter to unfiltered. this happens regardless of future events
+          if(areAnyCheckboxesChecked("brand")){ //if there are still brand boxes checked
+            item.style.display = "" //hide these items only
+          }
+        }
+        if(!areAnyCheckboxesChecked("brand")){
+          if(((areAnyCheckboxesChecked("size")) && (item.dataset.sizefilter === "true")) && ((areAnyCheckboxesChecked("body") && (item.dataset.bodyfilter === "true")) || (!areAnyCheckboxesChecked("body")))){ //if a brand filter is active and it matches
+              item.style.display = "flex";
+          }
+          if(((areAnyCheckboxesChecked("body")) && (item.dataset.bodyfilter === "true")) && ((areAnyCheckboxesChecked("size") && (item.dataset.sizefilter === "true")) || (!areAnyCheckboxesChecked("size")))){
+              item.style.display = "flex";
+          }
+        }
+      });
+    }
+    //BODY CHECK
+    if(e.target.dataset.categ === "body"){ //if you unchecked a body value
+      htmlGalleryItems.forEach((item) => { //cycles through all the items
+        if(e.target.value === item.dataset.body){ //if the item matches the body value you unchecked
+          item.dataset.bodyfilter = ""; //set the bodyfilter to unfiltered. this happens regardless of future events
+          if(areAnyCheckboxesChecked("body")){ //if there are still body boxes checked
+            item.style.display = ""; //hide these items
+          }
+        }
+        if(!areAnyCheckboxesChecked("body")){
+          if(((areAnyCheckboxesChecked("size")) && (item.dataset.sizefilter === "true")) && ((areAnyCheckboxesChecked("brand") && (item.dataset.brandfilter === "true")) || (!areAnyCheckboxesChecked("brand")))){
+              item.style.display = "flex";
+          }
+          if(((areAnyCheckboxesChecked("brand")) && (item.dataset.brandfilter === "true")) && ((areAnyCheckboxesChecked("size") && (item.dataset.sizefilter === "true")) || (!areAnyCheckboxesChecked("size")))){
+              item.style.display = "flex";
+          }
+        }
+      });
     }
     //TOTAL RESET
     if (boxesChecked === 0) {
@@ -551,3 +631,23 @@ function resetForm() {
   boxesChecked = 0;
   wheelFinderImageCheck();
 }
+
+const filters = [
+  {
+      item1: "\"size\"",
+      item2: "item.dataset.size",
+      item2: "item.dataset.sizefilter",
+  },
+  {
+      item1: "\"body\"",
+      item2: "item.dataset.body",
+      item3: "item.dataset.bodyfilter"
+  },
+  {
+      item1: "\"brand\"",
+      item2: "item.dataset.brand",
+      item3: "item.dataset.brandfilter"
+  }
+];
+
+console.log(filters[0].item1);
