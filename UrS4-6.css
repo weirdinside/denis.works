@@ -57,6 +57,17 @@
   transform: scale(1.02);
 }
 
+.wheelfinder__reset:active {
+  content: "";
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+.wheelfinder__size{
+  border-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .wheelfinder__size-wrapper{
     display: flex;
     flex-direction: row;
@@ -70,6 +81,11 @@
     height: 93px;
     width: 93px;
     transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.display__show{
+  background-color: red;
+  display: flex;
 }
 
 .wheelfinder__size-image.wheel15{
