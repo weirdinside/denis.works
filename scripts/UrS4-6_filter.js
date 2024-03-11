@@ -160,7 +160,7 @@ function wheelFinderImageCheck() {
     wheelFinderImage.classList.remove(toRemove);
   }
   function removeOthers(toKeep) {
-    returnOthers(toKeep).foreach(item => remove(item));
+    returnOthers(toKeep).forEach(item => remove(item));
   }
   function addRandomExcept(notIncluded)
   {
