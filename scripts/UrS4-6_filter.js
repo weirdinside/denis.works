@@ -151,92 +151,55 @@ function wheelFinderImageCheck() {
     return randomElement;
   }
 
-  function remove15() {
-    wheelFinderImage.classList.remove("wheel15");
+  const classOptions = ["wheel15","wheel16","wheel17","wheel18","wheel19"]
+  function returnOthers(notIncluded) {
+    return classOptions.classList
+      .filter(item => item != notIncluded);
   }
-  function remove16() {
-    wheelFinderImage.classList.remove("wheel16");
+  function remove(toRemove) {
+    wheelFinderImage.classList.remove(toRemove);
   }
-  function remove17() {
-    wheelFinderImage.classList.remove("wheel17");
+  function removeOthers(toKeep) {
+    returnOthers(toKeep).foreach(item => remove(item));
   }
-  function remove18() {
-    wheelFinderImage.classList.remove("wheel18");
-  }
-  function remove19() {
-    wheelFinderImage.classList.remove("wheel19");
-  }
-
+  function addRandomExcept(notIncluded)
+     wheelFinderImage.classList.add(selectRandom(returnOthers(notIncluded)));
+  )
+  
   if (boxesChecked >= 1 && areAnyCheckboxesChecked("size")) {
-    if (wheelFinderImage.classList.contains("wheel16")) {
-      remove16();
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel15", "wheel17", "wheel18", "wheel19"]),
-      );
-    } 
-    else if (wheelFinderImage.classList.contains("wheel15")) {
-      remove15();
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel16", "wheel17", "wheel18", "wheel19"]),
-      );
-    } else if (wheelFinderImage.classList.contains("wheel17")) {
-      remove17();
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel18", "wheel19", "wheel16", "wheel15"]),
-      );
-    } else if (wheelFinderImage.classList.contains("wheel18")) {
-      remove18();
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel19", "wheel16", "wheel17", "wheel15"]),
-      );
-    } else if (wheelFinderImage.classList.contains("wheel19")) {
-      remove19();
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel16", "wheel17", "wheel18", "wheel15"]),
-      );
-    } else {
-      wheelFinderImage.classList.add(
-        selectRandom(["wheel16", "wheel17", "wheel18", "wheel19", "wheel15"]),
-      );
+    let hasAny = false;
+    for(let className of wheelFinderImage.classList)
+    {
+      if(classOptions.contains(className))
+      {
+        hasAny = true;
+        remove(className);
+        addRandomExcept(className);
+      }
+    }
+    if(!hasAny)
+    {
+      addRandomExcept(undefined); //default case add randio
     }
   }
   else if (size15.checked) {
-    remove16();
-    remove17();
-    remove18();
-    remove19();
+    removeOthers("wheel15");
     wheelFinderImage.classList.add("wheel15");
   }
    else if (size16.checked) {
-    remove15();
-    remove17();
-    remove18();
-    remove19();
+    removeOthers("wheel16");
     wheelFinderImage.classList.add("wheel16");
   } else if (size17.checked) {
-    remove15();
-    remove16();
-    remove18();
-    remove19();
+    removeOthers("wheel17");
     wheelFinderImage.classList.add("wheel17");
   } else if (size18.checked) {
-    remove15();
-    remove16();
-    remove17();
-    remove19();
+    removeOthers("wheel18");
     wheelFinderImage.classList.add("wheel18");
   } else if (size19.checked) {
-    remove15();
-    remove16();
-    remove17();
-    remove18();
+    removeOthers("wheel19");
     wheelFinderImage.classList.add("wheel19");
   } else {
-    remove15();
-    remove16();
-    remove17();
-    remove18();
-    remove19();
+    removeOthers(undefined); //Remove all
   }
 }
 
