@@ -163,14 +163,15 @@ function wheelFinderImageCheck() {
     returnOthers(toKeep).foreach(item => remove(item));
   }
   function addRandomExcept(notIncluded)
+  {
      wheelFinderImage.classList.add(selectRandom(returnOthers(notIncluded)));
-  )
+  }
   
   if (boxesChecked >= 1 && areAnyCheckboxesChecked("size")) {
     let hasAny = false;
     for(let className of wheelFinderImage.classList)
     {
-      if(classOptions.contains(className))
+      if(classOptions.includes(className))
       {
         hasAny = true;
         remove(className);
