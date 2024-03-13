@@ -191,36 +191,39 @@ function wheelFinderImageCheck(checkboxChanged) {
 
   if (checkboxChanged === undefined) {
     // Reset flow
-    for (let className of classOptions) {
+    for (let className of wheelOptions) {
       wheelFinderImage.classList.remove(className);
     }
     return;
   }
 
-  const currentWheel = Array.from(wheelFinderImage.classList).filter(
-    (className) => wheelOptions.includes(className)
-  )[0]; // Acquire wheel class name, by filtering classList for an item in
-  const mutatedCheckboxIndex = checkBoxes.indexOf(checkboxChanged); // Get index of checkbox that was mutated
-  const wheelClassNameForMutated = wheelOptions[mutatedCheckboxIndex]; // Get class name assocaited with mutated checkbox
+  const currentWheel = Array.from(wheelFinderImage.classList).filter((className) => wheelOptions.includes(className))[0]; 
+  const mutatedCheckboxIndex = checkBoxes.indexOf(checkboxChanged); 
+  const wheelClassNameForMutated = wheelOptions[mutatedCheckboxIndex]; 
+  const isNotSameWheel = !(currentWheel === wheelClassNameForMutated);
+  let nextBox = checkBoxes.find((box, index) => box.checked && currentWheel != wheelOptions[index]); 
 
   if (checkboxChanged.checked) {
-    if (currentWheel) wheelFinderImage.classList.remove(currentWheel); // remove current wheel class name if there is one
-    wheelFinderImage.classList.add(wheelClassNameForMutated); // add class associated to mutated box
-  } else {
-    wheelFinderImage.classList.remove(wheelClassNameForMutated); // Remove class associated to mutated box
-
-    let nextBox = checkBoxes.find(
-      (box, index) => box.checked && currentWheel != wheelOptions[index]
-    ); // find first checkbox that is 1) checked and 2) not the current wheel class
-    if (nextBox) {
-      //wheelFinderImageCheck(nextBox); //<-- this will work instead of the 4 lines below using recusrion. If you want to learn more ask me!
-
-      const nextBoxCheckboxIndex = checkBoxes.indexOf(nextBox); // Get index of next checkbox
-      const wheelClassNameForNextBox = wheelOptions[nextBoxCheckboxIndex]; // Get class name assocaited with mutated checkbox
-      if (currentWheel) wheelFinderImage.classList.remove(currentWheel); // remove current wheel class name if there is one
-      wheelFinderImage.classList.add(wheelClassNameForNextBox); // add class associated to next box
+    if (currentWheel) wheelFinderImage.classList.remove(currentWheel); 
+    if (isNotSameWheel) {
+      wheelFinderImage.classList.add(wheelClassNameForMutated); 
     } else {
-      // this logic has an edgecase if there is no nextBox. see if you can figure it out
+      wheelFinderImage.classList.add(wheelOptions[checkBoxes.indexOf(nextBox)]);
+    }
+
+  } else {
+    wheelFinderImage.classList.remove(wheelClassNameForMutated); 
+    if (nextBox) {
+      wheelFinderImageCheck(nextBox);
+    } else {
+      if(!areAnyCheckboxesChecked("size")){
+        resetForm();
+      } else{
+        const allButActiveWheel = wheelOptions.filter(wheel => wheel !== currentWheel);
+        const randomIndex = Math.floor(Math.random() * allButActiveWheel.length); 
+        wheelFinderImage.classList.remove(currentWheel);
+        wheelFinderImage.classList.add(allButActiveWheel[randomIndex]);
+      }
     }
   }
 }
