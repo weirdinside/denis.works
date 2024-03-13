@@ -140,7 +140,7 @@ document.querySelector(".wheelfinder__selector").onclick = function (e) {
     //SIZE CHECK,
     if (e.target.dataset.categ === "size") {
       //if you clicked on a button
-      wheelFinderImageCheck();
+      wheelFinderImageCheck(e.target); // send target (checkbox) to wheelFinderImage
       checkedButton(["size", "body", "brand"]); // i'd like to find a way to implement this where you only call one var. a rotating array maybe?
       //BODY CHECK
     } else if (e.target.dataset.categ === "body") {
@@ -157,7 +157,7 @@ document.querySelector(".wheelfinder__selector").onclick = function (e) {
     boxesChecked -= 1;
     //SIZE CHECK
     if (e.target.dataset.categ === "size") {
-      wheelFinderImageCheck();
+      wheelFinderImageCheck(e.target); // send target (checkbox) to wheelFinderImage
       uncheckedButton(["size", "body", "brand"]);
     }
     //BODY CHECK
@@ -175,57 +175,53 @@ document.querySelector(".wheelfinder__selector").onclick = function (e) {
   }
 };
 
-function wheelFinderImageCheck() {
+// Method now knows which checkbox was changed
+function wheelFinderImageCheck(checkboxChanged) {
+  // Note: checkBoxes[0] corresponds to wheelOptions[0]
+  const checkBoxes = [size15, size16, size17, size18, size19, size20];
+  const wheelOptions = [
+    "wheel15",
+    "wheel16",
+    "wheel17",
+    "wheel18",
+    "wheel19",
+    "wheel20",
+  ];
   const wheelFinderImage = document.querySelector(".wheelfinder__size-image");
 
-  function selectRandom(array) {
-    const randomElement = array[Math.floor(Math.random() * array.length)];
-    return randomElement;
+  if (checkboxChanged === undefined) {
+    // Reset flow
+    for (let className of classOptions) {
+      wheelFinderImage.classList.remove(className);
+    }
+    return;
   }
 
-  const classOptions = ["wheel15", "wheel16", "wheel17", "wheel18", "wheel19"];
-  function returnOthers(notIncluded) {
-    return classOptions.filter((item) => item != notIncluded);
-  }
-  function remove(toRemove) {
-    wheelFinderImage.classList.remove(toRemove);
-  }
-  function removeOthers(toKeep) {
-    returnOthers(toKeep).forEach((item) => remove(item));
-  }
-  function addRandomExcept(notIncluded) {
-    wheelFinderImage.classList.add(selectRandom(returnOthers(notIncluded)));
-  }
+  const currentWheel = Array.from(wheelFinderImage.classList).filter(
+    (className) => wheelOptions.includes(className)
+  )[0]; // Acquire wheel class name, by filtering classList for an item in
+  const mutatedCheckboxIndex = checkBoxes.indexOf(checkboxChanged); // Get index of checkbox that was mutated
+  const wheelClassNameForMutated = wheelOptions[mutatedCheckboxIndex]; // Get class name assocaited with mutated checkbox
 
-  if (boxesChecked >= 1 && areAnyCheckboxesChecked("size")) {
-    let hasAny = false;
-    for (let className of wheelFinderImage.classList) {
-      if (classOptions.includes(className)) {
-        hasAny = true;
-        remove(className);
-        addRandomExcept(className);
-      }
-    }
-    if (!hasAny) {
-      addRandomExcept(undefined); //default case add randio
-    }
-  } else if (size15.checked) {
-    removeOthers("wheel15");
-    wheelFinderImage.classList.add("wheel15");
-  } else if (size16.checked) {
-    removeOthers("wheel16");
-    wheelFinderImage.classList.add("wheel16");
-  } else if (size17.checked) {
-    removeOthers("wheel17");
-    wheelFinderImage.classList.add("wheel17");
-  } else if (size18.checked) {
-    removeOthers("wheel18");
-    wheelFinderImage.classList.add("wheel18");
-  } else if (size19.checked) {
-    removeOthers("wheel19");
-    wheelFinderImage.classList.add("wheel19");
+  if (checkboxChanged.checked) {
+    if (currentWheel) wheelFinderImage.classList.remove(currentWheel); // remove current wheel class name if there is one
+    wheelFinderImage.classList.add(wheelClassNameForMutated); // add class associated to mutated box
   } else {
-    removeOthers(undefined); //Remove all
+    wheelFinderImage.classList.remove(wheelClassNameForMutated); // Remove class associated to mutated box
+
+    let nextBox = checkBoxes.find(
+      (box, index) => box.checked && currentWheel != wheelOptions[index]
+    ); // find first checkbox that is 1) checked and 2) not the current wheel class
+    if (nextBox) {
+      //wheelFinderImageCheck(nextBox); //<-- this will work instead of the 4 lines below using recusrion. If you want to learn more ask me!
+
+      const nextBoxCheckboxIndex = checkBoxes.indexOf(nextBox); // Get index of next checkbox
+      const wheelClassNameForNextBox = wheelOptions[nextBoxCheckboxIndex]; // Get class name assocaited with mutated checkbox
+      if (currentWheel) wheelFinderImage.classList.remove(currentWheel); // remove current wheel class name if there is one
+      wheelFinderImage.classList.add(wheelClassNameForNextBox); // add class associated to next box
+    } else {
+      // this logic has an edgecase if there is no nextBox. see if you can figure it out
+    }
   }
 }
 
@@ -239,5 +235,5 @@ function resetForm() {
     item.dataset.brandfilter = "";
   });
   boxesChecked = 0;
-  wheelFinderImageCheck();
+  wheelFinderImageCheck(undefined); // send undefined to wheelFinderImage
 }
