@@ -1,0 +1,59 @@
+:root {
+  margin: 0;
+  width: 100svw;
+  height: 100svh;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none !important;
+}
+
+html {
+  cursor: none !important;
+}
+
+@font-face {
+  font-family: 'Authentic Sans';
+  font-weight: 100 900;
+  src: url(./assets/fonts/authentic-sans-60.woff2);
+}
+
+@font-face {
+  font-family: 'Paragon';
+  src: url(./assets/fonts/Paragon-Regular.otf);
+}
+
+@font-face{
+  font-family: 'Paragon';
+  font-style: italic;
+  src: url(./assets/fonts/Paragonitalic-Regular.otf)
+}
+
+@font-face{
+  font-family: 'Paragon-Glitch';
+  src: url(./assets/fonts/P-ACR-AGON-Regular.otf)
+}
+
+@font-face {
+  font-family: "Swiss Grit";
+  src: url(./assets/fonts/SwissGrit.otf);
+}
+
+@font-face {
+  font-family: "Swiss Grit Dingbats";
+  src: url(./assets/fonts/SwissGritDingbats.otf);
+}
+
+@font-face {
+  font-family: "Creatinin";
+  src: url("./assets/fonts/creatinin-pro.otf");
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  width: 100svw;
+  height: 100svh;
+}
