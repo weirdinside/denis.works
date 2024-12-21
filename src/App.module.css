@@ -1,3 +1,40 @@
+/* ------------------------- //
+//         ANIMATIONS        //
+// ------------------------- */
+
+@keyframes push {
+  0% {
+    left: -4px;
+  }
+
+  50% {
+    left: -10px;
+  }
+  100% {
+    left: -4px;
+  }
+}
+
+@keyframes push2 {
+  0% {
+    right: -40px;
+  }
+  50% {
+    right: -45px;
+  }
+  100% {
+    right: -40px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
 
 .page {
   display: flex;
@@ -17,18 +54,21 @@
 }
 
 .page.dark {
-  color: white;
-  background-color: #171b1f;
+  color: #010101;
+  background-color: #edbc36;
 
-  font-family: "Authentic Sans", sans-serif;
+  font-family: "Letter Gothic Std Medium", monospace;
 
   .projects__nav {
+    margin-right: 30px;
     position: relative;
+    overflow: hidden;
     max-width: 0px;
     transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   .projects__nav.active {
+    overflow: visible;
     max-width: 200px;
     transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
@@ -39,10 +79,12 @@
   }
 
   .projects__nav_item {
-    font-size: 30px;
+
+    font-size: 25px;
     margin: 5px 0px;
     text-align: right;
     font-weight: 800;
+
     width: fit-content;
     align-self: flex-end;
     position: relative;
@@ -65,21 +107,21 @@
   .nav__list_item:hover .list_item_background {
     transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    border: 2px solid rgba(255, 255, 255, 0.509);
+    border: 2px solid #0101017e;
     border-radius: 50px;
     background-color: transparent;
   }
 
   .nav__list_item.selected:hover .list_item_background {
-    background-color: white;
+    background-color: 010101;
   }
 
   .list_item_background.selected {
     transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     border-radius: 50px;
-    border: 2px solid white;
-    background-color: white;
+    border: 2px solid #010101;
+    background-color: #edbc36;
   }
 
   .footer__text {
@@ -99,17 +141,18 @@
     cursor: none;
     right: 0;
     clip-path: circle(0% at 50% 50%);
-    filter: blur(1px);
+    /* filter: blur(1px); */
   }
 
   .content__title:hover {
-    color: white;
+    color: #010101;
   }
 
   .nav__list_item {
-    color: white;
-    font-family: "Authentic Sans", sans-serif;
+    color: #010101;
+    font-family: "Letter Gothic Std Medium", monospace;
     z-index: 3;
+    letter-spacing: -5px;
     width: max-content;
   }
 
@@ -118,7 +161,7 @@
   }
 
   .arrow {
-    color: white;
+    color: #010101;
   }
 
   .page__content {
@@ -210,6 +253,7 @@
 .email {
   background-image: url("./assets/images/mailicon.png");
   background-size: 130%;
+  filter: invert(1);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -217,7 +261,6 @@
 .instagram {
   background-image: url("./assets/images/instagramlogo.png");
   background-size: 80%;
-  filter: invert(1);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -247,34 +290,12 @@
   font-family: "Creatinin";
 }
 
-@keyframes push {
-  0% {
-    left: -4px;
-  }
 
-  50% {
-    left: -10px;
-  }
-  100% {
-    left: -4px;
-  }
-}
 
-@keyframes push2 {
-  0% {
-    right: -40px;
-  }
-  50% {
-    right: -45px;
-  }
-  100% {
-    right: -40px;
-  }
-}
 
-.nav {
-  z-index: 3;
-}
+/* ------------------------- //
+//           ARROWS          //
+// ------------------------- */
 
 .arrow {
   pointer-events: none;
@@ -293,6 +314,17 @@
   right: -40px;
   rotate: 180deg;
   animation: push2 1s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+}
+
+
+/* ------------------------- //
+//            NAV            //
+// ------------------------- */
+
+
+.nav {
+  margin-left: 10px;
+  z-index: 3;
 }
 
 .nav__list {
@@ -316,6 +348,34 @@
   transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+/* ------------------------- //
+//     PROJECTS NAV LIST     //
+// ------------------------- */
+
+.projects__nav_item_background {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  rotate: -10deg;
+  max-width: 0px;
+}
+
+.projects__nav_item:hover .projects__nav_item_background {
+  background-color: #edbc36;
+  position: absolute;
+  top: -10%;
+  max-width: max-content;
+  left: 0;
+  height: 120%;
+  rotate: 0deg;
+  mix-blend-mode: difference;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ------------------------- //
+//           FOOTER          //
+// ------------------------- */
+
 .footer {
   position: absolute;
   bottom: 2px;
@@ -332,14 +392,11 @@
   opacity: 1;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0%;
-  }
-  to {
-    opacity: 100%;
-  }
-}
+
+
+/* ------------------------- //
+//        CURSOR BASE        //
+// ------------------------- */
 
 .cursor {
   width: 14px;
@@ -350,24 +407,4 @@
   animation: 0.5s fadeIn 0.1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
   position: absolute;
   pointer-events: "none" !important;
-}
-
-.projects__nav_item_background {
-  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  rotate: -10deg;
-  max-width: 0px;
-}
-
-.projects__nav_item:hover .projects__nav_item_background {
-  background-color: white;
-  position: absolute;
-  top: -10%;
-  max-width: max-content;
-  left: 0;
-  height: 120%;
-  rotate: 0deg;
-  mix-blend-mode: difference;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }

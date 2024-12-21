@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "./contexts/ThemeProvider";
 import styles from "./App.module.css";
 import { useQueryState } from "nuqs";
+import ProjectDENIS from "./components/ProjectDENIS/ProjectDENIS";
 
 function App() {
   // ------------------------- //
@@ -15,8 +16,10 @@ function App() {
   const [isCursorVisible, setCursorVisibility] = useState<boolean>(true);
   const [isMouseOverTitle, setMouseOverTitle] = useState<boolean>(false);
 
-  const [activeTab, setActiveTab] = useQueryState("page");
-  const [activeProject, setActiveProject] = useQueryState("project");
+  const [activeTab, setActiveTab] = useQueryState("page", { history: "push" });
+  const [activeProject, setActiveProject] = useQueryState("project", {
+    history: "push",
+  });
 
   const navRef = useRef<HTMLUListElement>(null);
   const projectNavRef = useRef<HTMLElement>(null);
@@ -161,8 +164,15 @@ function App() {
               activeTab === "contact" && styles["active"]
             }`}
           >
-            <div className={`${styles["email"]} ${styles["icon"]}`}></div>
-            <div className={`${styles["instagram"]} ${styles["icon"]}`}></div>
+            <a
+              href="mailto:denisbiblioni@gmail.com"
+              className={`${styles["email"]} ${styles["icon"]}`}
+            ></a>
+            <a
+              target="_blank"
+              href="https://instagram.com/denisbiblioni"
+              className={`${styles["instagram"]} ${styles["icon"]}`}
+            ></a>
           </div>
 
           <div
@@ -323,7 +333,9 @@ function App() {
           </ul>
         </nav>
         {activeProject === "denis" && (
-          <div className={styles["project"]}>denis</div>
+          <div className={styles["project"]}>
+            <ProjectDENIS></ProjectDENIS>
+          </div>
         )}
         {activeProject === "theusual" && (
           <div className={styles["project"]}>the usual*</div>

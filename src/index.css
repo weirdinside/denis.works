@@ -14,25 +14,49 @@ html {
 }
 
 @font-face {
-  font-family: 'Authentic Sans';
+  font-family: "Ovo";
+  src: url(https://fonts.googleapis.com/css2?family=Ovo&display=swap);
+}
+
+@font-face {
+  font-family: "Letter Gothic Std Medium";
+  font-style: normal;
+
+  font-weight: normal;
+  src:
+    local("Letter Gothic Std Medium"),
+    url("LetterGothicStd.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Letter Gothic Std Bold";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    local("Letter Gothic Std Bold"),
+    url("LetterGothicStd-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Authentic Sans";
   font-weight: 100 900;
   src: url(./assets/fonts/authentic-sans-60.woff2);
 }
 
 @font-face {
-  font-family: 'Paragon';
+  font-family: "Paragon";
   src: url(./assets/fonts/Paragon-Regular.otf);
 }
 
-@font-face{
-  font-family: 'Paragon';
+@font-face {
+  font-family: "Paragon";
   font-style: italic;
-  src: url(./assets/fonts/Paragonitalic-Regular.otf)
+  src: url(./assets/fonts/Paragonitalic-Regular.otf);
 }
 
-@font-face{
-  font-family: 'Paragon-Glitch';
-  src: url(./assets/fonts/P-ACR-AGON-Regular.otf)
+@font-face {
+  font-family: "Paragon-Glitch";
+  src: url(./assets/fonts/P-ACR-AGON-Regular.otf);
 }
 
 @font-face {
