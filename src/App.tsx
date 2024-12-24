@@ -17,6 +17,7 @@ function App() {
   const [isMouseOverTitle, setMouseOverTitle] = useState<boolean>(false);
 
   const [activeTab, setActiveTab] = useQueryState("page", { history: "push" });
+
   const [activeProject, setActiveProject] = useQueryState("project", {
     history: "push",
   });
@@ -129,7 +130,11 @@ function App() {
     <div className={`${styles["page"]} ${isDarkMode && styles["dark"]}`}>
       <div className={styles["page__bg-texture"]}></div>
       <div className={styles["page__content"]}>
+        <div className={styles["page__content_detailbox"]}></div>
         <div
+          onClick={() => {
+            setActiveTab(null);
+          }}
           onMouseEnter={() => {
             setMouseOverTitle(true);
             setCursorVisibility(false);

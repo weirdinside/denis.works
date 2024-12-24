@@ -4,14 +4,14 @@
 
 @keyframes push {
   0% {
-    left: -4px;
+    left: -30px;
   }
 
   50% {
-    left: -10px;
+    left: -35px;
   }
   100% {
-    left: -4px;
+    left: -30px;
   }
 }
 
@@ -79,7 +79,6 @@
   }
 
   .projects__nav_item {
-
     font-size: 25px;
     margin: 5px 0px;
     text-align: right;
@@ -161,6 +160,7 @@
   }
 
   .arrow {
+    font-size: 50px;
     color: #010101;
   }
 
@@ -170,9 +170,9 @@
 
   .page__bg-texture {
     background-size: cover;
-    mix-blend-mode: color-burn;
+    mix-blend-mode: multiply;
     background-image: none;
-    background-image: url("./assets/images/91.png");
+    /* background-image: url("./assets/images/Gritty02-byGhostlyPixels.png"); */
   }
 }
 
@@ -273,6 +273,9 @@
 }
 
 .about__text {
+  letter-spacing: -3px;
+  margin-right: 10px;
+  font-size: 1em;
   max-width: 300px;
   text-align: right;
 }
@@ -289,9 +292,6 @@
   font-size: 1.2em;
   font-family: "Creatinin";
 }
-
-
-
 
 /* ------------------------- //
 //           ARROWS          //
@@ -316,11 +316,9 @@
   animation: push2 1s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
 }
 
-
 /* ------------------------- //
 //            NAV            //
 // ------------------------- */
-
 
 .nav {
   margin-left: 10px;
@@ -329,14 +327,15 @@
 
 .nav__list {
   position: relative;
-  margin: 0;
+  margin: 0 0 0 50px;
+  padding: 0;
   z-index: 10;
   list-style-type: none;
 }
 
 .nav__list_item {
   position: relative;
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 10px 0;
   scale: 1;
   transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -391,8 +390,6 @@
   margin: 5px;
   opacity: 1;
 }
-
-
 
 /* ------------------------- //
 //        CURSOR BASE        //

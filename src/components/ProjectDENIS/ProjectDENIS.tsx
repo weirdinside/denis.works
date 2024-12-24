@@ -1,22 +1,35 @@
-import React from "react";
-import * as THREE from "three";
-import TapeCanvas from "./TapeCanvas/TapeCanvas";
+import { Environment, Grid, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import {
+  EffectComposer,
+  FXAA,
+  Noise,
+  Outline,
+  SMAA,
+  SSR,
+  WaterEffect,
+} from "@react-three/postprocessing";
+import styles from "./ProjectDENIS.module.css";
+import TapeMesh from "./TapeMesh/TapeMesh";
 
 export default function ProjectDENIS() {
   return (
-    <div>
-      <Canvas>
-        <ambientLight intensity={Math.PI / 2} />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          decay={0}
-          intensity={Math.PI}
-        />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <TapeCanvas></TapeCanvas>
+    <div className={styles["canvas"]}>
+      <Canvas shadows dpr={[1, 2]} camera={{ fov: 70, position: [10, 0, 4] }}>
+        <EffectComposer>
+          <Grid></Grid>
+          <Outline></Outline>
+        </EffectComposer>
+        <Environment
+          background={false}
+          files="/rosendal_park_sunset_4k.exr"
+        ></Environment>
+        <TapeMesh></TapeMesh>
+        <OrbitControls
+          autoRotateSpeed={-2}
+          autoRotate={true}
+          enableZoom={false}
+        ></OrbitControls>
       </Canvas>
     </div>
   );
