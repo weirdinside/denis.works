@@ -20,10 +20,7 @@ export default function ProjectDENIS() {
           <Grid></Grid>
           <Outline></Outline>
         </EffectComposer>
-        <Environment
-          background={false}
-          files="/rosendal_park_sunset_4k.exr"
-        ></Environment>
+        <Environment background={false} preset="sunset"></Environment>
         <TapeMesh></TapeMesh>
         <OrbitControls
           autoRotateSpeed={-2}
