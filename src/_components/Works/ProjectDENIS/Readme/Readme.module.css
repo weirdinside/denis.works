@@ -1,0 +1,14 @@
+.page {
+  font-family: "Flexi IBM VGA";
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.page__heading {
+  font-size: clamp(15px, 5vw, 30px);
+}
+
+.page__content {
+  font-size: clamp(15px, 3vw, 22px);
+}

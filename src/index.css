@@ -1,16 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
 :root {
   margin: 0;
   width: 100svw;
   height: 100svh;
+  overflow: hidden;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none !important;
+  background: linear-gradient(
+    54deg,
+    rgb(28, 28, 30) 0%,
+    rgb(24, 24, 27) 48%,
+    rgb(43, 46, 49) 100%
+  );
 }
 
-html {
-  cursor: none !important;
+@font-face {
+  font-family: "Flexi IBM VGA";
+  src: url(./assets/fonts/Flexi_IBM_VGA_False.ttf);
+}
+
+@font-face {
+  font-family: "Handwriting";
+  src: url(./assets/fonts/My_handwriting.ttf);
 }
 
 @font-face {

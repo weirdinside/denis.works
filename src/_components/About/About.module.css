@@ -1,0 +1,8 @@
+.page {
+  font-family: "Flexi IBM VGA";
+  color: white;
+  height: 100%;
+  width: 100%;
+  font-size: clamp(14px, 2.4vw, 24px);
+  margin: clamp(5px, 1vw, 20px);
+}

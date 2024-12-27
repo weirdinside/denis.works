@@ -3,15 +3,18 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-import { NuqsAdapter } from "nuqs/adapters/react";
 import { ThemeProvider } from "./contexts/ThemeProvider.tsx";
+import { BrowserRouter } from "react-router-dom";
+import { PathProvider } from "./contexts/LocationContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <NuqsAdapter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </NuqsAdapter>
+    <BrowserRouter>
+      <PathProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </PathProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

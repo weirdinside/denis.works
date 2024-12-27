@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
+@font-face {
+  font-family: "Flexi IBM VGA";
+  src: url(../../assets/fonts/Flexi_IBM_VGA_False.ttf);
+}
+
+.page {
+  width: 100svw;
+  height: 100svh;
+  background: rgb(59, 59, 61);
+  background: linear-gradient(
+    54deg,
+    rgb(28, 28, 30) 0%,
+    rgb(24, 24, 27) 48%,
+    rgb(43, 46, 49) 100%
+  );
+  overflow: hidden;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1cqw;
+  position: relative;
+}
+
+.page__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  mix-blend-mode: soft-light;
+  opacity: 0.2;
+  background-image: url(../../assets/images/gray-simple-textured-background-design.jpg);
+}
+
+.frame {
+  position: relative;
+  color: rgb(233, 230, 224);
+  background-color: black;
+  font-family: "Karla", sans-serif;
+  display: flex;
+  padding: 1em 3em;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: 70vh;
+  max-width: 80vw;
+}
+
+.frame__content {
+  position: absolute;
+  width: 87%;
+  height: 75%;
+  top: 9%;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(3, 7, 45, 0.488);
+}
+
+.frame__test {
+  font-family: "Flexi IBM VGA";
+  color: white;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.frame__test_OS {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  text-align: right;
+}
+
+.frame__title {
+  position: absolute;
+  bottom: 4%;
+  left: 6%;
+  font-weight: 900;
+  margin-top: auto;
+  margin-right: auto;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: clamp(15px, calc(1.5em + 10px), 35px);
+}
+
+.frame__title_heading {
+  margin: 0px;
+  padding: 0;
+}
+
+.frame__title_subheading {
+}
+
+.footer__controls {
+  display: flex;
+  flex-direction: row;
+  gap: 3%;
+  margin: 1% auto 4% 5%;
+  flex-shrink: 1;
+  width: 100%;
+  max-width: calc(100vw - 10%);
+}
+
+.footer__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  aspect-ratio: 1 / 1;
+  min-width: 60px;
+  width: clamp(60px, 8vw, 150px);
+  max-width: 150px;
+  background-image: url(../../assets/images/octatrackbutton.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+}
+
+.footer__button_label {
+  font-family: "Karla", sans-serif;
+  font-size: clamp(15px, 2em, 40px);
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: -35%;
+}
+
+.footer__knob {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  aspect-ratio: 1 / 1;
+  min-width: 60px;
+  width: clamp(60px, 8vw, 150px);
+  max-width: 150px;
+  background-image: url(../../assets/images/octatrackknob.png);
+  background-size: 200%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.dirt__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  mix-blend-mode: exclusion;
+  opacity: 0.3;
+  background-image: url(../../assets/images/photo-wall-texture-pattern.jpg);
+}

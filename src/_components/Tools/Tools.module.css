@@ -1,0 +1,66 @@
+.tools.active {
+  left: calc(55vw - 100px);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.tools__container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 19;
+}
+
+.tools {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  left: 150vw;
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.tools__postit {
+  padding: 10px 20px;
+  font-family: "Handwriting", monospace;
+  font-size: 400%;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: clamp(100px, 50%, 400px);
+  background: rgb(237, 232, 166);
+  background: linear-gradient(
+    351deg,
+    rgba(237, 232, 166, 1) 0%,
+    rgba(236, 232, 187, 1) 56%,
+    rgba(241, 238, 195, 1) 100%
+  );
+  z-index: 21;
+  left: 10%;
+  top: 50vh;
+  rotate: -5deg;
+  filter: drop-shadow(-0.5rem 0.2rem 0.2rem rgba(0, 0, 0, 0.028));
+}
+
+.tools__pages {
+  position: absolute;
+  height: 100vh;
+  top: -5vh;
+  z-index: 20;
+  rotate: 8deg;
+  background-color: #cac6be;
+  aspect-ratio: 8.5 / 11;
+  background-size: cover;
+  background-image: url(./assets/images/pagebackground.png);
+  filter: drop-shadow(-0.5rem 0.5rem 0.1rem rgba(8, 8, 8, 0.3));
+}
+
+.tools__pages_under {
+  position: absolute;
+  height: 100vh;
+  top: -5vh;
+  z-index: 19;
+  rotate: 10deg;
+  background-color: rgb(182, 176, 164);
+  aspect-ratio: 8.5 / 11;
+  filter: drop-shadow(-2rem 2rem 1rem rgb(8, 8, 8));
+}
