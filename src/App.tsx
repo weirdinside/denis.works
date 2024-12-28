@@ -30,21 +30,15 @@ export default function App() {
           <div className={styles["frame"]}>
             <div className={styles["frame__content"]}>
               <Routes>
-                <Route path="/" element={<Home></Home>}>
-                  <Route path="/contact" element={<Contact></Contact>}></Route>
-                  <Route path="/about" element={<About></About>}></Route>
-                  <Route path="/works" element={<Works></Works>}>
-                    <Route
-                      path="denis-ep"
-                      element={<ProjectDENIS></ProjectDENIS>}
-                    >
-                      <Route path="readme" element={<Readme></Readme>}></Route>
+                <Route path="/" element={<Home />}>
+                  <Route path="/contact" element={<Contact />}></Route>
+                  <Route path="/about" element={<About />}></Route>
+                  <Route path="/works" element={<Works />}>
+                    <Route path="denis-ep" element={<ProjectDENIS />}>
+                      <Route path="readme" element={<Readme />}></Route>
                       <Route path="press"></Route>
-                      <Route
-                        path="cassette"
-                        element={<TapeCanvas></TapeCanvas>}
-                      ></Route>
-                      <Route path="01-floppydisk"></Route>
+                      <Route path="cassette" element={<TapeCanvas />}></Route>
+                      <Route path="01-floppy-disk"></Route>
                       <Route path="02-password-protected"></Route>
                       <Route path="03-does-it-rain-there"></Route>
                       <Route path="04-little-goose"></Route>
@@ -53,12 +47,11 @@ export default function App() {
                     </Route>
                     <Route
                       path="the-usual"
-                      element={<ProjectTheUsual></ProjectTheUsual>}
+                      element={<ProjectTheUsual />}
                     ></Route>
                   </Route>
                 </Route>
-
-                <Route path="*" element={<NotFound></NotFound>}></Route>
+                <Route path="*" element={<NotFound />}></Route>
               </Routes>
             </div>
             <div className={styles["frame__operation"]}>

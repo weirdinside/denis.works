@@ -2,24 +2,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 
-:root {
-  margin: 0;
-  width: 100svw;
-  height: 100svh;
-  overflow: hidden;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  cursor: none !important;
-  background: linear-gradient(
-    54deg,
-    rgb(28, 28, 30) 0%,
-    rgb(24, 24, 27) 48%,
-    rgb(43, 46, 49) 100%
-  );
-}
-
 @font-face {
   font-family: "Flexi IBM VGA";
   src: url(./assets/fonts/Flexi_IBM_VGA_False.ttf);
@@ -91,10 +73,39 @@
   src: url("./assets/fonts/creatinin-pro.otf");
 }
 
+:root {
+  margin: 0;
+  width: 100svw;
+  height: 100svh;
+  overflow: hidden;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none !important;
+  background: linear-gradient(
+    54deg,
+    rgb(28, 28, 30) 0%,
+    rgb(24, 24, 27) 48%,
+    rgb(43, 46, 49) 100%
+  );
+}
+
 body {
   margin: 0;
   display: flex;
   place-items: center;
   width: 100svw;
   height: 100svh;
+}
+
+a {
+  display: flex;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+a.active {
+  background-color: #f4fffe;
+  color: black;
 }

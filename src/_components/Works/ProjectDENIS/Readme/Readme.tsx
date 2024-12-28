@@ -8,6 +8,7 @@ export default function Readme() {
       <p className={styles["page__content"]}>
         DENIS [EP] was created over the course of 6 months. Just over 50 songs
         were created during its process, though only 6 were completed.
+        <br />
       </p>
     </div>
   );

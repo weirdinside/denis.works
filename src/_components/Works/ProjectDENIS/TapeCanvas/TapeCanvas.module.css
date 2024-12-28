@@ -7,4 +7,15 @@
   justify-content: center;
   overflow-y: scroll;
   min-width: max-content;
+  position: relative;
+  font-family: "Flexi IBM VGA";
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  z-index: 2000;
+  margin: clamp(5px, 1vw, 10px);
+  font-size: clamp(15px, 5vw, 30px);
+  left: 0;
 }

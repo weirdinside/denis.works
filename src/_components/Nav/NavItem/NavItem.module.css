@@ -1,0 +1,16 @@
+.nav__list_item {
+  width: 100%;
+  padding: 4px 10px;
+  margin: 0;
+  text-wrap: nowrap;
+  border: 2px solid transparent;
+}
+
+.nav__list_item.active {
+  background-color: #f4fffe;
+  color: black;
+}
+
+.nav__list_item:hover {
+  border: 2px solid #f4fffe;
+}
