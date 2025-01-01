@@ -1,0 +1,35 @@
+.page {
+  font-family: "Flexi IBM VGA";
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  overflow-y: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.page__heading {
+  font-size: clamp(15px, 5vw, 30px);
+}
+
+.page__content {
+  font-size: clamp(15px, 3vw, 22px);
+}
+
+.page__canvas-container {
+  max-height: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+.page__canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 800px) {
+  .page__canvas-container {
+    height: auto;
+    width: 100%;
+  }
+}

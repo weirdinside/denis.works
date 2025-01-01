@@ -17,13 +17,13 @@
 .notfound__reset {
   font-family: "Flexi IBM VGA", monospace;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: #f4fffe;
+  border: 2px solid #f4fffe;
   font-size: 20px;
 }
 
 .notfound__reset:hover {
   color: black;
-  background-color: white;
+  background-color: #f4fffe;
   border: 2px solid black;
 }

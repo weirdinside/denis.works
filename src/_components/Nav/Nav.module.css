@@ -1,31 +1,34 @@
-.page {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-}
-
 .nav {
+  position: relative;
+  overflow: hidden;
   font-family: "Flexi IBM VGA";
   min-width: min-content;
   font-size: clamp(15px, 5vw, 30px);
   display: flex;
   flex-direction: column;
-  width: max-content;
+  width: 100%;
   height: 100%;
-  border-right: 2px solid #f4fffe;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .nav.hidden {
-  max-width: 0px;
-  overflow: hidden;
-  min-width: 0;
   border-right: 2px solid transparent;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.collapsed_back {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
 }
 
 .nav__list {
+  z-index: 20;
+  opacity: 1;
   list-style-type: none;
   padding: 0;
+  max-width: 1000px;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .nav__list_item {
@@ -45,4 +48,54 @@
 
 .back {
   padding: 4px 10px;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@media screen and (max-width: 1050px) {
+  .collapsed_back {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+  }
+
+  .collapsed_back__text {
+    position: absolute;
+    rotate: -90deg;
+    text-wrap: nowrap;
+    color: #f4fffe;
+    width: max-content;
+    margin: 0;
+  }
+
+  .collapsed_back:hover {
+    background-color: #f4fffe;
+  }
+
+  .collapsed_back:hover .collapsed_back__text {
+    color: black;
+  }
+
+  .nav.hidden .nav__list {
+    position: absolute;
+    opacity: 0;
+    z-index: -999;
+    max-width: 0px;
+    height: 0px;
+  }
+
+  .nav {
+    min-height: 100%;
+    width: min-content;
+  }
+
+  .nav.hidden .back {
+    max-width: 0px;
+    max-height: 0px;
+    position: absolute;
+  }
 }

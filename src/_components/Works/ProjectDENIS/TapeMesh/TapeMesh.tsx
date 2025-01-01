@@ -1,14 +1,23 @@
 import { useGLTF } from "@react-three/drei";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { dispose } from "@react-three/fiber";
 
-export default function TapeMesh(props: any) {
+export default function TapeMesh() {
   const meshRef = useRef();
 
-  const { nodes } = useGLTF("/tape_objconverted.glb");
+  const url = "/tape_objconverted.glb";
+
+  const { scene } = useGLTF(url);
+  useEffect(() => {
+    return () => {
+      dispose(scene);
+      useGLTF.clear(url);
+    };
+  }, [url]);
 
   return (
-    <primitive {...props} ref={meshRef} object={nodes.Top}>
-      <boxGeometry args={[1, 1, 1]} />
+    <primitive ref={meshRef} object={scene}>
+      <boxGeometry args={[0.5, 0.5, 0.5]} />
     </primitive>
   );
 }

@@ -10,7 +10,6 @@ export default function Tools({
     <div
       onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        console.log(e.target);
         const divTarget = e.target as HTMLDivElement;
         if (
           divTarget.classList.contains(styles["tools__container"]) &&

@@ -2,22 +2,11 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  width: 100%;
-}
-
-.nav {
-  font-family: "Flexi IBM VGA";
-  font-size: clamp(15px, 5vw, 30px);
-  display: flex;
-  flex-direction: column;
   width: max-content;
-  text-wrap: nowrap;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  max-width: 100%;
-  height: 100%;
+  overflow: hidden;
   border-right: 2px solid #f4fffe;
 }
+
 .frame {
   width: 100%;
   height: 100%;
@@ -26,31 +15,7 @@
   color: #f4fffe;
 }
 
-.nav {
-  font-family: "Flexi IBM VGA";
-  font-size: clamp(15px, 5vw, 30px);
-}
-
-.nav__list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.nav__list_item {
-  padding: 4px 10px;
-  margin: 0;
-  border: 2px solid transparent;
-}
-
-.nav__list_item.active {
-  background-color: #f4fffe;
-  color: black;
-}
-
-.nav__list_item:hover {
-  border: 2px solid #f4fffe;
-}
-
-.back {
-  padding: 4px 10px;
+.page.hidden {
+  max-width: min-content;
+  overflow: hidden;
 }

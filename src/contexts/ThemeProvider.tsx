@@ -26,7 +26,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [isDarkMode, setDarkMode] = useState<boolean>(getInitialTheme());
 
   function toggleColorMode() {
-    console.log(isDarkMode)
     return setDarkMode((prev) => !prev);
   }
 

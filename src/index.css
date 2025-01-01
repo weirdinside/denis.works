@@ -82,7 +82,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none !important;
   background: linear-gradient(
     54deg,
     rgb(28, 28, 30) 0%,
@@ -97,6 +96,7 @@ body {
   place-items: center;
   width: 100svw;
   height: 100svh;
+  font-family: "Flexi IBM VGA", monospace;
 }
 
 a {
@@ -108,4 +108,22 @@ a {
 a.active {
   background-color: #f4fffe;
   color: black;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
