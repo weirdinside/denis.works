@@ -43,7 +43,11 @@ export default function PasswordProtected() {
           <EffectComposer>
             <ASCII invert={true} cellSize={3}></ASCII>
           </EffectComposer>
-          <OrbitControls autoRotate={true} enableZoom={false} />
+          <OrbitControls
+            enablePan={false}
+            autoRotate={true}
+            enableZoom={false}
+          />
           <ambientLight intensity={0.5} />
           <Suspense fallback={null}>
             <Image image={pswdProtectedArt} />

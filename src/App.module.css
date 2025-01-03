@@ -36,8 +36,8 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 92vw;
-  height: 95vh;
+  width: 92svw;
+  height: 95svh;
   max-height: 1000px;
   margin: 0;
   padding: 0;
@@ -142,6 +142,16 @@
   transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.button:active {
+  background-size: 90%;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.button:active .button__icon {
+  transform: scale(0.85);
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 .button:hover {
   border: 2px solid rgb(255, 255, 255);
   transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -155,6 +165,39 @@
   bottom: -25px;
   margin: 0;
   padding: 0;
+}
+
+.button__icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.625);
+  z-index: 4;
+}
+
+.icon__container_glow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  color: rgba(241, 241, 241, 0.423);
+  z-index: 3;
+  filter: blur(1px);
 }
 
 @media screen and (max-height: 800px) and (min-width: 615px) {
@@ -209,7 +252,8 @@
   .page__content {
     margin: 10px 10px;
     flex-direction: row-reverse;
-    width: 100vw;
+    width: 100svw;
+    height: 95svh;
   }
 
   .screen__header_title {

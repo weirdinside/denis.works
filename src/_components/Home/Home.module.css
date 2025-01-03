@@ -13,14 +13,14 @@
   height: 100%;
   max-width: 1000px;
   border-right: 2px solid #f4fffe;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1); */
 }
 
 .page.hidden {
   max-width: 0px;
   overflow: hidden;
   border-right: 0px solid transparent;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1); */
 }
 
 .folder {

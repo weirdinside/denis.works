@@ -51,14 +51,14 @@ export const worksNavItems = [
 export const homeNavItems = [
   {
     name: "works",
-    slug: "/works",
+    slug: "works",
   },
   {
     name: "about",
-    slug: "/about",
+    slug: "about",
   },
   {
     name: "contact",
-    slug: "/contact",
+    slug: "contact",
   },
 ];

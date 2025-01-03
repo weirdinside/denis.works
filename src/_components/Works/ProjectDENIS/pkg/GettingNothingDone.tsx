@@ -19,6 +19,8 @@ export default function GettingNothingDone() {
       <h1 className={styles["page__heading"]}>GETTING NOTHING DONE</h1>
       <div className={styles["page__content"]}>
         <p className={styles["page__text"]}>
+          lyrics <br />
+          <br />
           Nothing works <br /> These bolts, they don't turn into their holes{" "}
           <br /> Remember where they went? <br /> Tried to make things make
           sense but <br /> Nothing works <br /> Looped into a curse I can't

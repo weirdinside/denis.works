@@ -30,7 +30,11 @@ export default function PasswordProtected() {
       </div>
       <div className={styles["page__canvas-container"]}>
         <Canvas className={styles["page__canvas"]}>
-          <OrbitControls autoRotate={true} enableZoom={false} />
+          <OrbitControls
+            enablePan={false}
+            autoRotate={true}
+            enableZoom={false}
+          />
 
           <EffectComposer>
             <ASCII cellSize={10}></ASCII>

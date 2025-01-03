@@ -51,6 +51,11 @@
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.back:hover {
+  background-color: #f4fffe;
+  color: black;
+}
+
 @media screen and (max-width: 1050px) {
   .collapsed_back {
     position: relative;

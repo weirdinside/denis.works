@@ -1,0 +1,100 @@
+.button {
+  border-radius: 17%;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  aspect-ratio: 1 / 1;
+  min-width: 60px;
+  width: clamp(67px, 8vw, 100px);
+  max-width: 150px;
+  background-image: url(../../assets/images/octatrackbutton.png);
+  background-size: 110%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.button:active {
+  background-size: 90%;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.button:active .button__icon {
+  transform: scale(0.85);
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.button:hover {
+  border: 2px solid rgb(255, 255, 255);
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.button__title {
+  position: absolute;
+  font-size: clamp(12px, 2vw, 20px);
+  margin: clamp(10px, 2.5vw, 40px) 5%;
+  font-weight: 400;
+  bottom: -25px;
+  margin: 0;
+  padding: 0;
+}
+
+.button__icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.625);
+  z-index: 4;
+}
+
+.icon__container_glow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  color: rgba(241, 241, 241, 0.423);
+  z-index: 3;
+  filter: blur(1px);
+}
+
+@media screen and (max-height: 800px) and (min-width: 615px) {
+  .button__title {
+    visibility: hidden;
+  }
+
+  .button {
+    width: auto;
+    min-width: 0px;
+    height: clamp(20px, 15vh, 150px);
+  }
+}
+
+@media screen and (max-height: 600px) and (max-width: 615px) {
+  .button__title {
+    visibility: hidden;
+  }
+
+  .button {
+    min-width: 0px;
+    width: auto;
+    height: clamp(10px, 14vh, 150px);
+  }
+}

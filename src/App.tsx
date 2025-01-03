@@ -1,11 +1,12 @@
 import styles from "./App.module.css";
 
 import { AnimatePresence } from "motion/react";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Home from "./_components/Home/Home";
 import NotFound from "./_components/NotFound/NotFound";
 
+import Button from "./_components/Button/Button";
 import Works from "./_components/Works/Works";
 
 import ProjectDENIS from "./_components/Works/ProjectDENIS/ProjectDENIS";
@@ -23,6 +24,9 @@ import GettingNothingDone from "./_components/Works/ProjectDENIS/pkg/GettingNoth
 import LittleGoose from "./_components/Works/ProjectDENIS/pkg/LittleGoose";
 import LookAtTheSun from "./_components/Works/ProjectDENIS/pkg/LookAtTheSun";
 import PasswordProtected from "./_components/Works/ProjectDENIS/pkg/PasswordProtected";
+
+import { FaToolbox } from "react-icons/fa";
+import { MdEmail, MdHome, MdInfo, MdPhotoCamera } from "react-icons/md";
 
 function LocationProvider({ children }: { children: React.ReactNode }) {
   return <AnimatePresence mode="wait">{children}</AnimatePresence>;
@@ -93,33 +97,37 @@ export default function App() {
           </h1>
         </div>
         <div className={styles["buttons"]}>
-          <Link className={styles["button"]} to="/">
-            <div className={styles["button"]}>
-              <p className={styles["button__title"]}>Home</p>
-            </div>
-          </Link>
-          <div className={styles["button"]}>
-            <p className={styles["button__title"]}>Tools</p>
-          </div>
-          <Link className={styles["button"]} to="/about">
-            <div className={styles["button"]}>
-              <p className={styles["button__title"]}>About</p>
-            </div>
-          </Link>{" "}
-          <Link className={styles["button"]} to="/contact">
-            <div className={styles["button"]}>
-              <p className={styles["button__title"]}>Contact</p>
-            </div>
-          </Link>{" "}
-          <Link
-            className={styles["button"]}
-            target="_blank"
-            to="https://instagram.com/denisbiblioni"
-          >
-            <div className={styles["button"]}>
-              <p className={styles["button__title"]}>Photo</p>
-            </div>
-          </Link>
+          <Button
+            title="Home"
+            path="home"
+            icon={<MdHome />}
+            size="50%"
+          ></Button>
+          <Button
+            title="Works"
+            path="works"
+            icon={<FaToolbox />}
+            size="50%"
+          ></Button>
+          <Button
+            title="About"
+            path="about"
+            icon={<MdInfo />}
+            size="50%"
+          ></Button>
+          <Button
+            title="Contact"
+            path="contact"
+            icon={<MdEmail />}
+            size="50%"
+          ></Button>
+          <Button
+            newPage={true}
+            title="Photo"
+            path="https://instagram.com/denisbiblioni"
+            icon={<MdPhotoCamera />}
+            size="50%"
+          ></Button>
         </div>
       </div>
     </div>

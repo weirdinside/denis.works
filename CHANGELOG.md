@@ -31,16 +31,26 @@
 
 - ~~remaining tasks from 0.1.1~~
 
-## [0.1.2] - January 1st, 2025
+## [0.1.3] - January 1st, 2025
 
 - added transitions between routes
 - wrote more copy for certain pages (mainly PRESS.md from DENIS EP)
 - changed behavior of images on certain pages to be static, and added color underlay/overlay for ASCII (possibly re-implement with p5.js? no need to use 3JS / R3F here)
-- more screensize optimization
+- more mobile optimization
 
 ### TODO
 
-- debug route exits not working in framer-motion
-- add icons on buttons for navigation and style 'glow' when active
+- ~~debug route exits not working in framer-motion~~ convert to RTG instead??
+- ~~add icons on buttons for navigation and style 'glow' when active~~
 - simplify component logic for .pkg routes
-  - add motion.div templates for these
+  - ~~add motion.div templates for these~~ might not be necessary if using RTG
+
+## [1.1.4] - January 3rd, 2025 [*DEPLOYMENT BUILD*]
+
+- added icons to buttons for page navigation
+- changed parts of mobile styling to better fit on small devices
+
+### TODO
+
+- remaining tasks from 0.1.3
+- audio player design + implementation
