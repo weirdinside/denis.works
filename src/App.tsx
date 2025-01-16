@@ -1,10 +1,12 @@
 import styles from "./App.module.css";
 
 import { AnimatePresence } from "motion/react";
+import React, { useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import Home from "./_components/Home/Home";
 import NotFound from "./_components/NotFound/NotFound";
+import TapePlayer from "./_components/TapePlayer/TapePlayer";
 
 import Button from "./_components/Button/Button";
 import Works from "./_components/Works/Works";
@@ -26,18 +28,60 @@ import LookAtTheSun from "./_components/Works/ProjectDENIS/pkg/LookAtTheSun";
 import PasswordProtected from "./_components/Works/ProjectDENIS/pkg/PasswordProtected";
 
 import { FaToolbox } from "react-icons/fa";
-import { MdEmail, MdHome, MdInfo, MdPhotoCamera } from "react-icons/md";
+import { MdEmail, MdHome, MdInfo } from "react-icons/md";
+import { PiCassetteTapeFill } from "react-icons/pi";
+
+type PlayerStateType = "stopped" | "playing" | "paused";
 
 function LocationProvider({ children }: { children: React.ReactNode }) {
   return <AnimatePresence mode="wait">{children}</AnimatePresence>;
 }
 
-function RoutesWithAnimation() {
+function RoutesWithAnimation({
+  audioPlayerRef,
+  playbackSpeed,
+  volume,
+  currentFile,
+  setCurrentFile,
+  setVolume,
+  setPlaybackSpeed,
+  setPlayerState,
+  playerState,
+  currentTime,
+}: {
+  audioPlayerRef: React.RefObject<HTMLAudioElement | null>;
+  playbackSpeed: number;
+  volume: number;
+  currentFile: string;
+  setCurrentFile: (arg0: string) => void;
+  setVolume: (arg0: number) => void;
+  setPlaybackSpeed: (arg0: number) => void;
+  setPlayerState: (arg0: PlayerStateType) => void;
+  playerState: PlayerStateType;
+  currentTime: number;
+}) {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
       <Routes location={location}>
         <Route path="/" element={<Home />}>
+          <Route
+            path="/tape"
+            element={
+              <TapePlayer
+                currentFile={currentFile}
+                setCurrentFile={setCurrentFile}
+                volume={volume}
+                setVolume={setVolume}
+                currentTime={currentTime}
+                playerState={playerState}
+                setPlayerState={setPlayerState}
+                playbackSpeed={playbackSpeed}
+                setPlaybackSpeed={setPlaybackSpeed}
+                audioPlayerRef={audioPlayerRef}
+              />
+            }
+          ></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/works" element={<Works />}>
@@ -75,8 +119,33 @@ function RoutesWithAnimation() {
 }
 
 export default function App() {
+  const audioPlayerRef = useRef<HTMLAudioElement>(null);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [playerState, setPlayerState] = useState<PlayerStateType>("stopped");
+  const [volume, setVolume] = useState<number>(1);
+
+  const [currentFile, setCurrentFile] = useState<number>(0);
+
+  function handleUpdateTime() {
+    if (audioPlayerRef.current) {
+      setCurrentTime(audioPlayerRef.current.currentTime);
+    }
+  }
+
   return (
     <div className={styles["page"]}>
+      <audio
+        onTimeUpdate={handleUpdateTime}
+        onPlay={() => {
+          setPlayerState("playing");
+        }}
+        onPause={() => {
+          setPlayerState("paused");
+        }}
+        ref={audioPlayerRef}
+        src="/music/denis biblioni - getting nothing done.mp3"
+      ></audio>
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>
         <div className={styles["screen"]}>
@@ -88,7 +157,18 @@ export default function App() {
           <div className={styles["frame"]}>
             <div className={styles["frame__content"]}>
               <LocationProvider>
-                <RoutesWithAnimation />
+                <RoutesWithAnimation
+                  currentFile={currentFile}
+                  setCurrentFile={setCurrentFile}
+                  volume={volume}
+                  setVolume={setVolume}
+                  currentTime={currentTime}
+                  playerState={playerState}
+                  setPlayerState={setPlayerState}
+                  playbackSpeed={playbackSpeed}
+                  setPlaybackSpeed={setPlaybackSpeed}
+                  audioPlayerRef={audioPlayerRef}
+                />
               </LocationProvider>
             </div>
           </div>
@@ -122,10 +202,9 @@ export default function App() {
             size="50%"
           ></Button>
           <Button
-            newPage={true}
-            title="Photo"
-            path="https://instagram.com/denisbiblioni"
-            icon={<MdPhotoCamera />}
+            title="Audio"
+            path="tape"
+            icon={<PiCassetteTapeFill />}
             size="50%"
           ></Button>
         </div>

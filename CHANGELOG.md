@@ -53,4 +53,12 @@
 ### TODO
 
 - remaining tasks from 0.1.3
-- audio player design + implementation
+- ~~audio player design + implementation~~
+
+## [1.2.0] - January 7th, 2025
+
+- implemented audio player
+
+### TODO
+
+-

@@ -1,7 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { PathContext } from "../../contexts/LocationContext";
 import styles from "./Nav.module.css";
 import NavItem from "./NavItem/NavItem";
 

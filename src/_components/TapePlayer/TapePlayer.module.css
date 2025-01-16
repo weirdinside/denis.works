@@ -1,0 +1,190 @@
+.page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  font-family: "Flexi IBM VGA", monospace;
+}
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.page__header {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.header__title {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.2em 1.4em;
+  align-items: flex-start;
+  font-size: clamp(15px, 5vw, 40px);
+}
+
+.knobs {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+}
+
+.knob {
+  width: 80px;
+}
+
+.page__header_sub {
+  font-size: 50%;
+}
+
+.page__content_player {
+  padding: 0.2em 1.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tape__visual {
+  aspect-ratio: 8 / 5;
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tape__main {
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+  background-size: contain;
+  background-image: url("/keyedFullTape.png");
+}
+
+@keyframes rotateReel {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.tape__reel {
+  background-image: url("/keyedNuts.png");
+  width: 8%;
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  background-size: contain;
+}
+
+.tape__reel.left {
+  left: 28.3%;
+  top: 38.3%;
+}
+
+.tape__reel.right {
+  right: 28.2%;
+  top: 38.3%;
+}
+
+.tape__reel.playing {
+  animation: 1s rotateReel linear infinite;
+}
+
+.player__buttons {
+  padding: 0.2em 2em;
+  max-width: 300px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button {
+  min-height: 30px;
+  aspect-ratio: 4/3;
+  border: 4px solid #f4fffe;
+  background-color: transparent;
+  color: #f4fffe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  color: black;
+  background-color: #f4fffe;
+}
+
+.button.active {
+  color: black;
+  background-color: #f4fffea7;
+}
+
+.header__knobs {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10%;
+  font-size: clamp(10px, 0.8em, 20px);
+  margin-top: 20px;
+}
+
+.header__detail {
+  margin: 0;
+  padding: 0;
+}
+
+.header__knob {
+  aspect-ratio: 1 / 1;
+  height: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.knob__indicator {
+  background-image: url("/knobIndicator.png");
+  width: 100%;
+  height: 100%;
+  background-size: 200%;
+  rotate: 110deg;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+.knob__outline {
+  background-image: url("/knobOutline.png");
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: 200%;
+  background-repeat: no-repeat;
+  position: absolute;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+.knob__title {
+  font-size: 50%;
+  position: absolute;
+  bottom: -10px;
+}

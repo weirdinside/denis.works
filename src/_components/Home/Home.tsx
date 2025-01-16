@@ -23,7 +23,7 @@ export default function Home() {
           style={paths[2] ? { borderRight: "2px solid transparent" } : {}}
           className={`${styles["page"]}  ${paths[1] && styles["hidden"]}`}
         >
-          {!["about", "contact"].includes(paths[0]) && (
+          {!["about", "contact", "tape"].includes(paths[0]) && (
             <div className={styles["folder"]}></div>
           )}
           {!paths[2] && (
@@ -32,7 +32,8 @@ export default function Home() {
               collapse={
                 Boolean(paths[1]) ||
                 paths[0] === "about" ||
-                paths[0] === "contact"
+                paths[0] === "contact" ||
+                paths[0] === "tape"
               }
               renderBack={false}
               navItems={homeNavItems}

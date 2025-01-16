@@ -62,3 +62,30 @@ export const homeNavItems = [
     slug: "contact",
   },
 ];
+
+export const songsArray = [
+  {
+    title: "floppy disk",
+    url: "/music/denis biblioni - floppy disk.mp3",
+  },
+  {
+    title: "password protected",
+    url: "/music/denis biblioni - password protected.mp3",
+  },
+  {
+    title: "does it rain there",
+    url: "/music/denis biblioni - does it rain there.mp3",
+  },
+  {
+    title: "little goose",
+    url: "/music/denis biblioni - little goose.mp3",
+  },
+  {
+    title: "look at the sun",
+    url: "/music/denis biblioni - look at the sun.mp3",
+  },
+  {
+    title: "the usual*",
+    url: "/music/denis biblioni - the usual_",
+  },
+];

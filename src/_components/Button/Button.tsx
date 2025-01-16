@@ -17,7 +17,6 @@ export default function Button({
   size: string;
 }) {
   let { paths } = useContext(PathContext);
-  console.log(paths);
   if (paths.includes("")) {
     paths = ["home"];
   }
