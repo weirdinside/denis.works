@@ -11,6 +11,9 @@ export default function Contact() {
         <h1 className={styles["page__heading"]}>CONTACT</h1>
         <div className={styles["page__content"]}>
           <p className={styles["page__text"]}>
+            <a href="https://instagram.com/denisbiblioni">instagram</a>
+          </p>
+          <p className={styles["page__text"]}>
             <a href="mailto:denisbiblioni@gmail.com">email me</a>
           </p>
         </div>

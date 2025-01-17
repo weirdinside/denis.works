@@ -1,7 +1,9 @@
 .page {
   display: flex;
   width: 100%;
-  height: 100%;
+  min-height: max-content;
+  overflow-y: scroll;
+  overflow-x: hidden;
   font-family: "Flexi IBM VGA", monospace;
 }
 
@@ -9,12 +11,16 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .page__header {
   display: flex;
+  margin: 0;
   flex-direction: row;
-  width: 90%;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -23,6 +29,7 @@
   justify-content: center;
   flex-direction: column;
   padding: 0.2em 1.4em;
+  margin: 10px 0 4px 0;
   align-items: flex-start;
   font-size: clamp(15px, 5vw, 40px);
 }
@@ -31,10 +38,12 @@
   display: flex;
   flex-direction: row;
   height: max-content;
+  align-items: center;
+  justify-content: center;
 }
 
 .knob {
-  width: 80px;
+  width: 130px;
 }
 
 .page__header_sub {
@@ -44,7 +53,7 @@
 .page__content_player {
   padding: 0.2em 1.4em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -64,6 +73,8 @@
 .tape__main {
   width: 100%;
   object-fit: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 100%;
   background-size: contain;
   background-image: url("/keyedFullTape.png");
@@ -86,14 +97,36 @@
   background-size: contain;
 }
 
+.song-selector {
+  border: 2px solid #f4fffe;
+  margin: 20px 0 20px 0;
+  width: 90%;
+  max-width: 200px;
+}
+
+.song-selector__block.active {
+  background-color: #f4fffe;
+  color: black;
+}
+
+.song-selector__block {
+  padding: 2px 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.song-selector__block:hover {
+  border: 2px solid #f4fffe;
+}
+
 .tape__reel.left {
   left: 28.3%;
-  top: 38.3%;
+  top: 40.4%;
 }
 
 .tape__reel.right {
   right: 28.2%;
-  top: 38.3%;
+  top: 40.3%;
 }
 
 .tape__reel.playing {
@@ -102,11 +135,13 @@
 
 .player__buttons {
   padding: 0.2em 2em;
+  margin-top: 20px;
   max-width: 300px;
   gap: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  user-select: none;
 }
 
 .button {
@@ -118,6 +153,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .button:hover {
@@ -130,28 +166,21 @@
   background-color: #f4fffea7;
 }
 
-.header__knobs {
-  height: 100%;
+.knob__container {
+  max-height: fit-content;
+  max-width: fit-content;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 10%;
-  font-size: clamp(10px, 0.8em, 20px);
-  margin-top: 20px;
-}
-
-.header__detail {
-  margin: 0;
-  padding: 0;
-}
-
-.header__knob {
-  aspect-ratio: 1 / 1;
-  height: 50%;
-  position: relative;
-  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.knob__label {
+  text-align: center;
+  margin: 0;
+  margin-top: -20px;
+  padding: 0;
+  font-size: clamp(8px, 0.6em, 20px);
 }
 
 .knob__indicator {
@@ -187,4 +216,12 @@
   font-size: 50%;
   position: absolute;
   bottom: -10px;
+}
+
+@media screen and (max-width: 830px) {
+  .page__content_player {
+    flex-direction: column;
+  }
+  .controls__container {
+  }
 }

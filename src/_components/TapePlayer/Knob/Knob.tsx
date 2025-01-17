@@ -9,18 +9,14 @@ import styles from "./Knob.module.css";
 
 export default function Knob({
   value,
-  preset,
   setValue,
   startValue = 0,
   endValue = 12,
-  defaultValue = startValue,
+  // defaultValue = startValue,
   startAngle = -180,
   endAngle = startAngle + 360,
   snap = true,
   step = 0.01,
-  overflow = false,
-  outline,
-  indicator,
 }: {
   value: number;
   setValue: (arg0: number) => void;
@@ -38,7 +34,7 @@ export default function Knob({
   indicator?: string;
 }) {
   const [knobRotation, setKnobRotation] = useState<number>(0);
-  const [clickedRecently, setClickedRecently] = useState<boolean>(false);
+  // const [clickedRecently, setClickedRecently] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [windowDimensions, setWindowDimensions] = useState<{
     x: number;
@@ -46,7 +42,7 @@ export default function Knob({
   }>({ x: 0, y: 0 });
 
   const knobRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<number>();
+  // const timeoutRef = useRef<number>();
 
   // infinite roll logic:
   // if the angle is less than 180 from the endAngle (360 after normalization), overflow into the next zone
@@ -63,20 +59,21 @@ export default function Knob({
     );
   }
 
-  function clearRotation() {
-    if (clickedRecently) {
-      setClickedRecently(false);
-      clearTimeout(timeoutRef.current);
-      setRotationWithValue(defaultValue);
-      setValue(defaultValue);
-    } else {
-      setClickedRecently(true);
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        setClickedRecently(false);
-      }, 800);
-    }
-  }
+  // function clearRotation() {
+  //   if (clickedRecently) {
+  //     console.log("yep");
+  //     setClickedRecently(false);
+  //     clearTimeout(timeoutRef.current);
+  //     setRotationWithValue(defaultValue);
+  //     setValue(defaultValue);
+  //   } else {
+  //     setClickedRecently(true);
+  //     clearTimeout(timeoutRef.current);
+  //     timeoutRef.current = setTimeout(() => {
+  //       setClickedRecently(false);
+  //     }, 800);
+  //   }
+  // }
 
   function validateAngle() {
     // if the startAngle + 360 is >= than the endAngle, we're safe: 0-360 can be the endAngle without problems
@@ -167,7 +164,9 @@ export default function Knob({
 
   useEffect(
     function setPreventerDimensionsOnResize() {
-      setWindowDimensions({ x: window.innerWidth, y: window.innerHeight });
+      const xVal = window.innerWidth;
+      const yVal = window.innerHeight;
+      setWindowDimensions({ x: xVal, y: yVal });
     },
     [window.innerHeight, window.innerWidth],
   );
@@ -175,17 +174,30 @@ export default function Knob({
   return (
     <div
       ref={knobRef}
-      onTouchStart={() => {
+      onPointerDown={() => {
         setIsClicked(true);
-        clearRotation();
+      }}
+      onPointerUp={() => {
+        setIsClicked(false);
+      }}
+      onTouchStart={(e) => {
+        setIsClicked(true);
+        handleTouchRotate(e);
       }}
       onTouchMove={(e) => {
         handleTouchRotate(e);
       }}
-      onTouchEnd={() => {}}
-      onMouseDown={() => {
+      onTouchCancel={(e) => {
+        setIsClicked(false);
+        handleTouchRotate(e);
+      }}
+      onTouchEnd={(e) => {
+        setIsClicked(false);
+        handleTouchRotate(e);
+      }}
+      onMouseDown={(e) => {
         setIsClicked(true);
-        clearRotation();
+        handleMouseRotate(e);
       }}
       onMouseMove={(e) => {
         handleMouseRotate(e);
@@ -198,12 +210,20 @@ export default function Knob({
         className={styles["knob__indicator"]}
       ></div>
       <div
-        onMouseUp={() => {
+        onPointerUp={() => {
           setIsClicked(false);
+        }}
+        onTouchEnd={(e) => {
+          setIsClicked(false);
+          handleTouchRotate(e);
+        }}
+        onMouseUp={(e) => {
+          setIsClicked(false);
+          handleMouseRotate(e);
         }}
         style={{
           visibility: `${isClicked ? "visible" : "hidden"}`,
-          zIndex: `${isClicked ? "20" : "-200"}`,
+          zIndex: `${isClicked ? "3" : "-200"}`,
           position: "fixed",
           width: `${windowDimensions.x}px`,
           height: `${windowDimensions.y}px`,

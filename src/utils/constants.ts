@@ -66,26 +66,37 @@ export const homeNavItems = [
 export const songsArray = [
   {
     title: "floppy disk",
-    url: "/music/denis biblioni - floppy disk.mp3",
+    url: "/music/floppy disk.mp3",
+    inst: "/music/denis biblioni - floppy disk (instrumental).mp3",
   },
   {
     title: "password protected",
-    url: "/music/denis biblioni - password protected.mp3",
+    url: "/music/password protected.mp3",
+    inst: "/music/password protected (instrumental).mp3",
   },
   {
     title: "does it rain there",
-    url: "/music/denis biblioni - does it rain there.mp3",
+    url: "/music/does it rain there.mp3",
+    inst: "/music/does it rain there (instrumental).mp3",
   },
   {
     title: "little goose",
-    url: "/music/denis biblioni - little goose.mp3",
+    url: "/music/little goose.mp3",
+    inst: "/music/little goose (instrumental).mp3",
+  },
+  {
+    title: "getting nothing done",
+    url: "/music/getting nothing done.mp3",
+    inst: "/music/getting nothing done (instrumental).mp3",
   },
   {
     title: "look at the sun",
-    url: "/music/denis biblioni - look at the sun.mp3",
+    url: "/music/look at the sun.mp3",
+    inst: "/music/look at the sun.mp3",
   },
   {
     title: "the usual*",
-    url: "/music/denis biblioni - the usual_",
+    url: "/music/the usual_.mp3",
+    inst: "/music/the usual_.mp3",
   },
 ];

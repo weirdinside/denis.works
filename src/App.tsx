@@ -39,17 +39,19 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
 
 function RoutesWithAnimation({
   audioPlayerRef,
+
   playbackSpeed,
   volume,
   currentFile,
+
   setCurrentFile,
   setVolume,
   setPlaybackSpeed,
   setPlayerState,
   playerState,
-  currentTime,
 }: {
   audioPlayerRef: React.RefObject<HTMLAudioElement | null>;
+
   playbackSpeed: number;
   volume: number;
   currentFile: string;
@@ -58,7 +60,6 @@ function RoutesWithAnimation({
   setPlaybackSpeed: (arg0: number) => void;
   setPlayerState: (arg0: PlayerStateType) => void;
   playerState: PlayerStateType;
-  currentTime: number;
 }) {
   const location = useLocation();
   return (
@@ -73,7 +74,6 @@ function RoutesWithAnimation({
                 setCurrentFile={setCurrentFile}
                 volume={volume}
                 setVolume={setVolume}
-                currentTime={currentTime}
                 playerState={playerState}
                 setPlayerState={setPlayerState}
                 playbackSpeed={playbackSpeed}
@@ -120,23 +120,22 @@ function RoutesWithAnimation({
 
 export default function App() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
+
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
-  const [currentTime, setCurrentTime] = useState<number>(0);
   const [playerState, setPlayerState] = useState<PlayerStateType>("stopped");
   const [volume, setVolume] = useState<number>(1);
 
-  const [currentFile, setCurrentFile] = useState<number>(0);
-
-  function handleUpdateTime() {
-    if (audioPlayerRef.current) {
-      setCurrentTime(audioPlayerRef.current.currentTime);
-    }
-  }
+  const [currentFile, setCurrentFile] = useState<string>("");
 
   return (
     <div className={styles["page"]}>
       <audio
-        onTimeUpdate={handleUpdateTime}
+        onLoadedData={() => {
+          audioPlayerRef.current?.play();
+        }}
+        onEnded={() => {
+          setPlayerState("stopped");
+        }}
         onPlay={() => {
           setPlayerState("playing");
         }}
@@ -144,7 +143,7 @@ export default function App() {
           setPlayerState("paused");
         }}
         ref={audioPlayerRef}
-        src="/music/denis biblioni - getting nothing done.mp3"
+        src={currentFile}
       ></audio>
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>
@@ -162,7 +161,6 @@ export default function App() {
                   setCurrentFile={setCurrentFile}
                   volume={volume}
                   setVolume={setVolume}
-                  currentTime={currentTime}
                   playerState={playerState}
                   setPlayerState={setPlayerState}
                   playbackSpeed={playbackSpeed}

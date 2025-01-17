@@ -55,10 +55,11 @@
 - remaining tasks from 0.1.3
 - ~~audio player design + implementation~~
 
-## [1.2.0] - January 7th, 2025
+## [1.2.0] - January 17th, 2025
 
-- implemented audio player
+- implemented audio player in rudimentary fashion
+- doesn't really work on mobile that well, maybe you need to use audioCtx
 
 ### TODO
 
--
+- redo audio player implementation and figure out a better design possibly

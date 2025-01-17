@@ -13,7 +13,7 @@ export default function TapeMesh() {
       dispose(scene);
       useGLTF.clear(url);
     };
-  }, [url]);
+  }, [scene, url]);
 
   return (
     <primitive ref={meshRef} object={scene}>

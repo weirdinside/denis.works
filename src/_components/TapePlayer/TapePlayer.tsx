@@ -1,7 +1,8 @@
 import styles from "./TapePlayer.module.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { MdFastForward, MdPlayArrow, MdPause, MdStop } from "react-icons/md";
 import Knob from "./Knob/Knob";
+import { songsArray } from "../../utils/constants";
 
 type PlayerStateType = "stopped" | "playing" | "paused";
 
@@ -15,7 +16,6 @@ export default function TapePlayer({
   setVolume,
   setPlaybackSpeed,
   setPlayerState,
-  currentTime,
 }: {
   audioPlayerRef: React.RefObject<HTMLAudioElement | null>;
   playbackSpeed: number;
@@ -26,14 +26,13 @@ export default function TapePlayer({
   playerState: PlayerStateType;
   setPlaybackSpeed: (arg0: number) => void;
   setPlayerState: (arg0: PlayerStateType) => void;
-  currentTime: number;
 }) {
   const [cachedPlaybackSpeed, setCachedSpeed] = useState<number>(1);
-  const [cachedVolume, setCachedVolume] = useState<number>(1);
-  const [speedRotation, setSpeedRotation] = useState<number>(0);
 
   function playAudio() {
-    audioPlayerRef.current!.play();
+    audioPlayerRef.current!.play().catch(() => {
+      setPlayerState("stopped");
+    });
     audioPlayerRef.current!.playbackRate = playbackSpeed;
     audioPlayerRef.current!.volume = volume;
     setPlayerState("playing");
@@ -45,18 +44,19 @@ export default function TapePlayer({
   }
 
   function stopAudio() {
-    setPlayerState("stopped");
     audioPlayerRef.current!.pause();
     audioPlayerRef.current!.currentTime = 0;
+    setPlayerState("stopped");
   }
 
   useEffect(
     function setCurrentVolume() {
+      const currentVolume = volume;
       if (audioPlayerRef.current) {
-        audioPlayerRef.current.volume = volume;
+        audioPlayerRef.current.volume = currentVolume;
       }
     },
-    [volume, audioPlayerRef],
+    [volume],
   );
 
   useEffect(
@@ -83,27 +83,11 @@ export default function TapePlayer({
               DEVELOPER = AB@WI_2025
             </span>
           </h1>
-
-          <div className={styles["header__knobs"]}>
-            <label
-              className={styles["header__detail"]}
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              speed {Math.round(playbackSpeed * 100)}%
-            </label>
-            <label
-              className={styles["header__detail"]}
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              volume {Math.round(volume * 100)}%
-            </label>
-          </div>
         </div>
 
         <div className={styles["page__content_player"]}>
           <div className={styles["tape__visual"]}>
             <div className={styles["tape__main"]}></div>
-
             <div
               className={`${styles["tape__reel"]} ${styles["left"]} ${
                 playerState === "playing" && styles["playing"]
@@ -115,80 +99,119 @@ export default function TapePlayer({
               }`}
             ></div>
           </div>
-          <div className={styles["knobs"]}>
-            <div className={styles["knob"]}>
-              <Knob
-                startAngle={-140}
-                endAngle={140}
-                startValue={0.5}
-                endValue={1.5}
-                defaultValue={playbackSpeed}
-                snap={true}
-                step={0.01}
-                value={playbackSpeed}
-                setValue={setPlaybackSpeed}
-              ></Knob>
+          <div className={styles["controls__container"]}>
+            <div className={styles["knobs"]}>
+              <div className={styles["knob__container"]}>
+                <div className={styles["knob"]}>
+                  <Knob
+                    startAngle={-140}
+                    endAngle={140}
+                    startValue={0.5}
+                    endValue={1.5}
+                    defaultValue={1}
+                    snap={true}
+                    step={0.01}
+                    value={playbackSpeed}
+                    setValue={setPlaybackSpeed}
+                  ></Knob>
+                </div>
+                <label
+                  className={styles["knob__label"]}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  speed <br /> <span>{Math.round(playbackSpeed * 100)}%</span>
+                </label>
+              </div>
+              <div className={styles["knob__container"]}>
+                <div className={styles["knob"]}>
+                  <Knob
+                    startAngle={-140}
+                    endAngle={140}
+                    startValue={0}
+                    endValue={1}
+                    defaultValue={volume}
+                    snap={true}
+                    step={0.05}
+                    value={volume}
+                    setValue={setVolume}
+                  ></Knob>
+                </div>
+                <label
+                  className={styles["knob__label"]}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  volume <br />
+                  {Math.round(volume * 100)}%
+                </label>
+              </div>
             </div>
-            <div className={styles["knob"]}>
-              <Knob
-                startAngle={-140}
-                endAngle={140}
-                startValue={0}
-                endValue={1}
-                defaultValue={volume}
-                snap={true}
-                step={0.05}
-                value={volume}
-                setValue={setVolume}
-              ></Knob>
-            </div>
-          </div>
-          <div className={styles["player__buttons"]}>
-            <button
-              className={`${styles["button"]} ${styles["play"]} ${
-                playerState === "playing" && styles["active"]
-              }`}
-              onClick={playAudio}
-            >
-              <MdPlayArrow size={25} />
-            </button>
-            <button
-              className={`${styles["button"]} ${styles["pause"]} ${
-                playerState === "paused" && styles["active"]
-              }`}
-              onClick={pauseAudio}
-            >
-              <MdPause size={25} />
-            </button>
-            <button
-              className={`${styles["button"]} ${styles["stop"]}`}
-              onClick={stopAudio}
-            >
-              <MdStop size={25} />
-            </button>
-            <button
-              className={`${styles["button"]} ${styles["ff"]}`}
-              onTouchStart={() => {
-                setCachedSpeed(playbackSpeed);
-                setPlaybackSpeed(2);
-                playAudio();
-              }}
-              onTouchEnd={() => {
-                setPlaybackSpeed(cachedPlaybackSpeed);
-              }}
-              onMouseDown={() => {
-                setCachedSpeed(playbackSpeed);
+            <div className={styles["player__buttons"]}>
+              <button
+                className={`${styles["button"]} ${styles["play"]} ${
+                  playerState === "playing" && styles["active"]
+                }`}
+                onClick={playAudio}
+              >
+                <MdPlayArrow size={25} />
+              </button>
+              <button
+                className={`${styles["button"]} ${styles["pause"]} ${
+                  playerState === "paused" && styles["active"]
+                }`}
+                onClick={pauseAudio}
+              >
+                <MdPause size={25} />
+              </button>
+              <button
+                className={`${styles["button"]} ${styles["stop"]}`}
+                onClick={stopAudio}
+              >
+                <MdStop size={25} />
+              </button>
+              <button
+                className={`${styles["button"]} ${styles["ff"]}`}
+                onTouchStart={() => {
+                  setCachedSpeed(playbackSpeed);
+                  setPlaybackSpeed(2);
+                  playAudio();
+                }}
+                onTouchEnd={() => {
+                  setPlaybackSpeed(cachedPlaybackSpeed);
+                }}
+                onMouseDown={() => {
+                  setCachedSpeed(playbackSpeed);
 
-                setPlaybackSpeed(2);
-                playAudio();
-              }}
-              onMouseUp={() => {
-                setPlaybackSpeed(cachedPlaybackSpeed);
-              }}
-            >
-              <MdFastForward size={25} />
-            </button>
+                  setPlaybackSpeed(2);
+                  playAudio();
+                }}
+                onMouseUp={() => {
+                  setPlaybackSpeed(cachedPlaybackSpeed);
+                }}
+              >
+                <MdFastForward size={25} />
+              </button>
+            </div>
           </div>
+        </div>
+        <div className={styles["song-selector"]}>
+          {songsArray.map((song, idx) => {
+            return (
+              <div
+                key={idx}
+                onTouchEnd={() => {
+                  setCurrentFile(song.url);
+                }}
+                onMouseUp={() => {
+                  setCurrentFile(song.url);
+                }}
+                className={`${styles["song-selector__block"]} ${
+                  song.url === currentFile && styles["active"]
+                }`}
+              >
+                {song.title}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
