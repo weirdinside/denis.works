@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { MdFastForward, MdPlayArrow, MdPause, MdStop } from "react-icons/md";
 import Knob from "./Knob/Knob";
 import { songsArray } from "../../utils/constants";
+import Slider from "./Slider/Slider";
 
 type PlayerStateType = "stopped" | "playing" | "paused";
 
@@ -56,7 +57,7 @@ export default function TapePlayer({
         audioPlayerRef.current.volume = currentVolume;
       }
     },
-    [volume],
+    [volume]
   );
 
   useEffect(
@@ -66,152 +67,53 @@ export default function TapePlayer({
         audioPlayerRef.current.playbackRate = playbackSpeed;
       }
     },
-    [playbackSpeed, audioPlayerRef],
+    [playbackSpeed, audioPlayerRef]
   );
 
   return (
     <div className={styles["page"]}>
-      <div className={styles["page__content"]}>
-        <div className={styles["page__header"]}>
-          <h1 className={styles["header__title"]}>
-            AUDIO PLAYER
-            <span className={styles["page__header_sub"]}>
-              PROTOTYPE = TAPE_PLAYER
-              <br />
-              VERSION = DNSWRKS_1.0.1
-              <br />
-              DEVELOPER = AB@WI_2025
-            </span>
+      <div className={styles["tape-player"]}>
+        <header className={styles["tape-player__header"]}>
+          <h1 className={styles["header__logo"]}>
+            audio <br /> player
           </h1>
-        </div>
-
-        <div className={styles["page__content_player"]}>
-          <div className={styles["tape__visual"]}>
-            <div className={styles["tape__main"]}></div>
-            <div
-              className={`${styles["tape__reel"]} ${styles["left"]} ${
-                playerState === "playing" && styles["playing"]
-              }`}
-            ></div>
-            <div
-              className={`${styles["tape__reel"]} ${styles["right"]} ${
-                playerState === "playing" && styles["playing"]
-              }`}
-            ></div>
-          </div>
-          <div className={styles["controls__container"]}>
-            <div className={styles["knobs"]}>
-              <div className={styles["knob__container"]}>
-                <div className={styles["knob"]}>
-                  <Knob
-                    startAngle={-140}
-                    endAngle={140}
-                    startValue={0.5}
-                    endValue={1.5}
-                    defaultValue={1}
-                    snap={true}
-                    step={0.01}
-                    value={playbackSpeed}
-                    setValue={setPlaybackSpeed}
-                  ></Knob>
-                </div>
-                <label
-                  className={styles["knob__label"]}
-                  style={{ display: "flex", flexDirection: "column" }}
-                >
-                  speed <br /> <span>{Math.round(playbackSpeed * 100)}%</span>
-                </label>
-              </div>
-              <div className={styles["knob__container"]}>
-                <div className={styles["knob"]}>
-                  <Knob
-                    startAngle={-140}
-                    endAngle={140}
-                    startValue={0}
-                    endValue={1}
-                    defaultValue={volume}
-                    snap={true}
-                    step={0.05}
-                    value={volume}
-                    setValue={setVolume}
-                  ></Knob>
-                </div>
-                <label
-                  className={styles["knob__label"]}
-                  style={{ display: "flex", flexDirection: "column" }}
-                >
-                  volume <br />
-                  {Math.round(volume * 100)}%
-                </label>
-              </div>
-            </div>
-            <div className={styles["player__buttons"]}>
-              <button
-                className={`${styles["button"]} ${styles["play"]} ${
-                  playerState === "playing" && styles["active"]
-                }`}
-                onClick={playAudio}
-              >
-                <MdPlayArrow size={25} />
-              </button>
-              <button
-                className={`${styles["button"]} ${styles["pause"]} ${
-                  playerState === "paused" && styles["active"]
-                }`}
-                onClick={pauseAudio}
-              >
-                <MdPause size={25} />
-              </button>
-              <button
-                className={`${styles["button"]} ${styles["stop"]}`}
-                onClick={stopAudio}
-              >
-                <MdStop size={25} />
-              </button>
-              <button
-                className={`${styles["button"]} ${styles["ff"]}`}
-                onTouchStart={() => {
-                  setCachedSpeed(playbackSpeed);
-                  setPlaybackSpeed(2);
-                  playAudio();
-                }}
-                onTouchEnd={() => {
-                  setPlaybackSpeed(cachedPlaybackSpeed);
-                }}
-                onMouseDown={() => {
-                  setCachedSpeed(playbackSpeed);
-
-                  setPlaybackSpeed(2);
-                  playAudio();
-                }}
-                onMouseUp={() => {
-                  setPlaybackSpeed(cachedPlaybackSpeed);
-                }}
-              >
-                <MdFastForward size={25} />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className={styles["song-selector"]}>
+          <p className={styles["header__text"]}>
+            DW_AUDIO_DEVICE <br />
+            DEVELOPED BY AB <br />
+            LU: 01192025___ <br />
+            PID: 03225_LP-2
+          </p>
+        </header>
+        <ul className={styles["song-selector"]}>
           {songsArray.map((song, idx) => {
             return (
-              <div
-                key={idx}
-                onTouchEnd={() => {
-                  setCurrentFile(song.url);
-                }}
-                onMouseUp={() => {
-                  setCurrentFile(song.url);
-                }}
-                className={`${styles["song-selector__block"]} ${
-                  song.url === currentFile && styles["active"]
-                }`}
-              >
+              <li key={idx} className={styles["song-selector__song"]}>
                 {song.title}
-              </div>
+              </li>
             );
           })}
+        </ul>
+        <div className={styles["controls"]}>
+          <Slider
+            setValue={setPlaybackSpeed}
+            defaultValue={1}
+            step={0.01}
+            title={"speed"}
+            value={playbackSpeed}
+            min={0.75}
+            max={1.5}
+            showProgress={false}
+          />
+          <Slider
+            setValue={setVolume}
+            defaultValue={1}
+            step={0.05}
+            title={"volume"}
+            value={volume}
+            min={0}
+            max={1}
+            showProgress={true}
+          />
         </div>
       </div>
     </div>

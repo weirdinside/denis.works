@@ -33,91 +33,6 @@ import { PiCassetteTapeFill } from "react-icons/pi";
 
 type PlayerStateType = "stopped" | "playing" | "paused";
 
-function LocationProvider({ children }: { children: React.ReactNode }) {
-  return <AnimatePresence mode="wait">{children}</AnimatePresence>;
-}
-
-function RoutesWithAnimation({
-  audioPlayerRef,
-
-  playbackSpeed,
-  volume,
-  currentFile,
-
-  setCurrentFile,
-  setVolume,
-  setPlaybackSpeed,
-  setPlayerState,
-  playerState,
-}: {
-  audioPlayerRef: React.RefObject<HTMLAudioElement | null>;
-
-  playbackSpeed: number;
-  volume: number;
-  currentFile: string;
-  setCurrentFile: (arg0: string) => void;
-  setVolume: (arg0: number) => void;
-  setPlaybackSpeed: (arg0: number) => void;
-  setPlayerState: (arg0: PlayerStateType) => void;
-  playerState: PlayerStateType;
-}) {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location}>
-        <Route path="/" element={<Home />}>
-          <Route
-            path="/tape"
-            element={
-              <TapePlayer
-                currentFile={currentFile}
-                setCurrentFile={setCurrentFile}
-                volume={volume}
-                setVolume={setVolume}
-                playerState={playerState}
-                setPlayerState={setPlayerState}
-                playbackSpeed={playbackSpeed}
-                setPlaybackSpeed={setPlaybackSpeed}
-                audioPlayerRef={audioPlayerRef}
-              />
-            }
-          ></Route>
-          <Route path="/contact" element={<Contact />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/works" element={<Works />}>
-            <Route path="denis-ep" element={<ProjectDENIS />}>
-              <Route path="readme" element={<Readme />}></Route>
-              <Route path="press" element={<Press />}></Route>
-              <Route path="cassette" element={<TapeCanvas />}></Route>
-              <Route path="01-floppy-disk" element={<FloppyDisk />}></Route>
-              <Route
-                path="02-password-protected"
-                element={<PasswordProtected />}
-              ></Route>
-              <Route
-                path="03-does-it-rain-there"
-                element={<DoesItRainThere />}
-              ></Route>
-              <Route path="04-little-goose" element={<LittleGoose />}></Route>
-              <Route
-                path="05-getting-nothing-done"
-                element={<GettingNothingDone />}
-              ></Route>
-              <Route
-                path="06-look-at-the-sun"
-                element={<LookAtTheSun />}
-              ></Route>
-            </Route>
-            <Route path="the-usual" element={<ProjectTheUsual />}></Route>
-          </Route>
-        </Route>
-
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
-    </AnimatePresence>
-  );
-}
-
 export default function App() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
 
@@ -155,19 +70,67 @@ export default function App() {
           </h3>
           <div className={styles["frame"]}>
             <div className={styles["frame__content"]}>
-              <LocationProvider>
-                <RoutesWithAnimation
-                  currentFile={currentFile}
-                  setCurrentFile={setCurrentFile}
-                  volume={volume}
-                  setVolume={setVolume}
-                  playerState={playerState}
-                  setPlayerState={setPlayerState}
-                  playbackSpeed={playbackSpeed}
-                  setPlaybackSpeed={setPlaybackSpeed}
-                  audioPlayerRef={audioPlayerRef}
-                />
-              </LocationProvider>
+              <AnimatePresence mode="wait">
+                <Routes location={location}>
+                  <Route path="/" element={<Home />}>
+                    <Route
+                      path="/tape"
+                      element={
+                        <TapePlayer
+                          currentFile={currentFile}
+                          setCurrentFile={setCurrentFile}
+                          volume={volume}
+                          setVolume={setVolume}
+                          playerState={playerState}
+                          setPlayerState={setPlayerState}
+                          playbackSpeed={playbackSpeed}
+                          setPlaybackSpeed={setPlaybackSpeed}
+                          audioPlayerRef={audioPlayerRef}
+                        />
+                      }
+                    ></Route>
+                    <Route path="/contact" element={<Contact />}></Route>
+                    <Route path="/about" element={<About />}></Route>
+                    <Route path="/works" element={<Works />}>
+                      <Route path="denis-ep" element={<ProjectDENIS />}>
+                        <Route path="readme" element={<Readme />}></Route>
+                        <Route path="press" element={<Press />}></Route>
+                        <Route path="cassette" element={<TapeCanvas />}></Route>
+                        <Route
+                          path="01-floppy-disk"
+                          element={<FloppyDisk />}
+                        ></Route>
+                        <Route
+                          path="02-password-protected"
+                          element={<PasswordProtected />}
+                        ></Route>
+                        <Route
+                          path="03-does-it-rain-there"
+                          element={<DoesItRainThere />}
+                        ></Route>
+                        <Route
+                          path="04-little-goose"
+                          element={<LittleGoose />}
+                        ></Route>
+                        <Route
+                          path="05-getting-nothing-done"
+                          element={<GettingNothingDone />}
+                        ></Route>
+                        <Route
+                          path="06-look-at-the-sun"
+                          element={<LookAtTheSun />}
+                        ></Route>
+                      </Route>
+                      <Route
+                        path="the-usual"
+                        element={<ProjectTheUsual />}
+                      ></Route>
+                    </Route>
+                  </Route>
+
+                  <Route path="*" element={<NotFound />}></Route>
+                </Routes>
+              </AnimatePresence>
             </div>
           </div>
           <h1 className={styles["screen__footer_title"]}>
