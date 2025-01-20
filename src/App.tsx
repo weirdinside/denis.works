@@ -1,8 +1,9 @@
+import { Howl } from "howler";
 import styles from "./App.module.css";
 
 import { AnimatePresence } from "motion/react";
-import React, { useRef, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import Home from "./_components/Home/Home";
 import NotFound from "./_components/NotFound/NotFound";
@@ -31,35 +32,84 @@ import { FaToolbox } from "react-icons/fa";
 import { MdEmail, MdHome, MdInfo } from "react-icons/md";
 import { PiCassetteTapeFill } from "react-icons/pi";
 
-type PlayerStateType = "stopped" | "playing" | "paused";
+type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
 export default function App() {
-  const audioPlayerRef = useRef<HTMLAudioElement>(null);
-
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+  const [duration, setDuration] = useState<number>(0);
   const [playerState, setPlayerState] = useState<PlayerStateType>("stopped");
   const [volume, setVolume] = useState<number>(1);
-
+  const [currentTime, setCurrentTime] = useState<number>(0);
   const [currentFile, setCurrentFile] = useState<string>("");
+
+  const sound = useRef<Howl>();
+  const timer = useRef<number>();
+
+  useEffect(
+    function initializeHowl() {
+      sound.current = new Howl({
+        src: [currentFile],
+        onload: () => {
+          setDuration(sound.current!.duration());
+        },
+        rate: playbackSpeed,
+        onplay: () => {
+          setPlayerState("playing");
+          timer.current = setInterval(() => {
+            setCurrentTime(sound.current!.seek());
+          }, 100);
+        },
+        onpause: () => {
+          setPlayerState("paused");
+          clearInterval(timer.current);
+        },
+        onstop: () => {
+          setPlayerState(undefined);
+          setCurrentFile('')
+        },
+        onend: () => {
+          setPlayerState(undefined);
+
+          clearInterval(timer.current);
+          setCurrentTime(duration);
+        },
+        preload: true,
+      });
+
+      return () => {
+        if (sound.current) {
+          sound.current.unload();
+        }
+        if (timer.current) {
+          clearInterval(timer.current);
+        }
+      };
+    },
+    [currentFile]
+  );
+
+  useEffect(
+    function trackPlaybackSpeed() {
+      if (sound.current) {
+        sound.current.rate(playbackSpeed);
+      }
+    },
+    [playbackSpeed]
+  );
+
+  useEffect(function trackVolume(){
+    if (sound.current) {
+      sound.current.volume(volume);
+    }
+  }, [volume]);
+
+  useEffect(function autoplayOnSongSelect(){
+    if(currentFile && sound.current) sound.current.play();
+    console.log(currentFile)
+  }, [currentFile])
 
   return (
     <div className={styles["page"]}>
-      <audio
-        onLoadedData={() => {
-          audioPlayerRef.current?.play();
-        }}
-        onEnded={() => {
-          setPlayerState("stopped");
-        }}
-        onPlay={() => {
-          setPlayerState("playing");
-        }}
-        onPause={() => {
-          setPlayerState("paused");
-        }}
-        ref={audioPlayerRef}
-        src={currentFile}
-      ></audio>
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>
         <div className={styles["screen"]}>
@@ -77,6 +127,10 @@ export default function App() {
                       path="/tape"
                       element={
                         <TapePlayer
+                          duration={duration}
+                          currentTime={currentTime}
+                          setCurrentTime={setCurrentTime}
+                          sound={sound}
                           currentFile={currentFile}
                           setCurrentFile={setCurrentFile}
                           volume={volume}
@@ -85,7 +139,6 @@ export default function App() {
                           setPlayerState={setPlayerState}
                           playbackSpeed={playbackSpeed}
                           setPlaybackSpeed={setPlaybackSpeed}
-                          audioPlayerRef={audioPlayerRef}
                         />
                       }
                     ></Route>

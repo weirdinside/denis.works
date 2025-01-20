@@ -9,9 +9,11 @@ export default function Slider({
   defaultValue = min,
   max,
   setValue,
+  interpolationFunction,
   showProgress = false,
 }: {
   title: string;
+  interpolationFunction?: (arg0: number) => string;
   defaultValue: number;
   step: number;
   value: number;
@@ -24,7 +26,6 @@ export default function Slider({
   const [isClickedRecently, setClickedRecently] = useState<boolean>(false);
 
   function resetSlider() {
-    console.log('yip')
     if (isClickedRecently) {
       clearTimeout(timeoutRef.current);
       setClickedRecently(false);
@@ -52,7 +53,9 @@ export default function Slider({
         type="range"
       />
       <p className={styles["slider__title"]}>{title}</p>
-      <p className={styles["slider__label"]}>{value}</p>
+      <p className={styles["slider__label"]}>
+        {interpolationFunction ? interpolationFunction(value) : value}
+      </p>
     </div>
   );
 }

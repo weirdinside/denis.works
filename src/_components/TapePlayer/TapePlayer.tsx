@@ -1,24 +1,29 @@
-import styles from "./TapePlayer.module.css";
-import { useEffect, useState } from "react";
-import { MdFastForward, MdPlayArrow, MdPause, MdStop } from "react-icons/md";
-import Knob from "./Knob/Knob";
+import { useState, useRef } from "react";
+import { MdFastForward, MdPause, MdPlayArrow, MdStop } from "react-icons/md";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
+import styles from "./TapePlayer.module.css";
 
-type PlayerStateType = "stopped" | "playing" | "paused";
+type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
 export default function TapePlayer({
-  audioPlayerRef,
+  sound,
   playerState,
   playbackSpeed,
   volume,
+  duration,
+  currentTime,
+  setCurrentTime,
   currentFile,
   setCurrentFile,
   setVolume,
   setPlaybackSpeed,
   setPlayerState,
 }: {
-  audioPlayerRef: React.RefObject<HTMLAudioElement | null>;
+  duration: number;
+  currentTime: number;
+  setCurrentTime: (arg0: number) => void;
+  sound: React.MutableRefObject<Howl | undefined>;
   playbackSpeed: number;
   currentFile: string;
   setCurrentFile: (arg0: string) => void;
@@ -28,47 +33,80 @@ export default function TapePlayer({
   setPlaybackSpeed: (arg0: number) => void;
   setPlayerState: (arg0: PlayerStateType) => void;
 }) {
-  const [cachedPlaybackSpeed, setCachedSpeed] = useState<number>(1);
+  const [cachedPlaybackSpeed, setCachedPlaybackSpeed] = useState<number>();
+  const [errorMessage, setErrorMessage] = useState<string>();
+  const songListRef = useRef<HTMLUListElement>(null);
+  const messageTimeoutRef = useRef<number>();
 
-  function playAudio() {
-    audioPlayerRef.current!.play().catch(() => {
-      setPlayerState("stopped");
-    });
-    audioPlayerRef.current!.playbackRate = playbackSpeed;
-    audioPlayerRef.current!.volume = volume;
-    setPlayerState("playing");
+  function formatSecondsToMinutes(timeInSeconds: number) {
+    const leftoverSeconds = String((timeInSeconds % 60).toFixed(0));
+    return `${Math.floor(timeInSeconds / 60)}:${
+      leftoverSeconds.length === 1 ? `0${leftoverSeconds}` : leftoverSeconds
+    }`;
   }
 
-  function pauseAudio() {
-    audioPlayerRef.current!.pause();
-    setPlayerState("paused");
+  function setMessage(message: string) {
+    if (errorMessage) return;
+    setErrorMessage(message);
+    if (songListRef.current) songListRef.current.scrollTop = 0;
+    messageTimeoutRef.current = setTimeout(() => {
+      setErrorMessage(undefined);
+    }, 2000);
   }
 
-  function stopAudio() {
-    audioPlayerRef.current!.pause();
-    audioPlayerRef.current!.currentTime = 0;
-    setPlayerState("stopped");
+  function handleFFwd() {
+    if (currentFile === "" || currentFile === undefined) {
+      setMessage("select a song");
+    } else {
+      setCachedPlaybackSpeed(playbackSpeed);
+      sound.current?.rate(3);
+    }
   }
 
-  useEffect(
-    function setCurrentVolume() {
-      const currentVolume = volume;
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.volume = currentVolume;
+  function handleCancelFFwd() {
+    sound.current!.rate(cachedPlaybackSpeed);
+  }
+
+  function handlePlay() {
+    if (sound.current?.playing()) return;
+    if (currentFile === "" || currentFile === undefined) {
+      setMessage("select a song");
+    } else {
+      setPlayerState("playing");
+      sound.current!.play();
+    }
+  }
+
+  function handlePause() {
+    if (currentFile === "" || currentFile === undefined) {
+      setMessage("select a song");
+    } else {
+      setPlayerState("paused");
+      sound.current!.pause();
+    }
+  }
+
+  function handleStop() {
+    setCurrentTime(0);
+    setPlayerState(undefined);
+    setCurrentFile("");
+    sound.current!.stop();
+  }
+
+  function handleRateChange(rate: number) {
+    setPlaybackSpeed(rate);
+    sound.current!.rate(rate);
+  }
+
+  function handleSeek(time: number) {
+    if (currentFile === "" || currentFile === undefined) {
+      setMessage("select a song");
+    } else {
+      if (sound.current) {
+        sound.current.seek(time);
       }
-    },
-    [volume]
-  );
-
-  useEffect(
-    function setCurrentPlaybackRate() {
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.preservesPitch = false;
-        audioPlayerRef.current.playbackRate = playbackSpeed;
-      }
-    },
-    [playbackSpeed, audioPlayerRef]
-  );
+    }
+  }
 
   return (
     <div className={styles["page"]}>
@@ -84,24 +122,97 @@ export default function TapePlayer({
             PID: 03225_LP-2
           </p>
         </header>
-        <ul className={styles["song-selector"]}>
+
+        <ul
+          ref={songListRef}
+          style={errorMessage ? { overflowY: "hidden" } : {}}
+          className={styles["song-selector"]}
+        >
+          <div
+            className={`${styles["message-overlay"]} ${
+              errorMessage && styles["active"]
+            }`}
+          >
+            {errorMessage}
+          </div>
           {songsArray.map((song, idx) => {
             return (
-              <li key={idx} className={styles["song-selector__song"]}>
+              <li
+                onClick={() => {
+                  if (sound.current) {
+                    sound.current.stop();
+                  }
+                  setCurrentFile(song.url);
+                }}
+                key={idx}
+                className={`${styles["song-selector__song"]} ${
+                  currentFile === song.url && styles["active"]
+                }`}
+              >
                 {song.title}
               </li>
             );
           })}
         </ul>
         <div className={styles["controls"]}>
+          <div className={styles["buttons"]}>
+            <button
+              onClick={() => {
+                handlePause();
+              }}
+              className={`${styles["button"]} ${styles["pause"]} ${
+                playerState === "paused" && styles["active"]
+              }`}
+            >
+              <MdPause size={21} />
+            </button>
+            <button
+              onClick={() => {
+                handlePlay();
+              }}
+              className={`${styles["button"]}  ${styles["play"]} ${
+                playerState === "playing" && styles["active"]
+              }`}
+            >
+              <MdPlayArrow size={21} />
+            </button>
+            <button
+              onClick={() => {
+                handleStop();
+              }}
+              className={`${styles["button"]} ${styles["stop"]}`}
+            >
+              <MdStop size={21} />
+            </button>
+            <button
+              onTouchStart={handleFFwd}
+              onTouchCancel={handleCancelFFwd}
+              onMouseDown={handleFFwd}
+              onMouseUp={handleCancelFFwd}
+              className={`${styles["button"]} ${styles["ff"]}`}
+            >
+              <MdFastForward size={21} />
+            </button>
+          </div>
           <Slider
-            setValue={setPlaybackSpeed}
+            setValue={handleRateChange}
             defaultValue={1}
             step={0.01}
             title={"speed"}
             value={playbackSpeed}
-            min={0.75}
-            max={1.5}
+            min={0.5}
+            max={1.75}
+            showProgress={false}
+          />
+          <Slider
+            setValue={handleSeek}
+            defaultValue={1}
+            step={0.01}
+            title={"seek"}
+            interpolationFunction={formatSecondsToMinutes}
+            value={currentTime}
+            min={0}
+            max={duration}
             showProgress={false}
           />
           <Slider

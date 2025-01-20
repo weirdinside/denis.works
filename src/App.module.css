@@ -16,6 +16,7 @@
   position: relative;
   z-index: 0;
   overflow: hidden;
+  user-select: none;
 }
 
 .page__overlay {
@@ -29,6 +30,7 @@
   width: 100%;
   z-index: 1;
   mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .page__content {
@@ -63,8 +65,10 @@
   opacity: 0.2;
   height: 100%;
   width: 100%;
+  z-index: 2000;
   position: absolute;
   background-size: cover;
+  pointer-events: none;
 }
 
 .screen__overlay_fingerprints {
@@ -72,9 +76,11 @@
   mix-blend-mode: soft-light;
   opacity: 1;
   height: 100%;
+  z-index: 2000;
   width: 100%;
   position: absolute;
   background-size: contain;
+  pointer-events: none;
 }
 
 .frame {
