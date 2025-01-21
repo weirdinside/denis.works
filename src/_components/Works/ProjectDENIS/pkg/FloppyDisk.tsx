@@ -37,15 +37,14 @@ export default function FloppyDisk() {
         </p>
         <div className={styles["page__canvas-container"]}>
           <Canvas className={styles["page__canvas"]}>
+            <EffectComposer>
+              <ASCII invert={true} cellSize={3}></ASCII>
+            </EffectComposer>
             <OrbitControls
-              autoRotate={true}
               enablePan={false}
+              autoRotate={true}
               enableZoom={false}
             />
-            <EffectComposer>
-              <ASCII cellSize={5}></ASCII>
-            </EffectComposer>
-
             <ambientLight intensity={0.5} />
             <Suspense fallback={null}>
               <Image image={floppyDiskArt} />

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdFastForward, MdPause, MdPlayArrow, MdStop } from "react-icons/md";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
@@ -15,12 +15,14 @@ export default function TapePlayer({
   currentTime,
   setCurrentTime,
   currentFile,
+  isSongLoading,
   setCurrentFile,
   setVolume,
   setPlaybackSpeed,
   setPlayerState,
 }: {
   duration: number;
+  isSongLoading: boolean;
   currentTime: number;
   setCurrentTime: (arg0: number) => void;
   sound: React.MutableRefObject<Howl | undefined>;
@@ -90,7 +92,7 @@ export default function TapePlayer({
     setCurrentTime(0);
     setPlayerState(undefined);
     setCurrentFile("");
-    sound.current!.stop();
+    sound.current?.unload();
   }
 
   function handleRateChange(rate: number) {
@@ -108,8 +110,31 @@ export default function TapePlayer({
     }
   }
 
+  useEffect(function spacebarEventListener() {
+    function handleSpacebar(e: KeyboardEvent) {
+      const isPlaying = sound.current?.playing();
+      if (e.key == " " || e.code == "Space" || e.keyCode == 32) {
+        if (isPlaying) handlePause();
+        if (!isPlaying) handlePlay();
+      }
+    }
+
+    window.addEventListener("keyup", handleSpacebar);
+
+    return () => {
+      window.removeEventListener("keyup", handleSpacebar);
+    };
+  }, []);
+
   return (
     <div className={styles["page"]}>
+      <div
+        className={`${styles["page__loading"]} ${
+          isSongLoading && styles["active"]
+        }`}
+      >
+        loading ...{" "}
+      </div>
       <div className={styles["tape-player"]}>
         <header className={styles["tape-player__header"]}>
           <h1 className={styles["header__logo"]}>
@@ -139,8 +164,10 @@ export default function TapePlayer({
             return (
               <li
                 onClick={() => {
+                  if (currentFile === song.url) return;
                   if (sound.current) {
                     sound.current.stop();
+                    sound.current.unload();
                   }
                   setCurrentFile(song.url);
                 }}
@@ -185,10 +212,14 @@ export default function TapePlayer({
               <MdStop size={21} />
             </button>
             <button
-              onTouchStart={handleFFwd}
-              onTouchCancel={handleCancelFFwd}
-              onMouseDown={handleFFwd}
-              onMouseUp={handleCancelFFwd}
+              // onTouchStart={handleFFwd}
+              // onTouchEnd={handleCancelFFwd}
+              onPointerDown={handleFFwd}
+              onPointerUp={handleCancelFFwd}
+              onPointerCancel={handleCancelFFwd}
+              // onTouchCancel={handleCancelFFwd}
+              // onMouseDown={handleFFwd}
+              // onMouseUp={handleCancelFFwd}
               className={`${styles["button"]} ${styles["ff"]}`}
             >
               <MdFastForward size={21} />
@@ -214,6 +245,7 @@ export default function TapePlayer({
             min={0}
             max={duration}
             showProgress={false}
+            setValueOnMouseUp={true}
           />
           <Slider
             setValue={setVolume}
