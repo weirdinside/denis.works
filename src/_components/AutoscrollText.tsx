@@ -212,7 +212,7 @@ export default function AutoscrollText({
       <p
         style={{ opacity: "0", margin: "0", padding: "0", textWrap: "nowrap" }}
       >
-        {"x"}
+        {children}
       </p>
       <p style={textStyle} ref={textRef}>
         {children}

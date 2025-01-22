@@ -2,6 +2,7 @@ import styles from "./Readme.module.css";
 import { AnimatePresence, motion } from "motion/react";
 
 export default function Readme() {
+  document.title = "denis.works - DENIS EP readme";
   return (
     <AnimatePresence>
       <motion.div

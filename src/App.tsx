@@ -1,4 +1,3 @@
-import { Howl } from "howler";
 import styles from "./App.module.css";
 
 import { AnimatePresence } from "motion/react";
@@ -31,6 +30,7 @@ import PasswordProtected from "./_components/Works/ProjectDENIS/pkg/PasswordProt
 import { FaToolbox } from "react-icons/fa";
 import { MdEmail, MdHome, MdInfo } from "react-icons/md";
 import { PiCassetteTapeFill } from "react-icons/pi";
+import { songsArray } from "./utils/constants";
 
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
@@ -38,178 +38,117 @@ export default function App() {
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
   const [isSongLoading, setSongLoading] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
+  const [audioBuffer, setAudioBuffer] = useState<string>("");
   const [playerState, setPlayerState] = useState<PlayerStateType>("stopped");
   const [volume, setVolume] = useState<number>(1);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [currentFile, setCurrentFile] = useState<string>("");
 
-  const audioElement = useRef<HTMLAudioElement>(null);
-  const sound = useRef<Howl>();
-  const timer = useRef<number>();
-  const sourceNode = useRef<MediaElementAudioSourceNode>();
-  const isAudioConnected = useRef<boolean>(false);
+  const sound = useRef<HTMLAudioElement>(null);
 
-  const audioContext = useRef<AudioContext>();
+  async function fetchAudioAsBlobURL() {
+    try {
+      setSongLoading(true);
+      const response = await fetch(currentFile);
+      if (!response.ok) throw new Error("Failed to fetch audio file");
+      const blob = await response.blob();
+
+      return URL.createObjectURL(blob);
+    } catch (err) {
+      console.error("Error loading audio:", err);
+      return "";
+    } finally {
+      setSongLoading(false);
+      if (sound.current) sound.current.play();
+    }
+  }
 
   useEffect(
-    function initializeHowl() {
-      if (!currentFile) return;
-
-      if (sound.current) {
-        sound.current.unload();
+    function loadAudioOnFileChange() {
+      if (!currentFile) {
+        setAudioBuffer("");
+        setPlayerState(undefined);
+        return;
       }
-
-      Howler.unload();
-      setSongLoading(true);
-      Howler.autoSuspend = false;
-      Howler.usingWebAudio = true;
-
-      const unlockAudioContext = async () => {
-        if (Howler.ctx?.state === "suspended" || "") {
-          await Howler.ctx.resume();
-        }
-      };
-
-      if (!audioContext.current) {
-        audioContext.current = new window.AudioContext();
+      // get blobUrl
+      async function loadAudio() {
+        const blob = await fetchAudioAsBlobURL();
+        setAudioBuffer(blob);
       }
+      // set proper behaviors for audio tag
+      sound.current!.playbackRate = playbackSpeed;
+      sound.current!.preservesPitch = false;
 
-      if (audioElement.current && !sourceNode.current) {
-        try {
-          sourceNode.current = audioContext.current.createMediaElementSource(
-            audioElement.current,
-          );
-          sourceNode.current.connect(audioContext.current.destination);
-        } catch (error) {
-          console.warn("Audio routing setup error:", error);
-        }
-      }
-
-      document.addEventListener("click", unlockAudioContext);
-      document.addEventListener("touchstart", unlockAudioContext);
-      document.addEventListener("keydown", unlockAudioContext);
-
-      sound.current = new Howl({
-        format: ["mp3"],
-        src: [currentFile],
-        html5: false,
-        onload: () => {
-          sound.current!.volume(volume);
-          setDuration(sound.current!.duration());
-          setSongLoading(false);
-          setPlayerState("playing");
-          sound.current!.play();
-        },
-        onloaderror: () => {
-          setSongLoading(false);
-        },
-        rate: playbackSpeed,
-        onplay: () => {
-          if (Howler.ctx?.state === "suspended") {
-            Howler.ctx.resume();
-          }
-          audioElement.current!.play();
-          setPlayerState("playing");
-          timer.current = setInterval(() => {
-            setCurrentTime(sound.current!.seek());
-          }, 100);
-        },
-        onpause: () => {
-          audioElement.current!.pause();
-          setPlayerState("paused");
-          clearInterval(timer.current);
-        },
-        onstop: () => {
-          audioElement.current!.pause();
-          setPlayerState(undefined);
-        },
-        onend: () => {
-          audioElement.current!.pause();
-          setPlayerState(undefined);
-          clearInterval(timer.current);
-          setCurrentTime(duration);
-        },
-        preload: true,
-      });
-
-      if ("mediaSession" in navigator) {
-        console.log("yes");
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: "tape player",
-          artist: "denis biblioni",
-          album: "denis.works",
-        });
-
-        navigator.mediaSession.setActionHandler("play", () => {
-          if (sound.current) sound.current.play();
-        });
-        navigator.mediaSession.setActionHandler("pause", () => {
-          if (sound.current) sound.current.pause();
-        });
-      }
-
-      const handleVisibilityChange = () => {
-        if (document.hidden) {
-          if (sound.current?.playing()) {
-            Howler.ctx?.resume();
-          }
-        }
-      };
-
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-
-      return () => {
-        if (sound.current) {
-          sound.current.unload();
-        }
-        if (timer.current) {
-          clearInterval(timer.current);
-        }
-        if (sourceNode.current && isAudioConnected.current) {
-          sourceNode.current.disconnect();
-          isAudioConnected.current = false;
-        }
-        document.removeEventListener(
-          "visibilitychange",
-          handleVisibilityChange,
+      if (currentFile) {
+        const currentSong = songsArray.filter(
+          (song) => song.url === currentFile,
         );
-        document.removeEventListener("click", unlockAudioContext);
-        document.removeEventListener("touchstart", unlockAudioContext);
-        document.removeEventListener("keydown", unlockAudioContext);
-      };
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+          album: "biblioni music player",
+          artist: "denis biblioni",
+          title: `${currentSong[0].title}`,
+          artwork: [{ src: "", sizes: "96x96", type: "image/jpeg" }],
+        });
+      }
+
+      // take care of player seeking functions
+
+      loadAudio();
     },
     [currentFile],
   );
 
   useEffect(
-    function trackPlaybackSpeed() {
-      if (sound.current) {
-        sound.current.rate(playbackSpeed);
-      }
+    function handleVolumeChange() {
+      if (sound.current) sound.current.volume = volume;
+    },
+    [volume],
+  );
+
+  useEffect(
+    function handlePitchChange() {
+      sound.current!.playbackRate = playbackSpeed;
     },
     [playbackSpeed],
   );
 
   useEffect(
-    function trackVolume() {
-      if (sound.current) {
-        sound.current.volume(volume);
+    function handleAutoPlay() {
+      if (audioBuffer && sound.current && currentFile) {
+        setPlayerState("playing");
       }
     },
-    [volume],
+    [audioBuffer],
   );
 
   return (
     <div className={styles["page"]}>
       <audio
-        ref={audioElement}
+        onTimeUpdate={() => {
+          setCurrentTime(sound.current!.currentTime);
+        }}
+        onLoadedData={() => {
+          sound.current!.playbackRate = playbackSpeed;
+          sound.current!.preservesPitch = false;
+          setDuration(sound.current!.duration);
+          sound.current!.play();
+        }}
+        onPlay={() => {
+          if (sound.current) {
+            sound.current!.playbackRate = playbackSpeed;
+            sound.current!.preservesPitch = false;
+          }
+        }}
+        ref={sound}
+        src={audioBuffer}
         playsInline
         preload="true"
         x-webkit-airplay="allow"
         x-webkit-playsinline="true"
         webkit-playsinline="true"
         controls={false}
-        loop={true}
+        loop={false}
       ></audio>
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>

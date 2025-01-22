@@ -1,6 +1,7 @@
 import styles from "./NotFound.module.css";
 import { Link } from "react-router-dom";
 export default function NotFound() {
+  document.title = "denis.works - ERROR";
   return (
     <div className={styles["page"]}>
       <div className={styles["notfound__content"]}>

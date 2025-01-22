@@ -32,10 +32,10 @@ export default function Slider({
 
   // before mouseDown, temporaryvalue needs to match value
 
-  const [windowDimensions, setWindowDimensions] = useState<{
-    x: number;
-    y: number;
-  }>({ x: 0, y: 0 });
+  // const [windowDimensions, setWindowDimensions] = useState<{
+  //   x: number;
+  //   y: number;
+  // }>({ x: 0, y: 0 });
 
   function resetSlider() {
     if (isClickedRecently) {
@@ -50,14 +50,14 @@ export default function Slider({
     }
   }
 
-  useEffect(
-    function setPreventerDimensionsOnResize() {
-      const xVal = window.innerWidth;
-      const yVal = window.innerHeight;
-      setWindowDimensions({ x: xVal, y: yVal });
-    },
-    [window.innerHeight, window.innerWidth],
-  );
+  // useEffect(
+  //   function setPreventerDimensionsOnResize() {
+  //     const xVal = window.innerWidth;
+  //     const yVal = window.innerHeight;
+  //     setWindowDimensions({ x: xVal, y: yVal });
+  //   },
+  //   [window.innerHeight, window.innerWidth],
+  // );
 
   useEffect(
     function synchronizeValue() {
@@ -69,13 +69,14 @@ export default function Slider({
   if (setValueOnMouseUp) {
     return (
       <div className={styles["slider"]}>
-        <div
+        {/* <div
           onPointerUp={() => {
             setValue(temporaryValue);
             setIsClicked(false);
           }}
           onTouchEnd={() => {
             setValue(temporaryValue);
+            console.log("pointerup");
             setIsClicked(false);
           }}
           onMouseUp={() => {
@@ -92,7 +93,7 @@ export default function Slider({
             left: 0,
           }}
           className={styles["mouseaction_preventer"]}
-        ></div>
+        ></div> */}
         <input
           ref={inputRef}
           value={temporaryValue}
@@ -100,10 +101,15 @@ export default function Slider({
           onPointerDown={() => {
             resetSlider();
             setIsClicked(true);
-            setTemporaryValue(parseInt(inputRef.current!.value));
+          }}
+          onTouchEnd={() => {
+            setValue(temporaryValue);
+
+            setIsClicked(false);
           }}
           onPointerUp={() => {
             setValue(temporaryValue);
+
             setIsClicked(false);
           }}
           min={min}

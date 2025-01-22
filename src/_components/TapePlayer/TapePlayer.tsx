@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { MdFastForward, MdPause, MdPlayArrow, MdStop } from "react-icons/md";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
 import styles from "./TapePlayer.module.css";
+import { useAudioPlayer } from "../../contexts/useAudioPlayer";
 
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
@@ -25,7 +26,7 @@ export default function TapePlayer({
   isSongLoading: boolean;
   currentTime: number;
   setCurrentTime: (arg0: number) => void;
-  sound: React.MutableRefObject<Howl | undefined>;
+  sound: RefObject<HTMLAudioElement>;
   playbackSpeed: number;
   currentFile: string;
   setCurrentFile: (arg0: string) => void;
@@ -35,16 +36,26 @@ export default function TapePlayer({
   setPlaybackSpeed: (arg0: number) => void;
   setPlayerState: (arg0: PlayerStateType) => void;
 }) {
-  const [cachedPlaybackSpeed, setCachedPlaybackSpeed] = useState<number>();
+  document.title = "denis.works - audio player";
+
+  const [cachedPlaybackSpeed, setCachedPlaybackSpeed] = useState<number>(1);
   const [errorMessage, setErrorMessage] = useState<string>();
   const songListRef = useRef<HTMLUListElement>(null);
   const messageTimeoutRef = useRef<number>();
+  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const { isBuffering, changePlaybackRate } = useAudioPlayer(sound);
 
   function formatSecondsToMinutes(timeInSeconds: number) {
     const leftoverSeconds = String((timeInSeconds % 60).toFixed(0));
     return `${Math.floor(timeInSeconds / 60)}:${
       leftoverSeconds.length === 1 ? `0${leftoverSeconds}` : leftoverSeconds
     }`;
+  }
+
+  async function handleRateChange(rate: number) {
+    await changePlaybackRate(rate);
+    if (sound.current) setPlaybackSpeed(rate);
   }
 
   function setMessage(message: string) {
@@ -61,21 +72,23 @@ export default function TapePlayer({
       setMessage("select a song");
     } else {
       setCachedPlaybackSpeed(playbackSpeed);
-      sound.current?.rate(3);
+      sound.current!.playbackRate = 3;
     }
   }
 
   function handleCancelFFwd() {
-    sound.current!.rate(cachedPlaybackSpeed);
+    sound.current!.playbackRate = cachedPlaybackSpeed;
   }
 
   function handlePlay() {
-    if (sound.current?.playing()) return;
+    if (sound.current && sound.current.playbackRate === 3)
+      sound.current.playbackRate = playbackSpeed;
+    if (!sound.current?.paused) return;
     if (currentFile === "" || currentFile === undefined) {
       setMessage("select a song");
     } else {
+      sound.current.play();
       setPlayerState("playing");
-      sound.current!.play();
     }
   }
 
@@ -90,14 +103,8 @@ export default function TapePlayer({
 
   function handleStop() {
     setCurrentTime(0);
-    setPlayerState(undefined);
+    setPlayerState("stopped");
     setCurrentFile("");
-    sound.current?.unload();
-  }
-
-  function handleRateChange(rate: number) {
-    setPlaybackSpeed(rate);
-    sound.current!.rate(rate);
   }
 
   function handleSeek(time: number) {
@@ -105,14 +112,14 @@ export default function TapePlayer({
       setMessage("select a song");
     } else {
       if (sound.current) {
-        sound.current.seek(time);
+        sound.current.currentTime = time;
       }
     }
   }
 
   useEffect(function spacebarEventListener() {
     function handleSpacebar(e: KeyboardEvent) {
-      const isPlaying = sound.current?.playing();
+      const isPlaying = !sound.current?.paused;
       if (e.key == " " || e.code == "Space" || e.keyCode == 32) {
         if (isPlaying) handlePause();
         if (!isPlaying) handlePlay();
@@ -130,7 +137,7 @@ export default function TapePlayer({
     <div className={styles["page"]}>
       <div
         className={`${styles["page__loading"]} ${
-          isSongLoading && styles["active"]
+          (isSongLoading || isBuffering) && styles["active"]
         }`}
       >
         loading ...{" "}
@@ -166,8 +173,10 @@ export default function TapePlayer({
                 onClick={() => {
                   if (currentFile === song.url) return;
                   if (sound.current) {
-                    sound.current.stop();
-                    sound.current.unload();
+                    sound.current.src = "";
+                    sound.current.pause;
+                    setPlayerState("stopped");
+                    sound.current.currentTime = 0;
                   }
                   setCurrentFile(song.url);
                 }}
@@ -212,14 +221,9 @@ export default function TapePlayer({
               <MdStop size={21} />
             </button>
             <button
-              // onTouchStart={handleFFwd}
-              // onTouchEnd={handleCancelFFwd}
               onPointerDown={handleFFwd}
               onPointerUp={handleCancelFFwd}
               onPointerCancel={handleCancelFFwd}
-              // onTouchCancel={handleCancelFFwd}
-              // onMouseDown={handleFFwd}
-              // onMouseUp={handleCancelFFwd}
               className={`${styles["button"]} ${styles["ff"]}`}
             >
               <MdFastForward size={21} />
@@ -234,6 +238,7 @@ export default function TapePlayer({
             min={0.5}
             max={1.75}
             showProgress={false}
+            setValueOnMouseUp={isiOS}
           />
           <Slider
             setValue={handleSeek}
@@ -243,7 +248,7 @@ export default function TapePlayer({
             interpolationFunction={formatSecondsToMinutes}
             value={currentTime}
             min={0}
-            max={duration}
+            max={duration ? duration : 0}
             showProgress={false}
             setValueOnMouseUp={true}
           />

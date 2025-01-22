@@ -8,6 +8,7 @@ import styles from "./pkg.module.css";
 import { motion } from "motion/react";
 
 export default function PasswordProtected() {
+  document.title = "denis.works - password protected";
   return (
     <motion.div
       key={"floppy-disk"}

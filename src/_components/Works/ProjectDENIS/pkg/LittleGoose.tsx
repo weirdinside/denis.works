@@ -3,6 +3,7 @@ import styles from "./pkg.module.css";
 import { motion } from "motion/react";
 
 export default function LittleGoose() {
+  document.title = "denis.works - little goose";
   return (
     <motion.div
       key={"littleGoose"}

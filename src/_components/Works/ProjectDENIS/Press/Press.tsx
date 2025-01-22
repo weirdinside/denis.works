@@ -1,6 +1,7 @@
 import styles from "./Press.module.css";
 import { AnimatePresence, motion } from "motion/react";
 export default function Press() {
+  document.title = "denis.works - DENIS EP press";
   return (
     <AnimatePresence>
       <motion.div

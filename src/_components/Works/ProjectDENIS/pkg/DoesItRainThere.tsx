@@ -2,6 +2,7 @@ import styles from "./pkg.module.css";
 import { motion } from "motion/react";
 
 export default function DoesItRainThere() {
+  document.title = "denis.works - does it rain there?";
   return (
     <motion.div
       key={"doesItRainThere"}

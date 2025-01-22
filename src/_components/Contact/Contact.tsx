@@ -1,6 +1,7 @@
 import styles from "./Contact.module.css";
 import { AnimatePresence, motion } from "motion/react";
 export default function Contact() {
+  document.title = "denis.works - contact";
   return (
     <AnimatePresence>
       <motion.div

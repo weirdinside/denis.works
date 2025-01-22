@@ -7,6 +7,7 @@ import styles from "./ProjectDENIS.module.css";
 import { motion } from "framer-motion";
 
 export default function ProjectDENIS() {
+  document.title = "denis.works - DENIS EP";
   const { paths } = useContext(PathContext);
 
   return (

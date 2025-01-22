@@ -7,6 +7,8 @@ import styles from "./Home.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
+  document.title = "denis.works";
+
   const { paths } = useContext(PathContext);
 
   return (

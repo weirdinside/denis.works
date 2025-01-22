@@ -7,7 +7,8 @@ import Image from "../../Image3D";
 import styles from "./ProjectTheUsual.module.css";
 import { ASCII } from "@react-three/postprocessing";
 
-export default function PasswordProtected() {
+export default function TheUsual() {
+  document.title = "denis.works - the usual*";
   return (
     <div className={styles["page"]}>
       <h1 className={styles["page__heading"]}>THE USUAL*</h1>

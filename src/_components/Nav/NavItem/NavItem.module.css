@@ -1,5 +1,6 @@
 .nav__list_item {
   width: 100%;
+  min-width: 100px;
   padding: 4px 10px;
   margin: 0;
   text-wrap: nowrap;

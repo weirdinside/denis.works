@@ -9,6 +9,7 @@ import floppyDiskArt from "../../../../assets/images/floppydisk_altart.jpg";
 import { ASCII, EffectComposer } from "@react-three/postprocessing";
 
 export default function FloppyDisk() {
+  document.title = "denis.works - floppy disk";
   return (
     <motion.div
       key={"floppy-disk"}

@@ -2,6 +2,7 @@ import styles from "./pkg.module.css";
 import { motion } from "motion/react";
 
 export default function GettingNothingDone() {
+  document.title = "denis.works - getting nothing done";
   return (
     <motion.div
       key={"gettingNothingDone"}
