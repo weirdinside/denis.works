@@ -13,6 +13,14 @@
   width: 100%;
   height: auto;
   margin: 4px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tape-player__container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .tape-player__header {
@@ -30,12 +38,13 @@
 }
 
 .song-selector {
-  height: 100px;
+  height: 100%;
+  width: 100%;
   border: 2px solid #f4fffe;
   list-style-type: none;
   padding: 0;
   margin: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -55,13 +64,12 @@
 
 .controls {
   display: flex;
-  margin-top: 10px;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
+  width: 100%;
 }
 
 .buttons {
-  margin: 5px 0 5px;
   display: flex;
   width: 100%;
   height: 30px;
@@ -85,12 +93,12 @@
   background-color: #f4fffe;
 }
 
-.button:active{
+.button:active {
   color: black;
   background-color: #f4fffe;
 }
 
-.message-overlay{
+.message-overlay {
   z-index: 1;
   visibility: hidden;
   pointer-events: none;
@@ -99,7 +107,7 @@
   opacity: 0;
 }
 
-.message-overlay.active{
+.message-overlay.active {
   z-index: 999;
   visibility: visible;
   color: #f4fffe;
@@ -115,7 +123,7 @@
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.page__loading{
+.page__loading {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -129,8 +137,33 @@
   opacity: 0;
 }
 
-.page__loading.active{
+.page__loading.active {
   z-index: 2000;
   pointer-events: all;
   opacity: 1;
+}
+
+.reset-button {
+  width: 100%;
+  height: 40px;
+  border: 2px solid #f4fffe;
+  background-color: #f4fffe;
+  font-family: "Flexi IBM VGA", monospace;
+  font-size: 15px;
+  color: black;
+}
+
+.reset-button:active {
+  background-color: transparent;
+  color: #f4fffe;
+}
+
+@media screen and (max-width: 700px) {
+  .tape-player__container {
+    flex-direction: column;
+  }
+
+  .song-selector {
+    max-height: 120px;
+  }
 }

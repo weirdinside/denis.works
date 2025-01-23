@@ -19,6 +19,14 @@
   user-select: none;
 }
 
+.album-art {
+  max-width: 100%;
+}
+
+.page-canvas {
+  max-width: 80%;
+}
+
 .page__overlay {
   background-image: url(./assets/images/gray-simple-textured-background-design.jpg);
   background-size: cover;

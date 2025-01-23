@@ -59,24 +59,21 @@ export default function App() {
       return "";
     } finally {
       setSongLoading(false);
-      if (sound.current) sound.current.play();
     }
+  }
+
+  async function loadAudio() {
+    const blob = await fetchAudioAsBlobURL();
+    setAudioBuffer(blob);
   }
 
   useEffect(
     function loadAudioOnFileChange() {
-      if (!currentFile) {
-        setAudioBuffer("");
-        setPlayerState(undefined);
-        return;
-      }
-      // get blobUrl
-      async function loadAudio() {
-        const blob = await fetchAudioAsBlobURL();
-        setAudioBuffer(blob);
-      }
-      // set proper behaviors for audio tag
-      sound.current!.playbackRate = playbackSpeed;
+      if (!currentFile)
+        // get blobUrl
+
+        // set proper behaviors for audio tag
+        sound.current!.playbackRate = playbackSpeed;
       sound.current!.preservesPitch = false;
 
       if (currentFile) {
@@ -91,8 +88,6 @@ export default function App() {
           artwork: [{ src: "", sizes: "96x96", type: "image/jpeg" }],
         });
       }
-
-      // take care of player seeking functions
 
       loadAudio();
     },
@@ -115,7 +110,8 @@ export default function App() {
 
   useEffect(
     function handleAutoPlay() {
-      if (audioBuffer && sound.current && currentFile) {
+      if (audioBuffer && sound.current) {
+        sound.current?.play();
         setPlayerState("playing");
       }
     },
@@ -132,7 +128,7 @@ export default function App() {
           sound.current!.playbackRate = playbackSpeed;
           sound.current!.preservesPitch = false;
           setDuration(sound.current!.duration);
-          sound.current!.play();
+          sound.current?.play();
         }}
         onPlay={() => {
           if (sound.current) {

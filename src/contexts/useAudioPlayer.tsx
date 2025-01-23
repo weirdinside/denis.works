@@ -8,6 +8,12 @@ export function useAudioPlayer(audioRef: React.RefObject<HTMLAudioElement>) {
   const changePlaybackRate = async (newRate: number) => {
     if (!audioRef.current) return;
 
+    if (
+      newRate <= lastPlaybackRate.current + 0.02 &&
+      newRate >= lastPlaybackRate.current - 0.02
+    )
+      return;
+
     const wasPlaying = !audioRef.current.paused;
     lastPlaybackRate.current = newRate;
 
@@ -37,6 +43,8 @@ export function useAudioPlayer(audioRef: React.RefObject<HTMLAudioElement>) {
         audioRef.current.playbackRate = newRate;
         audioRef.current.preservesPitch = false;
       }
+      audioRef.current.playbackRate = newRate;
+      audioRef.current.preservesPitch = false;
     } catch (error) {
       console.error("Error changing playback rate:", error);
     } finally {

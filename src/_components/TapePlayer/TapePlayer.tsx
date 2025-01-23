@@ -1,9 +1,9 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 import { MdFastForward, MdPause, MdPlayArrow, MdStop } from "react-icons/md";
+import { useAudioPlayer } from "../../contexts/useAudioPlayer";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
 import styles from "./TapePlayer.module.css";
-import { useAudioPlayer } from "../../contexts/useAudioPlayer";
 
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
@@ -54,7 +54,9 @@ export default function TapePlayer({
   }
 
   async function handleRateChange(rate: number) {
-    await changePlaybackRate(rate);
+    if (sound.current && sound.current.played) {
+      await changePlaybackRate(rate);
+    }
     if (sound.current) setPlaybackSpeed(rate);
   }
 
@@ -155,113 +157,144 @@ export default function TapePlayer({
           </p>
         </header>
 
-        <ul
-          ref={songListRef}
-          style={errorMessage ? { overflowY: "hidden" } : {}}
-          className={styles["song-selector"]}
-        >
-          <div
-            className={`${styles["message-overlay"]} ${
-              errorMessage && styles["active"]
-            }`}
+        <div className={styles["tape-player__container"]}>
+          <ul
+            ref={songListRef}
+            style={errorMessage ? { overflowY: "hidden" } : {}}
+            className={styles["song-selector"]}
           >
-            {errorMessage}
-          </div>
-          {songsArray.map((song, idx) => {
-            return (
-              <li
+            <div
+              className={`${styles["message-overlay"]} ${
+                errorMessage && styles["active"]
+              }`}
+            >
+              {errorMessage}
+            </div>
+            {songsArray.map((song, idx) => {
+              return (
+                <li
+                  onClick={() => {
+                    if (currentFile === song.url) return;
+                    if (sound.current) {
+                      sound.current.src = "";
+                      sound.current.pause;
+                      setPlayerState("stopped");
+                      sound.current.currentTime = 0;
+                    }
+                    setCurrentFile(song.url);
+                  }}
+                  key={idx}
+                  className={`${styles["song-selector__song"]} ${
+                    currentFile === song.url && styles["active"]
+                  }`}
+                >
+                  {song.title}
+                </li>
+              );
+            })}
+          </ul>
+          <div className={styles["controls"]}>
+            <div className={styles["buttons"]}>
+              <button
                 onClick={() => {
-                  if (currentFile === song.url) return;
-                  if (sound.current) {
-                    sound.current.src = "";
-                    sound.current.pause;
-                    setPlayerState("stopped");
-                    sound.current.currentTime = 0;
-                  }
-                  setCurrentFile(song.url);
+                  handlePause();
                 }}
-                key={idx}
-                className={`${styles["song-selector__song"]} ${
-                  currentFile === song.url && styles["active"]
+                className={`${styles["button"]} ${styles["pause"]} ${
+                  playerState === "paused" && styles["active"]
                 }`}
               >
-                {song.title}
-              </li>
-            );
-          })}
-        </ul>
-        <div className={styles["controls"]}>
-          <div className={styles["buttons"]}>
-            <button
-              onClick={() => {
-                handlePause();
-              }}
-              className={`${styles["button"]} ${styles["pause"]} ${
-                playerState === "paused" && styles["active"]
-              }`}
-            >
-              <MdPause size={21} />
-            </button>
-            <button
-              onClick={() => {
-                handlePlay();
-              }}
-              className={`${styles["button"]}  ${styles["play"]} ${
-                playerState === "playing" && styles["active"]
-              }`}
-            >
-              <MdPlayArrow size={21} />
-            </button>
-            <button
-              onClick={() => {
-                handleStop();
-              }}
-              className={`${styles["button"]} ${styles["stop"]}`}
-            >
-              <MdStop size={21} />
-            </button>
-            <button
-              onPointerDown={handleFFwd}
-              onPointerUp={handleCancelFFwd}
-              onPointerCancel={handleCancelFFwd}
-              className={`${styles["button"]} ${styles["ff"]}`}
-            >
-              <MdFastForward size={21} />
-            </button>
+                <MdPause size={21} />
+              </button>
+              <button
+                onClick={() => {
+                  handlePlay();
+                }}
+                className={`${styles["button"]}  ${styles["play"]} ${
+                  playerState === "playing" && styles["active"]
+                }`}
+              >
+                <MdPlayArrow size={21} />
+              </button>
+              <button
+                onClick={() => {
+                  handleStop();
+                }}
+                className={`${styles["button"]} ${styles["stop"]}`}
+              >
+                <MdStop size={21} />
+              </button>
+              <button
+                onPointerDown={handleFFwd}
+                onPointerUp={handleCancelFFwd}
+                onPointerCancel={handleCancelFFwd}
+                className={`${styles["button"]} ${styles["ff"]}`}
+              >
+                <MdFastForward size={21} />
+              </button>
+            </div>
+            <Slider
+              setValue={handleRateChange}
+              defaultValue={1}
+              step={0.01}
+              title={"speed"}
+              value={playbackSpeed}
+              min={0.5}
+              max={1.75}
+              showProgress={false}
+              setValueOnMouseUp={isiOS}
+            />
+            <Slider
+              setValue={handleSeek}
+              defaultValue={1}
+              step={0.01}
+              title={"seek"}
+              interpolationFunction={formatSecondsToMinutes}
+              value={currentTime}
+              min={0}
+              max={duration ? duration : 0}
+              showProgress={false}
+              setValueOnMouseUp={true}
+            />
+            {/* VOLUME SLIDERS DO NOT WORK ON iOS: VOLUME CONTROL IS OS LEVEL */}
+            {!isiOS && (
+              <Slider
+                setValue={setVolume}
+                defaultValue={1}
+                step={0.05}
+                title={"volume"}
+                value={volume}
+                min={0}
+                max={1}
+                showProgress={true}
+              />
+            )}
+            {isiOS && (
+              <section className={styles["buttons"]}>
+                <button
+                  onClick={() => {
+                    if (sound.current) {
+                      sound.current.playbackRate = 1;
+                      setPlaybackSpeed(1);
+                    }
+                  }}
+                  className={styles["reset-button"]}
+                >
+                  reset speed
+                </button>
+                <button
+                  onClick={() => {
+                    if (sound.current) {
+                      handleRateChange(1);
+                      handleStop();
+                    }
+                  }}
+                  className={styles["reset-button"]}
+                >
+                  reset all
+                </button>
+              </section>
+            )}
           </div>
-          <Slider
-            setValue={handleRateChange}
-            defaultValue={1}
-            step={0.01}
-            title={"speed"}
-            value={playbackSpeed}
-            min={0.5}
-            max={1.75}
-            showProgress={false}
-            setValueOnMouseUp={isiOS}
-          />
-          <Slider
-            setValue={handleSeek}
-            defaultValue={1}
-            step={0.01}
-            title={"seek"}
-            interpolationFunction={formatSecondsToMinutes}
-            value={currentTime}
-            min={0}
-            max={duration ? duration : 0}
-            showProgress={false}
-            setValueOnMouseUp={true}
-          />
-          <Slider
-            setValue={setVolume}
-            defaultValue={1}
-            step={0.05}
-            title={"volume"}
-            value={volume}
-            min={0}
-            max={1}
-            showProgress={true}
-          />
         </div>
       </div>
     </div>
