@@ -16,20 +16,20 @@
 }
 
 .slider__input::-webkit-slider-runnable-track {
-  height: 20px;
+  height: 35px;
   background: transparent;
   padding: 0px 5px 0px 0px;
 }
 
 .slider__input::-moz-range-track {
-  height: 20px;
+  height: 35px;
   background: transparent;
 }
 
 .slider__input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  height: 15px;
+  height: 30px;
   margin: 2.5px;
   width: 25px;
   background-color: #f4fffe;
@@ -41,7 +41,7 @@
 }
 
 .slider__input::-moz-range-thumb {
-  height: 15px;
+  height: 30px;
   width: 15px;
   background-color: #fff;
   border: 1px solid #f50;

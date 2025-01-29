@@ -21,6 +21,7 @@ export function useAudioPlayer(audioRef: React.RefObject<HTMLAudioElement>) {
       const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
       if (isiOS) {
+        // if the device is iOS based, handle buffering for audio rate changes
         setIsBuffering(true);
         if (wasPlaying) {
           audioRef.current.pause();
@@ -40,11 +41,10 @@ export function useAudioPlayer(audioRef: React.RefObject<HTMLAudioElement>) {
           }
         }
       } else {
+        // otherwise just handle it in realtime without buffering
         audioRef.current.playbackRate = newRate;
         audioRef.current.preservesPitch = false;
       }
-      audioRef.current.playbackRate = newRate;
-      audioRef.current.preservesPitch = false;
     } catch (error) {
       console.error("Error changing playback rate:", error);
     } finally {
@@ -52,7 +52,7 @@ export function useAudioPlayer(audioRef: React.RefObject<HTMLAudioElement>) {
     }
   };
 
-  useEffect(() => {
+  useEffect(function cleanupBufferTimeout() {
     return () => {
       if (bufferingTimeout.current) {
         clearTimeout(bufferingTimeout.current);

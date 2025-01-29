@@ -54,10 +54,12 @@
   color: black;
 }
 
-.nav__list_item:hover {
-  border: 2px solid #f4fffe;
-}
-
 .back {
   padding: 4px 10px;
+}
+
+@media (pointer: fine) {
+  .nav__list_item:hover {
+    border: 2px solid #f4fffe;
+  }
 }

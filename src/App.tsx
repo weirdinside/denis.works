@@ -27,6 +27,7 @@ import LittleGoose from "./_components/Works/ProjectDENIS/pkg/LittleGoose";
 import LookAtTheSun from "./_components/Works/ProjectDENIS/pkg/LookAtTheSun";
 import PasswordProtected from "./_components/Works/ProjectDENIS/pkg/PasswordProtected";
 
+import { Howl } from "howler";
 import { FaToolbox } from "react-icons/fa";
 import { MdEmail, MdHome, MdInfo } from "react-icons/md";
 import { PiCassetteTapeFill } from "react-icons/pi";
@@ -35,7 +36,11 @@ import { songsArray } from "./utils/constants";
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
 export default function App() {
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+  //  ------------------------------------------- //
+  //              STATE/REF DELCARATIONS          //
+  //  ------------------------------------------- //
+
+  const [playbackRate, setPlaybackRate] = useState<number>(1);
   const [isSongLoading, setSongLoading] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [audioBuffer, setAudioBuffer] = useState<string>("");
@@ -43,9 +48,46 @@ export default function App() {
   const [volume, setVolume] = useState<number>(1);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [currentFile, setCurrentFile] = useState<string>("");
+  const [isLooping, setIsLooping] = useState<boolean>(false);
 
-  const sound = useRef<HTMLAudioElement>(null);
+  const [isInBackground, setIsInBackground] = useState<boolean>(false); // checks if browser is minimized
 
+  const HTML5Sound = useRef<HTMLAudioElement>(null);
+  const webAudioTimer = useRef<number>();
+  const webAudioSound = useRef<Howl>();
+
+  //  ------------------------------------------- //
+  //                 AUDIO FUNCTIONS              //
+  //  ------------------------------------------- //
+
+  function handlePlay() {
+    try {
+      if (HTML5Sound.current && webAudioSound.current) {
+        HTML5Sound.current.play();
+        webAudioSound.current!.play();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function handlePause() {
+    if (HTML5Sound.current) HTML5Sound.current.pause();
+    if (webAudioSound.current) webAudioSound.current.pause();
+  }
+
+  function handleStop() {
+    handlePause();
+    setCurrentTime(0);
+    if (HTML5Sound.current) HTML5Sound.current.currentTime = 0;
+    if (webAudioSound.current) {
+      webAudioSound.current.seek(0);
+      webAudioSound.current.stop();
+    }
+    setPlayerState(undefined);
+  }
+
+  // converts audio file to blobURL (forcing a preload - for use with HTML5)
   async function fetchAudioAsBlobURL() {
     try {
       setSongLoading(true);
@@ -67,14 +109,33 @@ export default function App() {
     setAudioBuffer(blob);
   }
 
+  // converts audio file to buffer (forcing a preload - for use with audioctx)
+  async function fetchAudioAsBuffer(audioUrl: string) {
+    const audioContext = new AudioContext();
+    const response = await fetch(audioUrl);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+    return audioBuffer;
+  }
+
+  //  ------------------------------------------- //
+  //                     HOOKS                    //
+  //  ------------------------------------------- //
+
   useEffect(
     function loadAudioOnFileChange() {
-      if (!currentFile)
-        // get blobUrl
+      if (!currentFile) {
+        setAudioBuffer("");
+        setPlayerState(undefined);
+        setCurrentTime(0);
+        setDuration(0);
+        return;
+      }
 
-        // set proper behaviors for audio tag
-        sound.current!.playbackRate = playbackSpeed;
-      sound.current!.preservesPitch = false;
+      // set proper behaviors for audio tag
+      HTML5Sound.current!.playbackRate = playbackRate;
+      HTML5Sound.current!.preservesPitch = false;
 
       if (currentFile) {
         const currentSong = songsArray.filter(
@@ -96,22 +157,22 @@ export default function App() {
 
   useEffect(
     function handleVolumeChange() {
-      if (sound.current) sound.current.volume = volume;
+      if (HTML5Sound.current) HTML5Sound.current.volume = volume;
     },
     [volume],
   );
 
   useEffect(
     function handlePitchChange() {
-      sound.current!.playbackRate = playbackSpeed;
+      HTML5Sound.current!.playbackRate = playbackRate;
     },
-    [playbackSpeed],
+    [playbackRate],
   );
 
   useEffect(
     function handleAutoPlay() {
-      if (audioBuffer && sound.current) {
-        sound.current?.play();
+      if (audioBuffer && HTML5Sound.current) {
+        HTML5Sound.current?.play();
         setPlayerState("playing");
       }
     },
@@ -120,32 +181,73 @@ export default function App() {
 
   return (
     <div className={styles["page"]}>
-      <audio
-        onTimeUpdate={() => {
-          setCurrentTime(sound.current!.currentTime);
-        }}
-        onLoadedData={() => {
-          sound.current!.playbackRate = playbackSpeed;
-          sound.current!.preservesPitch = false;
-          setDuration(sound.current!.duration);
-          sound.current?.play();
-        }}
-        onPlay={() => {
-          if (sound.current) {
-            sound.current!.playbackRate = playbackSpeed;
-            sound.current!.preservesPitch = false;
-          }
-        }}
-        ref={sound}
-        src={audioBuffer}
+      {/* <audio
         playsInline
         preload="true"
         x-webkit-airplay="allow"
         x-webkit-playsinline="true"
         webkit-playsinline="true"
         controls={false}
-        loop={false}
+        loop={isLooping}
+        muted={!isInBackground}
+        onLoad={() => {
+          if (playerState === "playing") HTML5Sound.current?.play();
+        }}
+        onLoadedData={() => {
+          HTML5Sound.current!.playbackRate = playbackRate;
+          HTML5Sound.current!.preservesPitch = false;
+          setDuration(HTML5Sound.current!.duration);
+          HTML5Sound.current?.play();
+        }}
+        onPlay={() => {
+          if (!isInBackground) {
+            HTML5Sound.current?.pause();
+          }
+
+          setPlayerState("playing");
+        }}
+        onEnded={() => {
+          if (HTML5Sound.current && !isLooping) {
+            setCurrentFile("");
+            setPlayerState(undefined);
+          }
+        }}
+        onPause={() => setPlayerState(currentTime === 0 ? undefined : "paused")}
+        ref={HTML5Sound}
+        src={currentFile}
+        onTimeUpdate={() => {
+          if (HTML5Sound.current) {
+            setCurrentTime(HTML5Sound.current.currentTime);
+          }
+        }}
+      /> */}
+
+      <audio
+        onTimeUpdate={() => {
+          setCurrentTime(HTML5Sound.current!.currentTime);
+        }}
+        onLoadedData={() => {
+          HTML5Sound.current!.playbackRate = playbackRate;
+          HTML5Sound.current!.preservesPitch = false;
+          setDuration(HTML5Sound.current!.duration);
+          HTML5Sound.current?.play();
+        }}
+        onPlay={() => {
+          if (HTML5Sound.current) {
+            HTML5Sound.current!.playbackRate = playbackRate;
+            HTML5Sound.current!.preservesPitch = false;
+          }
+        }}
+        onEnded={() => {
+          if (HTML5Sound.current && !isLooping) {
+            setCurrentFile("");
+            setPlayerState(undefined);
+          }
+        }}
+        ref={HTML5Sound}
+        src={audioBuffer}
       ></audio>
+
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>
         <div className={styles["screen"]}>
@@ -163,19 +265,21 @@ export default function App() {
                       path="/tape"
                       element={
                         <TapePlayer
+                          isLooping={isLooping}
+                          setIsLooping={setIsLooping}
                           isSongLoading={isSongLoading}
                           duration={duration}
                           currentTime={currentTime}
                           setCurrentTime={setCurrentTime}
-                          sound={sound}
+                          sound={HTML5Sound}
                           currentFile={currentFile}
                           setCurrentFile={setCurrentFile}
                           volume={volume}
                           setVolume={setVolume}
                           playerState={playerState}
                           setPlayerState={setPlayerState}
-                          playbackSpeed={playbackSpeed}
-                          setPlaybackSpeed={setPlaybackSpeed}
+                          playbackSpeed={playbackRate}
+                          setPlaybackSpeed={setPlaybackRate}
                         />
                       }
                     ></Route>

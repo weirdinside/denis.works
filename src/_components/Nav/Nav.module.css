@@ -42,19 +42,20 @@
   color: black;
 }
 
-.nav__list_item:hover {
-  border: 2px solid #f4fffe;
-}
-
 .back {
   padding: 4px 10px;
   width: 100%;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.back:hover {
-  background-color: #f4fffe;
-  color: black;
+@media (pointer: fine) {
+  .back:hover {
+    background-color: #f4fffe;
+    color: black;
+  }
+  .nav__list_item:hover {
+    border: 2px solid #f4fffe;
+  }
 }
 
 @media screen and (max-width: 1050px) {

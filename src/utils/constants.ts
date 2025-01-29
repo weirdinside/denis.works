@@ -67,17 +67,32 @@ export const songsArray = [
   {
     title: "floppy disk",
     url: "/music/floppy disk.mp3",
-    inst: "/music/denis biblioni - floppy disk (instrumental).mp3",
+    // inst: "/music/denis biblioni - floppy disk (instrumental).mp3",
+  },
+  {
+    title: "floppy disk (inst)",
+    // url: "/music/floppy disk.mp3",
+    url: "/music/denis biblioni - floppy disk (instrumental).mp3",
   },
   {
     title: "password protected",
     url: "/music/password protected.mp3",
-    inst: "/music/password protected (instrumental).mp3",
+    // inst: "/music/password protected (instrumental).mp3",
+  },
+  {
+    title: "password protected (inst)",
+    // url: "/music/password protected.mp3",
+    url: "/music/password protected (instrumental).mp3",
   },
   {
     title: "does it rain there",
     url: "/music/does it rain there.mp3",
-    inst: "/music/does it rain there (instrumental).mp3",
+    // inst: "/music/does it rain there (instrumental).mp3",
+  },
+  {
+    title: "does it rain there (inst)",
+    // url: "/music/does it rain there.mp3",
+    url: "/music/does it rain there (instrumental).mp3",
   },
   {
     title: "little goose",
@@ -85,9 +100,19 @@ export const songsArray = [
     inst: "/music/little goose (instrumental).mp3",
   },
   {
+    title: "little goose (inst)",
+    // url: "/music/little goose.mp3",
+    url: "/music/little goose (instrumental).mp3",
+  },
+  {
     title: "getting nothing done",
     url: "/music/getting nothing done.mp3",
     inst: "/music/getting nothing done (instrumental).mp3",
+  },
+  {
+    title: "getting nothing done (inst)",
+    // url: "/music/getting nothing done.mp3",
+    url: "/music/getting nothing done (instrumental).mp3",
   },
   {
     title: "look at the sun",

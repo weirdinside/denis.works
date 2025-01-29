@@ -24,7 +24,7 @@
 }
 
 .folder {
-  width: clamp(50px, 10vw, 800px);
+  width: clamp(50px, 10vw, 100px);
   aspect-ratio: 6 / 5.5;
   background-image: url(../../assets/images/folder.png);
   background-size: cover;

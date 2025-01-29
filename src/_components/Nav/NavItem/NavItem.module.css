@@ -12,6 +12,8 @@
   color: black;
 }
 
-.nav__list_item:hover {
-  border: 2px solid #f4fffe;
+@media (pointer: fine) {
+  .nav__list_item:hover {
+    border: 2px solid #f4fffe;
+  }
 }

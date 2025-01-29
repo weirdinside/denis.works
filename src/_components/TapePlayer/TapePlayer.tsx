@@ -4,11 +4,14 @@ import { useAudioPlayer } from "../../contexts/useAudioPlayer";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
 import styles from "./TapePlayer.module.css";
+import { ImLoop } from "react-icons/im";
 
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
 export default function TapePlayer({
   sound,
+  isLooping,
+  setIsLooping,
   playerState,
   playbackSpeed,
   volume,
@@ -22,6 +25,8 @@ export default function TapePlayer({
   setPlaybackSpeed,
   setPlayerState,
 }: {
+  isLooping: boolean;
+  setIsLooping: (arg0: boolean) => void;
   duration: number;
   isSongLoading: boolean;
   currentTime: number;
@@ -42,6 +47,7 @@ export default function TapePlayer({
   const [errorMessage, setErrorMessage] = useState<string>();
   const songListRef = useRef<HTMLUListElement>(null);
   const messageTimeoutRef = useRef<number>();
+
   const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const { isBuffering, changePlaybackRate } = useAudioPlayer(sound);
@@ -284,6 +290,8 @@ export default function TapePlayer({
                 <button
                   onClick={() => {
                     if (sound.current) {
+                      sound.current.src = "";
+                      setCurrentTime(0);
                       handleRateChange(1);
                       handleStop();
                     }
@@ -291,6 +299,9 @@ export default function TapePlayer({
                   className={styles["reset-button"]}
                 >
                   reset all
+                </button>
+                <button className={styles["reset-button"]}>
+                  <ImLoop size={20} />
                 </button>
               </section>
             )}
