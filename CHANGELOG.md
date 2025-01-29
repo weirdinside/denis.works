@@ -63,3 +63,11 @@
 ### TODO
 
 - redo audio player implementation and figure out a better design possibly
+
+## [1.2.1] - January 28th, 2025
+
+- minor css bug fixes
+
+### TODO
+
+- remaining tasks from 1.2.0

@@ -61,6 +61,10 @@ export const homeNavItems = [
     name: "contact",
     slug: "contact",
   },
+  {
+    name: "tape",
+    slug: "tape",
+  },
 ];
 
 export const songsArray = [

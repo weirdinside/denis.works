@@ -27,7 +27,6 @@ import LittleGoose from "./_components/Works/ProjectDENIS/pkg/LittleGoose";
 import LookAtTheSun from "./_components/Works/ProjectDENIS/pkg/LookAtTheSun";
 import PasswordProtected from "./_components/Works/ProjectDENIS/pkg/PasswordProtected";
 
-import { Howl } from "howler";
 import { FaToolbox } from "react-icons/fa";
 import { MdEmail, MdHome, MdInfo } from "react-icons/md";
 import { PiCassetteTapeFill } from "react-icons/pi";
@@ -50,42 +49,11 @@ export default function App() {
   const [currentFile, setCurrentFile] = useState<string>("");
   const [isLooping, setIsLooping] = useState<boolean>(false);
 
-  const [isInBackground, setIsInBackground] = useState<boolean>(false); // checks if browser is minimized
-
   const HTML5Sound = useRef<HTMLAudioElement>(null);
-  const webAudioTimer = useRef<number>();
-  const webAudioSound = useRef<Howl>();
 
   //  ------------------------------------------- //
   //                 AUDIO FUNCTIONS              //
   //  ------------------------------------------- //
-
-  function handlePlay() {
-    try {
-      if (HTML5Sound.current && webAudioSound.current) {
-        HTML5Sound.current.play();
-        webAudioSound.current!.play();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  function handlePause() {
-    if (HTML5Sound.current) HTML5Sound.current.pause();
-    if (webAudioSound.current) webAudioSound.current.pause();
-  }
-
-  function handleStop() {
-    handlePause();
-    setCurrentTime(0);
-    if (HTML5Sound.current) HTML5Sound.current.currentTime = 0;
-    if (webAudioSound.current) {
-      webAudioSound.current.seek(0);
-      webAudioSound.current.stop();
-    }
-    setPlayerState(undefined);
-  }
 
   // converts audio file to blobURL (forcing a preload - for use with HTML5)
   async function fetchAudioAsBlobURL() {
@@ -109,16 +77,6 @@ export default function App() {
     setAudioBuffer(blob);
   }
 
-  // converts audio file to buffer (forcing a preload - for use with audioctx)
-  async function fetchAudioAsBuffer(audioUrl: string) {
-    const audioContext = new AudioContext();
-    const response = await fetch(audioUrl);
-    const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-    return audioBuffer;
-  }
-
   //  ------------------------------------------- //
   //                     HOOKS                    //
   //  ------------------------------------------- //
@@ -133,7 +91,6 @@ export default function App() {
         return;
       }
 
-      // set proper behaviors for audio tag
       HTML5Sound.current!.playbackRate = playbackRate;
       HTML5Sound.current!.preservesPitch = false;
 
@@ -179,49 +136,12 @@ export default function App() {
     [audioBuffer],
   );
 
+  //  ------------------------------------------- //
+  //             MAIN COMPONENT RETURN            //
+  //  ------------------------------------------- //
+
   return (
     <div className={styles["page"]}>
-      {/* <audio
-        playsInline
-        preload="true"
-        x-webkit-airplay="allow"
-        x-webkit-playsinline="true"
-        webkit-playsinline="true"
-        controls={false}
-        loop={isLooping}
-        muted={!isInBackground}
-        onLoad={() => {
-          if (playerState === "playing") HTML5Sound.current?.play();
-        }}
-        onLoadedData={() => {
-          HTML5Sound.current!.playbackRate = playbackRate;
-          HTML5Sound.current!.preservesPitch = false;
-          setDuration(HTML5Sound.current!.duration);
-          HTML5Sound.current?.play();
-        }}
-        onPlay={() => {
-          if (!isInBackground) {
-            HTML5Sound.current?.pause();
-          }
-
-          setPlayerState("playing");
-        }}
-        onEnded={() => {
-          if (HTML5Sound.current && !isLooping) {
-            setCurrentFile("");
-            setPlayerState(undefined);
-          }
-        }}
-        onPause={() => setPlayerState(currentTime === 0 ? undefined : "paused")}
-        ref={HTML5Sound}
-        src={currentFile}
-        onTimeUpdate={() => {
-          if (HTML5Sound.current) {
-            setCurrentTime(HTML5Sound.current.currentTime);
-          }
-        }}
-      /> */}
-
       <audio
         onTimeUpdate={() => {
           setCurrentTime(HTML5Sound.current!.currentTime);
@@ -246,8 +166,7 @@ export default function App() {
         }}
         ref={HTML5Sound}
         src={audioBuffer}
-      ></audio>
-
+      />
       <div className={styles["page__overlay"]}></div>
       <div className={styles["page__content"]}>
         <div className={styles["screen"]}>

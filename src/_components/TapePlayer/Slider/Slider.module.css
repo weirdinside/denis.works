@@ -33,7 +33,7 @@
   margin: 2.5px;
   width: 25px;
   background-color: #f4fffe;
-  border: 2px transparent;
+  border: 10px solid transparent;
 }
 
 .slider__input.progress::-webkit-slider-thumb {

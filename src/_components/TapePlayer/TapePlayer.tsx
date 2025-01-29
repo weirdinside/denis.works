@@ -1,17 +1,15 @@
 import { RefObject, useEffect, useRef, useState } from "react";
+import { ImLoop } from "react-icons/im";
 import { MdFastForward, MdPause, MdPlayArrow, MdStop } from "react-icons/md";
 import { useAudioPlayer } from "../../contexts/useAudioPlayer";
 import { songsArray } from "../../utils/constants";
 import Slider from "./Slider/Slider";
 import styles from "./TapePlayer.module.css";
-import { ImLoop } from "react-icons/im";
 
 type PlayerStateType = "stopped" | "playing" | "paused" | undefined;
 
 export default function TapePlayer({
   sound,
-  isLooping,
-  setIsLooping,
   playerState,
   playbackSpeed,
   volume,
@@ -47,6 +45,7 @@ export default function TapePlayer({
   const [errorMessage, setErrorMessage] = useState<string>();
   const songListRef = useRef<HTMLUListElement>(null);
   const messageTimeoutRef = useRef<number>();
+  const pageRef = useRef<HTMLDivElement>(null);
 
   const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -142,8 +141,9 @@ export default function TapePlayer({
   }, []);
 
   return (
-    <div className={styles["page"]}>
+    <div ref={pageRef} className={styles["page"]}>
       <div
+        style={pageRef.current ? { top: `${pageRef.current.scrollTop}px` } : {}}
         className={`${styles["page__loading"]} ${
           (isSongLoading || isBuffering) && styles["active"]
         }`}

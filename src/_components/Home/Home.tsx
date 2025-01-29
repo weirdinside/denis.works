@@ -39,7 +39,7 @@ export default function Home() {
               }
               renderBack={false}
               navItems={homeNavItems}
-            ></Nav>
+            />
           )}
         </div>
         <Outlet />
